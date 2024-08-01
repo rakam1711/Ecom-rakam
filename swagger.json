@@ -72,8 +72,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -88,16 +91,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "ownerName": {
-                  "example": "any"
-                },
-                "shopName": {
-                  "example": "any"
-                },
-                "userId": {
-                  "example": "any"
-                },
-                "password": {
+                "fullName": {
                   "example": "any"
                 },
                 "number": {
@@ -106,16 +100,10 @@
                 "email": {
                   "example": "any"
                 },
-                "numberAlternate": {
+                "gender": {
                   "example": "any"
                 },
-                "gstORpan": {
-                  "example": "any"
-                },
-                "category": {
-                  "example": "any"
-                },
-                "subcategory": {
+                "address": {
                   "example": "any"
                 }
               }
@@ -123,6 +111,12 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
           "500": {
             "description": "Internal Server Error"
           }

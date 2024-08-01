@@ -9,17 +9,17 @@ const loginUser = async (req, res) => {
         };
         body.otp = await getOTP();
         body.time = new Date(Date.now() + 60000 * 5).getTime();
-        const user = await otpSchema.findOne({ mobile_number: body.number });
+        const user = await otpSchema.findOne({ number: body.number });
         if (!user) {
             let newUser = new otpSchema({
-                mobile_number: body.number,
+                number: body.number,
                 otp: body.otp,
                 expire_time: body.time,
             });
             const abc = await newUser.save();
         } else {
             await otpSchema.findOneAndUpdate(
-                { _id: user._id, mobile_number: body.number },
+                { _id: user._id, number: body.number },
                 {
                     $set: {
                         otp: body.otp,

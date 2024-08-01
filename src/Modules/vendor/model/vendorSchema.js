@@ -1,10 +1,29 @@
 const mongoose = require("mongoose");
 const vendorSchema = new mongoose.Schema({
-    number: { type: Number, require: true, unique: true },
+    number: {
+        type: Number,
+        required: true,
+        unique: true,
+        validate: {
+            validator: function (v) {
+                return /^[0-9]{10}$/.test(v);
+            },
+            message: "{VALUE} is not a valid mobile number!",
+        },
+    },
     numberAlternate: { type: Number, unique: true },
     ownerName: { type: String, require: true },
     shopName: { type: String, require: true },
-    email: { type: String, require: true, unique: true },
+    email: {
+        type: String,
+        lowercase: true,
+        validate: {
+            validator: function (v) {
+                return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
+            },
+            message: "{VALUE} is not a valid email",
+        },
+    },
     password: { type: String, require: true },
     userName: { type: String, require: true, unique: true },
     gstORpan: { type: String },

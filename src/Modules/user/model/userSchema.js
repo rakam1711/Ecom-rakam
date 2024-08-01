@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
             message: "{VALUE} is not a valid email",
         },
     },
-    mobile_number: {
+    number: {
         type: Number,
         required: true,
         unique: true,
@@ -26,38 +26,8 @@ const userSchema = new mongoose.Schema({
             message: "{VALUE} is not a valid mobile number!",
         },
     },
-    profile_image: {
-        type: String,
-        default: "http://206.189.136.222:3003/image/i/noImage.png"
-    },
-    background_image: {
-        type: String,
-        default: ""
-    },
-    gender: {
-        type: String,
-        default: "Male"
-    },
-    dob: {
-        type: String,
-        default: ""
-    },
-    refCode: {
-        type: String
-    },
-    role: {
-        type: String,
-        enum: ["USER", "VENDOR", "ADMIN"],
-        default: "USER"
-    },
-    is_active: {
-        type: Boolean,
-        default: true,
-    },
-    businessId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "venderBusiness"
-    },
+    gender: { type: String },
+    address: { type: String }
 }, { timestamps: true });
 
 module.exports = mongoose.model("user", userSchema);
