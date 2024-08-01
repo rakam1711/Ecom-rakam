@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const connectToDatabase = require('./src/dbconnection/connection.js');
+const connectToDatabase = require('./dbconnection/connection.js');
 const app = require('./src/app');
 
 const { PORT, BASE_URL } = process.env;

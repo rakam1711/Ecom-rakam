@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const appRoutes = require('./router');
+
 const app = express();
 
 app.use(express.urlencoded({ extended: true, limit: '100kb' }));
