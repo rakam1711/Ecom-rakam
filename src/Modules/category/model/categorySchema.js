@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const categorySchema = new mongoose.Schema(
+const categoryModel = new mongoose.Schema(
   {
     image: {
       type: String,
@@ -26,6 +26,6 @@ const categorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const serviceSchema = mongoose.model("Category", categorySchema);
+const categorySchema = mongoose.model("Category", categoryModel);
 
-module.exports = serviceSchema;
+module.exports = categorySchema;

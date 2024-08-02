@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 const { ApiError } = require("../../../errorHandler/index.js");
 const JWTSECRET = process.env.JWTSECRET;
@@ -14,35 +15,42 @@ const decrypt = async (encryptedToken) => {
   decrypted += decipher.final("utf-8");
   return decrypted;
 };
-module.exports = async (req, res, next) => {
-  const authHeader = req.get("Authorization");
-  if (!authHeader) {
-    return new ApiError(
-      "Not authenticated.",
-      401,
-      "moddleware=>JWT=>userAuthentication"
-    );
-  }
-  const encryptedtoken = authHeader.split(" ")[1];
-  const token = await decrypt(encryptedtoken);
-  let decodedToken;
+
+const authenticateUser = async (req, res, next) => {
   try {
-    decodedToken = jwt.verify(token, JWTSECRET);
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) {
+      return new ApiError(
+        "Not authenticated.",
+        401,
+        "moddleware=>JWT=>userAuthentication"
+      );
+    }
+    const encryptedtoken = authHeader.split(" ")[1];
+    const token = await decrypt(encryptedtoken);
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, JWTSECRET);
+    } catch (err) {
+      return new ApiError(
+        "Please Login First.",
+        401,
+        "moddleware=>JWT=>userAuthentication"
+      );
+    }
+    if (!decodedToken) {
+      return new ApiError(
+        "Not authenticated.",
+        401,
+        "moddleware=>JWT=>userAuthentication"
+      );
+    }
+    req.userId = decodedToken.id;
+    req.role = decodedToken.role;
+    return next();
   } catch (err) {
-    return new ApiError(
-      "Please Login First.",
-      401,
-      "moddleware=>JWT=>userAuthentication"
-    );
+    console.log(err.message, "ser/Middleware/JWT/userAuthentication")
   }
-  if (!decodedToken) {
-    return new ApiError(
-      "Not authenticated.",
-      401,
-      "moddleware=>JWT=>userAuthentication"
-    );
-  }
-  req.userId = decodedToken.id ?? decodedToken.id;
-  req.role = decodedToken.role;
-  next();
 };
+
+module.exports = authenticateUser;

@@ -1,8 +1,10 @@
-const { serviceSchema } = require("../model/categorySchema");
+const categorySchema = require("../model/categorySchema");
 const upload = require("../../../Middleware/multer/singleImageUpload.js");
 
 const createCategory = async (req, res, next) => {
-  upload.single("profilePic")(req, res, async (err) => {
+const adminId = req.userId;
+console.log(adminId)
+  upload.single("image")(req, res, async (err) => {
     if (err) {
       return res.status(400).send({
         statusText: "BAD REQUEST",
@@ -21,23 +23,24 @@ const createCategory = async (req, res, next) => {
           throw new Error(`invalid field ${key}`);
         }
       }
-
-      const category = await serviceSchema.findOne({ name: mustData.name });
+      const category = await categorySchema.findOne({ name: mustData.name });
       if (!category) {
-        const addCategory = new createSchema({
+        const addCategory = new categorySchema({
           name: mustData.name,
           description: mustData.description,
+          createdBy:adminId
         });
         await addCategory.save();
         return res.status(201).json({
           status: true,
-          message: "caegeory created successfully",
+          message: "category created successfully",
         });
       } else {
-        return res.status(200).json({
-          status: false,
-          message: "category already present",
-        });
+        throw new Error("category already present")
+        // return res.status(200).json({
+        //   status: false,
+        //   message: "category already present",
+        // });
       }
     } catch (err) {
       return res.status(500).json({
