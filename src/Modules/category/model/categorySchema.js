@@ -1,30 +1,31 @@
 const mongoose = require("mongoose");
 
-const categorySchema = new mongoose.Schema({
-
+const categorySchema = new mongoose.Schema(
+  {
     image: {
-        type: String
+      type: String,
     },
     name: {
-        type: String
+      type: String,
     },
     description: {
-        type: String
+      type: String,
+    },
+    createdBy: {
+      type: String,
     },
     is_active: {
-        type: Boolean,
-        default: true,
+      type: Boolean,
+      default: true,
     },
     isDeleted: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
-}, { timestamps: true });
-
-
-
+  },
+  { timestamps: true }
+);
 
 const serviceSchema = mongoose.model("Category", categorySchema);
 
-
-module.exports = serviceSchema
+module.exports = serviceSchema;
