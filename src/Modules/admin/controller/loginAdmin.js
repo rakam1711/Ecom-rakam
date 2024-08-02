@@ -1,9 +1,10 @@
 const { ApiError } = require("../../../../errorHandler/index");
-const Admin = require("../model/adminSchema");
+const Admin = require("../model/adminSchema.js");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWTSECRET;
-const { encrypt } = require("../../../Middleware/encryption");
+const jwtMiddleware = require("../../../Middleware/JWT/userAuthentication.js");
+const { encrypt } = require("../../../Middleware/encryption.js");
 
 const loginAdmin = async (req, res, next) => {
   try {
