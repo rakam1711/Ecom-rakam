@@ -1,6 +1,6 @@
 const { ApiError } = require("../../../../errorHandler");
 const otpSchema = require("../model/otpSchema.js");
-const userSchema = require("../model/userSchema.js");
+const User = require("../model/userSchema.js");
 const jwt = require("../../../Middleware/JWT/userAuthentication.js");
 const JWT = require("jsonwebtoken");
 const { encrypt } = require("../../../Middleware/encryption.js");
@@ -40,13 +40,16 @@ const verifyotp = async (req, res) => {
         { new: true }
       );
 
-      const newUser = await userSchema.findOne({ number: number });
+      const newUser = await User.findOne({ number: number });
       if (!newUser) {
         return res
           .status(200)
           .json({ status: true, user: "new", token: "null" });
       }
-      realToken = JWT.sign({ user_id: newUser._id }, process.env.JWTSECRET);
+      realToken = JWT.sign(
+        { user_id: newUser._id, role: "USER" },
+        process.env.JWTSECRET
+      );
       const token = await encrypt(realToken);
       return res.status(200).json({ user: newUser, token });
     } else {

@@ -2,7 +2,11 @@ const Admin = require("../model/adminSchema.js");
 
 const listAdmin = async (req, res, next) => {
   try {
-    const list = await Admin.find();
+    let limit = req.body.limit || 10;
+    let page = req.body.page || 1;
+    const list = await Admin.find()
+      .skip((page - 1) * limit)
+      .limit(limit);
     return res.status(200).json({
       status: true,
       message: "Admin listed successfully",

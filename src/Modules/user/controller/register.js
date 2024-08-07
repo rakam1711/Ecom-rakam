@@ -1,4 +1,4 @@
-const userSchema = require("../model/userSchema.js");
+const User = require("../model/userSchema.js");
 const jwt = require("jsonwebtoken");
 const { encrypt } = require("../../../Middleware/encryption.js");
 const register = async (req, res) => {
@@ -16,9 +16,9 @@ const register = async (req, res) => {
       }
     }
 
-    const user = await userSchema.findOne({ number: mustData.number });
+    const user = await User.findOne({ number: mustData.number });
     if (!user) {
-      const addUser = new userSchema({
+      const addUser = new User({
         name: mustData.fullName,
         number: mustData.number,
         email: mustData.email,
@@ -27,7 +27,10 @@ const register = async (req, res) => {
       });
 
       await addUser.save();
-      const tokenwa = jwt.sign({ id: addUser._id }, process.env.JWTSECRET);
+      const tokenwa = jwt.sign(
+        { id: addUser._id, role: "USER" },
+        process.env.JWTSECRET
+      );
       const token = await encrypt(tokenwa);
       return res.status(201).json({
         status: true,

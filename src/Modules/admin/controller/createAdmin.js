@@ -1,4 +1,5 @@
 const Admin = require("../model/adminSchema.js");
+const bcryptjs = require("bcryptjs");
 
 const createAdmin = async (req, res, next) => {
   try {

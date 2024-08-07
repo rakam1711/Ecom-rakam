@@ -1,6 +1,8 @@
-const crypto = require('crypto');
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const { ApiError } = require("../../../errorHandler/index.js");
+const Admin = require("../../Modules/admin/model/adminSchema.js");
+const vendorModel = require("../../Modules/vendor/model/vendorSchema.js");
 const JWTSECRET = process.env.JWTSECRET;
 
 const secretKey = process.env.SECRETKEY;
@@ -18,7 +20,7 @@ const decrypt = async (encryptedToken) => {
 
 const authenticateUser = async (req, res, next) => {
   try {
-    const authHeader = req.headers['authorization'];
+    const authHeader = req.headers["authorization"];
     if (!authHeader) {
       return new ApiError(
         "Not authenticated.",
@@ -45,11 +47,40 @@ const authenticateUser = async (req, res, next) => {
         "moddleware=>JWT=>userAuthentication"
       );
     }
-    req.userId = decodedToken.id;
-    req.role = decodedToken.role;
+    // ------------------------------------
+    if (decodedToken.role === "ADMIN") {
+      const admin = await Admin.findById(decodedToken?.id);
+      if (!admin) {
+        res
+          .json({ success: false, message: "User does not exist " })
+          .status(404);
+      }
+      req.admin = decodedToken.id;
+    }
+    if (decodedToken.role === "USER") {
+      const user = await user.findById(decodedToken?.id);
+      if (!user) {
+        res
+          .json({ success: false, message: "User does not exist " })
+          .status(404);
+      }
+      req.user = decodedToken.id;
+    }
+
+    if (decodedToken.role === "VENDOR") {
+      const resturant = await vendorModel.findById(decodedToken?.id);
+      if (!resturant) {
+        res
+          .json({ success: false, message: "Resturant does not exist " })
+          .status(404);
+      }
+      req.vendor = decodedToken.id;
+    }
+    // ---------------------------------------------
+
     return next();
   } catch (err) {
-    console.log(err.message, "ser/Middleware/JWT/userAuthentication")
+    console.log(err.message, "ser/Middleware/JWT/userAuthentication");
   }
 };
 

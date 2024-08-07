@@ -1,13 +1,13 @@
-const Product = require("../model/productSchema.js");
+const Shop = require("../model/shopSchema.js");
 
-const deleteProduct = async (req, res, next) => {
+const deleteShop = async (req, res, next) => {
   try {
     const id = req.body;
-    const product = await Product.findByIdAndDelete(id);
+    const shop = await Shop.findByIdAndDelete(id);
     return res.status(200).json({
       status: true,
-      message: "product deleted successfully",
-      data: product,
+      message: "shop deleted successfully",
+      data: shop,
     });
   } catch (err) {
     return res.status(500).json({
