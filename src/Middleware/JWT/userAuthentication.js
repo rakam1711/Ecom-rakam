@@ -55,7 +55,8 @@ const authenticateUser = async (req, res, next) => {
           .json({ success: false, message: "User does not exist " })
           .status(404);
       }
-      req.admin = decodedToken.id;
+      req.adminId = decodedToken.id;
+      req.role = "ADMIN";
     }
     if (decodedToken.role === "USER") {
       const user = await user.findById(decodedToken?.id);
@@ -64,7 +65,8 @@ const authenticateUser = async (req, res, next) => {
           .json({ success: false, message: "User does not exist " })
           .status(404);
       }
-      req.user = decodedToken.id;
+      req.userId = decodedToken.id;
+      req.role = "USER";
     }
 
     if (decodedToken.role === "VENDOR") {
@@ -74,7 +76,8 @@ const authenticateUser = async (req, res, next) => {
           .json({ success: false, message: "Resturant does not exist " })
           .status(404);
       }
-      req.vendor = decodedToken.id;
+      req.vendorId = decodedToken.id;
+      req.role = "VENDOR";
     }
     // ---------------------------------------------
 

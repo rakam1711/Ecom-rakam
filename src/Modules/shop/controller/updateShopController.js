@@ -1,6 +1,6 @@
 const Shop = require("../model/shopSchema.js");
 const bcryptjs = require("bcryptjs");
-
+const mongoose = require("mongoose");
 const updateShop = async (req, res, next) => {
   try {
     const data = {
@@ -8,15 +8,16 @@ const updateShop = async (req, res, next) => {
       description: req.body.description,
       address: req.body.address,
       contactInfo: req.body.contactInfo,
-      reviews: req.body.reviews,
     };
     for (let key in data) {
       if (data[key] == undefined || data[key] == "") {
         delete data[key];
       }
     }
-
-    await Shop.findByIdAndUpdate(req.vender._id, data);
+    // const sex = mongoose.Types.ObjectId(req.vendorId);
+    await Shop.findOneAndUpdate({ owner: req.vendorId }, data, {
+      new: true,
+    });
     return res.status(200).json({
       status: true,
       message: "shop updated successfully.",

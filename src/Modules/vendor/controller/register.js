@@ -37,13 +37,11 @@ const register = async (req, res) => {
       .status(200)
       .json({ status: true, message: "Successfully register" });
   } catch (err) {
-    return res
-      .status(500)
-      .json({
-        status: false,
-        message: err.message,
-        location: "vendor/controller/register",
-      });
+    return res.status(500).json({
+      status: false,
+      message: err.message,
+      location: "vendor/controller/register",
+    });
   }
 };
 
