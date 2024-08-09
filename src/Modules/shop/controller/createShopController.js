@@ -7,6 +7,7 @@ const createShop = async (req, res, next) => {
       description: req.body.description,
       address: req.body.address,
       contactInfo: req.body.contactInfo,
+      categories: req.body.categories,
     };
     for (let key in mustData) {
       if (mustData[key] == undefined || mustData[key] == "") {
@@ -22,6 +23,7 @@ const createShop = async (req, res, next) => {
       address: mustData.address,
       contactInfo: mustData.contactInfo,
       owner: req.vendorId,
+      subCategories: mustData.categories,
     });
 
     await shop.save();

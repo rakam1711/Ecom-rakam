@@ -14,7 +14,6 @@ const updateShop = async (req, res, next) => {
         delete data[key];
       }
     }
-    // const sex = mongoose.Types.ObjectId(req.vendorId);
     await Shop.findOneAndUpdate({ owner: req.vendorId }, data, {
       new: true,
     });

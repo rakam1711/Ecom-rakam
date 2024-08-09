@@ -24,8 +24,8 @@ const shopSchema = new mongoose.Schema(
       email: { type: String },
       website: { type: String },
     },
-    categories: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "categorySchema" },
+    subCategories: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "subCategorySchema" },
     ],
     logo: { type: String },
     rating: { type: Number, default: 0 },
