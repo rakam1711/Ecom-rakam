@@ -1,8 +1,8 @@
-const { serviceSchema } = require("../model/categorySchema");
-const multer = require("../../../Middleware/multer/singleImageUpload.js");
+const  categorySchema  = require("../model/categorySchema");
+const upload = require("../../../Middleware/multer/singleImageUpload.js");
 
 const createCategory = async (req, res, next) => {
-  upload.single("profilePic")(req, res, async (err) => {
+  upload.single("image")(req, res, async (err) => {
     if (err) {
       return res.status(400).send({
         statusText: "BAD REQUEST",
@@ -22,7 +22,7 @@ const createCategory = async (req, res, next) => {
         }
       }
 
-      const category = await serviceSchema.findOne({ name: mustData.name });
+      const category = await categorySchema.findOne({ name: mustData.name });
       if (!category) {
         const addCategory = new createSchema({
           name: mustData.name,
