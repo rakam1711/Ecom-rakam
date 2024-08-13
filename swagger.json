@@ -557,7 +557,7 @@
         }
       }
     },
-    "/vendor/createshop": {
+    "/vendor/addproduct": {
       "post": {
         "description": "",
         "parameters": [
@@ -578,13 +578,22 @@
                 "description": {
                   "example": "any"
                 },
-                "address": {
+                "brand": {
                   "example": "any"
                 },
-                "contactInfo": {
+                "categoryId": {
                   "example": "any"
                 },
-                "categories": {
+                "price": {
+                  "example": "any"
+                },
+                "stock": {
+                  "example": "any"
+                },
+                "rating": {
+                  "example": "any"
+                },
+                "numRatings": {
                   "example": "any"
                 }
               }
@@ -604,7 +613,7 @@
         }
       }
     },
-    "/vendor/addproduct": {
+    "/vendor/updateproduct": {
       "post": {
         "description": "",
         "parameters": [
@@ -641,6 +650,108 @@
                   "example": "any"
                 },
                 "numRatings": {
+                  "example": "any"
+                },
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/vendor/deleteproduct": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/vendor/listproduct": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/vendor/createshop": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "contactInfo": {
+                  "example": "any"
+                },
+                "categories": {
                   "example": "any"
                 }
               }

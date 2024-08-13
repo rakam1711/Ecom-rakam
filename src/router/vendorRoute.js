@@ -9,10 +9,19 @@ const authenticateUser = require("../Middleware/JWT/userAuthentication.js");
 const deleteShop = require("../Modules/shop/controller/deleteShopControler.js");
 const updateShop = require("../Modules/shop/controller/updateShopController.js");
 const listShop = require("../Modules/shop/controller/listShopController.js");
+const updateProduct = require("../Modules/product/controller/updateProductController.js");
+const deleteProduct = require("../Modules/product/controller/deleteProductController.js");
+const listProduct = require("../Modules/product/controller/listProductController.js");
+
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
-vendorRoute.post("/createshop", authenticateUser, createShop);
+
 vendorRoute.post("/addproduct", authenticateUser, addProduct);
+vendorRoute.post("/updateproduct", authenticateUser, updateProduct);
+vendorRoute.post("/deleteproduct", authenticateUser, deleteProduct);
+vendorRoute.post("/listproduct", authenticateUser, listProduct);
+
+vendorRoute.post("/createshop", authenticateUser, createShop);
 vendorRoute.post("/listshop", authenticateUser, listShop);
 vendorRoute.post("/deleteshop", authenticateUser, deleteShop);
 vendorRoute.post("/updateshop", authenticateUser, updateShop);
