@@ -11,7 +11,7 @@ async function createFirstAdmin() {
   try {
     const result = await Admin.findOne();
     if (result) return;
-    const salt = await bcryptjs.genSaltSync(2);
+    const salt = bcryptjs.genSaltSync(2);
     const hashedPassword = await bcryptjs.hash("1212", salt);
 
     const admin = new Admin({
