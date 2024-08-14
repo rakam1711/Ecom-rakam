@@ -4,7 +4,8 @@ const listAddress = async (req, res, next) => {
   try {
     let limit = req.body.limit || 10;
     let page = req.body.page || 1;
-    const address = await Address.find()
+    const id = req.userId;
+    const address = await Address.find({ user: id })
       .skip((page - 1) * limit)
       .limit(limit);
     return res.status(200).json({

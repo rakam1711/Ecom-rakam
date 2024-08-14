@@ -19,8 +19,8 @@ const updateAddress = async (req, res, next) => {
         delete data[key];
       }
     }
-    const id = req.body.id;
-    await Address.findOneAndUpdate({ _id: id }, data, {
+    const id = req.userId;
+    await Address.findOneAndUpdate({ user: id }, data, {
       new: true,
     });
     return res.status(200).json({
