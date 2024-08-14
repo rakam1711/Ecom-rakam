@@ -6,7 +6,7 @@ const addProduct = async (req, res, next) => {
       name: req.body.name,
       description: req.body.description,
       brand: req.body.brand,
-      category: req.body.category,
+      category: req.body.categoryId,
       price: req.body.price,
       stock: req.body.stock,
       rating: req.body.rating,

@@ -1,6 +1,5 @@
 const Shop = require("../model/shopSchema.js");
-const bcryptjs = require("bcryptjs");
-const mongoose = require("mongoose");
+
 const updateShop = async (req, res, next) => {
   try {
     const data = {
