@@ -26,8 +26,7 @@ const shopSchema = new mongoose.Schema({
   logo: { type: String },
   rating: { type: Number, default: 0 },
   numberOfRatings: { type: Number, default: 0 },
-  timestamp: true,
-});
+}, { timestamps: true, });
 
 const Shop = mongoose.model("shop", shopSchema);
 
