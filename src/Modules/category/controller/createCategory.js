@@ -1,5 +1,9 @@
+<<<<<<< HEAD
+const categorySchema = require("../model/categorySchema");
+=======
 
 const  categorySchema  = require("../model/categorySchema");
+>>>>>>> 220173d73393a141975bfd658dd0871f99f3877d
 const upload = require("../../../Middleware/multer/singleImageUpload.js");
 
 const createCategory = async (req, res, next) => {
@@ -26,9 +30,10 @@ const createCategory = async (req, res, next) => {
 
       const category = await categorySchema.findOne({ name: mustData.name });
       if (!category) {
-        const addCategory = new createSchema({
+        const addCategory = new categorySchema({
           name: mustData.name,
           description: mustData.description,
+          createdBy: req.adminId,
         });
         await addCategory.save();
         return res.status(201).json({

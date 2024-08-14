@@ -17,7 +17,7 @@ const subcreateCategory = async (req, res, next) => {
       const mustData = {
         name: req.body.name,
         description: req.body.description,
-        category: req.body.categoryId,
+        categoryId: req.body.categoryId,
       };
       for (let key in mustData) {
         if (mustData[key] == undefined || mustData[key] == "") {
@@ -31,7 +31,7 @@ const subcreateCategory = async (req, res, next) => {
         const addCategory = new subcategorySchema({
           name: mustData.name,
           description: mustData.description,
-          createdBy: adminId,
+          category: mustData.categoryId,
         });
         await addCategory.save();
         return res.status(201).json({
