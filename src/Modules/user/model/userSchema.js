@@ -29,7 +29,6 @@ const userSchema = new mongoose.Schema(
       },
     },
     gender: { type: String },
-    address: { type: mongoose.Schema.Types.ObjectId, ref: "Address" },
   },
   { timestamps: true }
 );

@@ -8,7 +8,6 @@ const register = async (req, res) => {
       number: req.body.number,
       email: req.body.email,
       gender: req.body.gender,
-      address: req.body.address,
     };
     for (let key in mustData) {
       if (mustData[key] == undefined || mustData[key] == "") {
@@ -23,7 +22,6 @@ const register = async (req, res) => {
         number: mustData.number,
         email: mustData.email,
         gender: mustData.gender,
-        address: mustData.address,
       });
 
       await addUser.save();

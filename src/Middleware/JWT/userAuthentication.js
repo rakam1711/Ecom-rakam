@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const { ApiError } = require("../../../errorHandler/index.js");
 const Admin = require("../../Modules/admin/model/adminSchema.js");
+const User = require("../../Modules/user/model/userSchema.js");
 const vendorModel = require("../../Modules/vendor/model/vendorSchema.js");
 const JWTSECRET = process.env.JWTSECRET;
 
@@ -59,7 +60,7 @@ const authenticateUser = async (req, res, next) => {
       req.role = "ADMIN";
     }
     if (decodedToken.role === "USER") {
-      const user = await user.findById(decodedToken?.id);
+      const user = await User.findById(decodedToken?.id);
       if (!user) {
         res
           .json({ success: false, message: "User does not exist " })

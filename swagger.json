@@ -400,9 +400,6 @@
                 },
                 "gender": {
                   "example": "any"
-                },
-                "address": {
-                  "example": "any"
                 }
               }
             }
@@ -478,6 +475,185 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/user/addaddress": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullName": {
+                  "example": "any"
+                },
+                "street": {
+                  "example": "any"
+                },
+                "apartment": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "state": {
+                  "example": "any"
+                },
+                "pinCode": {
+                  "example": "any"
+                },
+                "country": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "addressType": {
+                  "example": "any"
+                },
+                "geolocation": {
+                  "example": "any"
+                },
+                "notes": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/updateaddress": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullName": {
+                  "example": "any"
+                },
+                "street": {
+                  "example": "any"
+                },
+                "apartment": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "state": {
+                  "example": "any"
+                },
+                "pinCode": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "addressType": {
+                  "example": "any"
+                },
+                "geolocation": {
+                  "example": "any"
+                },
+                "notes": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/deleteaddress": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/listaddress": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

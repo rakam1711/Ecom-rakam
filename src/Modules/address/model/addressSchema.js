@@ -44,7 +44,6 @@ const addressSchema = new Schema({
   },
   country: {
     type: String,
-    required: true,
     trim: true,
     default: "India",
   },

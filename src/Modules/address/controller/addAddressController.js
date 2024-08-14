@@ -22,6 +22,7 @@ const addAddress = async (req, res, next) => {
     }
 
     const address = Address({
+      user: req.userId,
       fullName: mustData.fullName,
       street: mustData.street,
       apartment: mustData.apartment,
@@ -35,7 +36,7 @@ const addAddress = async (req, res, next) => {
       notes: mustData.notes,
     });
 
-    await Address.save();
+    await address.save();
     return res.status(201).json({
       status: true,
       message: "address added successfully",
