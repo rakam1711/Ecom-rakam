@@ -2,7 +2,7 @@ const Product = require("../model/productSchema.js");
 
 const deleteProduct = async (req, res, next) => {
   try {
-    const id = req.body;
+    const id = req.body.id;
     const product = await Product.findByIdAndDelete(id);
     return res.status(200).json({
       status: true,
