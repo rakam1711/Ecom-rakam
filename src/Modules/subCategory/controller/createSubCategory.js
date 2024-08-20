@@ -4,7 +4,7 @@ const upload = require("../../../Middleware/multer/singleImageUpload.js");
 const subcreateCategory = async (req, res, next) => {
   const adminId = req.userId;
 
-  upload.single("image")(req, res, async (err) => {
+  upload(req, res, async (err) => {
     if (err) {
       return res.status(400).send({
         statusText: "BAD REQUEST",
@@ -18,6 +18,7 @@ const subcreateCategory = async (req, res, next) => {
         name: req.body.name,
         description: req.body.description,
         categoryId: req.body.categoryId,
+        image: req.file ? req.file.path : undefined,
       };
       for (let key in mustData) {
         if (mustData[key] == undefined || mustData[key] == "") {
@@ -32,6 +33,7 @@ const subcreateCategory = async (req, res, next) => {
           name: mustData.name,
           description: mustData.description,
           category: mustData.categoryId,
+          image: BASE_URL + mustData.image,
         });
         await addCategory.save();
         return res.status(201).json({
