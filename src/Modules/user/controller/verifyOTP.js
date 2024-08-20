@@ -47,7 +47,7 @@ const verifyotp = async (req, res) => {
           .json({ status: true, user: "new", token: "null" });
       }
       realToken = JWT.sign(
-        { user_id: newUser._id, role: "USER" },
+        { id: newUser._id, role: "USER" },
         process.env.JWTSECRET
       );
       const token = await encrypt(realToken);
