@@ -53,7 +53,7 @@ const authenticateUser = async (req, res, next) => {
       const admin = await Admin.findById(decodedToken?.id);
       if (!admin) {
         res
-          .json({ success: false, message: "User does not exist " })
+          .json({ success: false, message: "Admin does not exist " })
           .status(404);
       }
       req.adminId = decodedToken.id;

@@ -3,6 +3,7 @@ const Product = require("../model/productSchema.js");
 const addProduct = async (req, res, next) => {
   try {
     const mustData = {
+      shop: req.body.shopId,
       name: req.body.name,
       description: req.body.description,
       brand: req.body.brand,
@@ -21,6 +22,8 @@ const addProduct = async (req, res, next) => {
     if (productName) throw new Error("Product Name already present");
 
     const product = Product({
+      shop: mustData.shop,
+      vendor: req.vendorId,
       name: mustData.name,
       description: mustData.description,
       brand: mustData.brand,
