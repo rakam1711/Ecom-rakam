@@ -84,7 +84,7 @@ const authenticateUser = async (req, res, next) => {
 
     return next();
   } catch (err) {
-    console.log(err.message, "ser/Middleware/JWT/userAuthentication");
+    console.log(err.message, "src/Middleware/JWT/userAuthentication");
   }
 };
 

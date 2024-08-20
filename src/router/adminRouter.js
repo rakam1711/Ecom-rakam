@@ -15,9 +15,9 @@ const updateSubCategory = require("../Modules/subCategory/controller/updateSubCa
 adminroutes.post("/adminlogin", loginAdmin);
 
 adminroutes.post("/createcategory", authenticateUser, createCategory);
-adminroutes.post("/deletecategory", deleteCategory);
+adminroutes.post("/deletecategory", authenticateUser, deleteCategory);
 adminroutes.post("/listcategory", getAllCategory);
-adminroutes.post("/updatecategory", updateCategory);
+adminroutes.post("/updatecategory", authenticateUser, updateCategory);
 
 adminroutes.post("/createsubcategory", authenticateUser, createSubCategory);
 adminroutes.post("/deletesubcategory", deleteSubCategory);
