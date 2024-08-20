@@ -74,7 +74,7 @@ const authenticateUser = async (req, res, next) => {
       const resturant = await vendorModel.findById(decodedToken?.id);
       if (!resturant) {
         res
-          .json({ success: false, message: "Resturant does not exist " })
+          .json({ success: false, message: "vendor does not exist " })
           .status(404);
       }
       req.vendorId = decodedToken.id;
