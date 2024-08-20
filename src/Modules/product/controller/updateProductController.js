@@ -3,6 +3,8 @@ const Product = require("../model/productSchema.js");
 const updateProduct = async (req, res, next) => {
   try {
     const data = {
+      shop: req.body.shopId,
+      vendor: req.vendorId,
       name: req.body.name,
       description: req.body.description,
       brand: req.body.brand,
