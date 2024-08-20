@@ -25,7 +25,7 @@ const upload = multer({ storage: storage }).array("images", 10); // Allow up to 
 module.exports = function (req, res, next) {
   upload(req, res, function (err) {
     if (err) {
-      console.log(err, "wallah habibi");
+      console.log(err, "success in upload");
     }
     next();
   });
