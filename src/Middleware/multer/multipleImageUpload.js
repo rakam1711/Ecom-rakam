@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).array("images", 5); // Allow up to 5 images
+const upload = multer({ storage: storage }).array("image", 10); // Allow up to 10 images
 
 module.exports = function (req, res, next) {
   upload(req, res, function (err) {
