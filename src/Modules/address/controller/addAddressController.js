@@ -36,10 +36,11 @@ const addAddress = async (req, res, next) => {
       notes: mustData.notes,
     });
 
-    await address.save();
+    const data = await address.save();
     return res.status(201).json({
       status: true,
       message: "address added successfully",
+      data: data,
     });
   } catch (err) {
     return res.status(500).json({

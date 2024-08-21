@@ -4,7 +4,6 @@ const BASE_URL = process.env.BASE_URL;
 
 const createShop = async (req, res, next) => {
   upload(req, res, async () => {
-
     try {
       const mustData = {
         name: req.body.name,
@@ -30,7 +29,7 @@ const createShop = async (req, res, next) => {
         contactInfo: mustData.contactInfo,
         owner: req.vendorId,
         subCategories: mustData.categories,
-        logo: mustData.mustData.image,
+        logo: mustData.image,
       });
 
       await shop.save();
@@ -45,9 +44,7 @@ const createShop = async (req, res, next) => {
         location: "src/Modules/shop/controller/createShopController",
       });
     }
-
-
-  })
+  });
 };
 
 module.exports = createShop;

@@ -20,8 +20,8 @@ adminroutes.post("/listcategory", getAllCategory);
 adminroutes.post("/updatecategory", authenticateUser, updateCategory);
 
 adminroutes.post("/createsubcategory", authenticateUser, createSubCategory);
-adminroutes.post("/deletesubcategory", deleteSubCategory);
-adminroutes.post("/listsubcategory", listSubCategory);
-adminroutes.post("/updatesubcategory", updateSubCategory);
+adminroutes.post("/deletesubcategory", authenticateUser, deleteSubCategory);
+adminroutes.post("/listsubcategory", authenticateUser, listSubCategory);
+adminroutes.post("/updatesubcategory", authenticateUser, updateSubCategory);
 
 module.exports = adminroutes;

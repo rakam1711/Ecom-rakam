@@ -18,12 +18,17 @@ const updateShop = async (req, res, next) => {
           delete data[key];
         }
       }
-      await Shop.findOneAndUpdate({ owner: req.vendorId }, data, {
-        new: true,
-      });
+      const update = await Shop.findOneAndUpdate(
+        { owner: req.vendorId },
+        data,
+        {
+          new: true,
+        }
+      );
       return res.status(200).json({
         status: true,
         message: "shop updated successfully.",
+        data: update,
       });
     } catch (error) {
       return res.status(500).json({
@@ -32,8 +37,7 @@ const updateShop = async (req, res, next) => {
         location: "src/Modules/Shop/controller/updateShop",
       });
     }
-  })
-
+  });
 };
 
 module.exports = updateShop;

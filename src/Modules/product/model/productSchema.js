@@ -8,7 +8,11 @@ const productSchema = new mongoose.Schema({
   category: { type: mongoose.Schema.Types.ObjectId, ref: "category" },
   price: { type: Number, required: true, min: 0 },
   stock: { type: Number, required: true, min: 0 },
-  images: [{ type: String }],
+  images: [
+    {
+      url: { type: String },
+    },
+  ],
   rating: { type: Number, default: 0 },
   numRatings: { type: Number, default: 0 },
   status: { type: Boolean, default: true },
