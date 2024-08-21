@@ -2,7 +2,8 @@ const Shop = require("../model/shopSchema.js");
 
 const deleteShop = async (req, res, next) => {
   try {
-    const shop = await Shop.findOneAndDelete(req.vendorId, { isActive: false });
+    const shopId = req.body.shopId;
+    const shop = await Shop.findOneAndDelete({ _id: shopId }, { isActive: false }, { new: true });
 
     return res.status(200).json({
       status: true,

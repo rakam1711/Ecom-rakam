@@ -7,7 +7,7 @@ const listShop = async (req, res, next) => {
     let page = req.body.page || 1;
     let shop = "";
     if (req.role == "VENDOR") {
-      shop = await Shop.find({ owner: req.vendorId })
+      shop = await Shop.find({ owner: req.vendorId, isActive: true })
         .skip((page - 1) * limit)
         .limit(limit);
     } else {
