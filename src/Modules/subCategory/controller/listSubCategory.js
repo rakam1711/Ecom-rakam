@@ -15,13 +15,13 @@ const listSubCategory = async (req, res) => {
     if (!data)
       return res.status(200).json({ status: true, message: "No data found" });
 
-    const searchedData = data.regex("name", `/${search}$/`);
+    // const searchedData = data.regex("name", `/${search}$/`);
 
     const maxPage = Math.ceil(max / limit);
     return res.status(200).json({
       status: true,
       message: "successfully listing",
-      searchedData,
+      data: data,
       maxPage: maxPage,
     });
   } catch (err) {

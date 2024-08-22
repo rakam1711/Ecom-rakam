@@ -7,6 +7,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("../../swagger.json");
 const limitter1 = require("../../apiRateLimitter/limitter1.js");
 const adminroutes = require("./adminRouter.js");
+const serviceRoute = require("./serviceRoute.js");
 
 const appRoutes = (app) => {
   app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -22,6 +23,7 @@ const appRoutes = (app) => {
   app.use("/admin", limitter1, adminroutes);
   app.use("/user", limitter1, userRoute);
   app.use("/vendor", limitter1, vendorRoute);
+  app.use("/services", limitter1, serviceRoute);
 
   app.use(unspecifiedRoutesHandler);
   app.use(finalErrorHandler);
