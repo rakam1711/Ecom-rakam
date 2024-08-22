@@ -2,7 +2,7 @@ const Service = require("../model/servicesSchema.js");
 const upload = require("../../../Middleware/multer/singleImageUpload.js");
 const BASE_URL = process.env.BASE_URL;
 
-const addServiceCpntroller = async (req, res, next) => {
+const addService = async (req, res, next) => {
   upload(req, res, async (err) => {
     if (err) {
       return res.status(400).send({
@@ -47,4 +47,4 @@ const addServiceCpntroller = async (req, res, next) => {
   });
 };
 
-module.exports = addServiceCpntroller;
+module.exports = addService;
