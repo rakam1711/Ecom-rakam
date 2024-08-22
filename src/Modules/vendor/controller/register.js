@@ -8,6 +8,8 @@ const register = async (req, res) => {
       number: req.body.number,
       password: req.body.password,
       email: req.body.email,
+      category: req.body.category,
+      subCategory: req.body.subCategory,
     };
     const optionalDataa = {
       numberAlternate: req.body.numberAlternate,
@@ -31,6 +33,8 @@ const register = async (req, res) => {
       number: dataa.number,
       gstORpan: optionalDataa.gstORpan,
       password: hashPassword,
+      category: dataa.category,
+      subCategory: dataa.subCategory,
     });
     const result = await data.save();
     return res

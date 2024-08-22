@@ -15,6 +15,11 @@ const vendorSchema = new mongoose.Schema(
     numberAlternate: { type: Number, unique: true },
     ownerName: { type: String, require: true },
     shopName: { type: String, require: true },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: categorySchema },
+    subCategory: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: subCategorySchema,
+    },
     email: {
       type: String,
       lowercase: true,

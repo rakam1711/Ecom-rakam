@@ -15,7 +15,7 @@ const subCategoryModel = new mongoose.Schema(
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "category",
+      ref: "categorySchema",
     },
     is_active: {
       type: Boolean,
