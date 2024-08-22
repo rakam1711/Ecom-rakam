@@ -14,7 +14,7 @@ const deleteSubCategory = async (req, res) => {
     return res.status(500).json({
       status: false,
       message: err.message,
-      location: "src/Modules/Subcategory/controller/deleteSubCategory",
+      location: "src/Modules/subCategory/controller/deleteSubCategory",
     });
   }
 };

@@ -30,18 +30,16 @@ const updateSubCategory = async (req, res) => {
         }
       );
 
-      return res
-        .status(200)
-        .json({
-          status: true,
-          message: "updated Sucessfully",
-          updatedData: Rdata,
-        });
+      return res.status(200).json({
+        status: true,
+        message: "updated Sucessfully",
+        updatedData: Rdata,
+      });
     } catch (err) {
       return res.status(500).json({
         status: false,
         message: err.message,
-        location: "src/Modules/subcategory/controller/updateSubCategory",
+        location: "src/Modules/subCategory/controller/updateSubCategory",
       });
     }
   });
