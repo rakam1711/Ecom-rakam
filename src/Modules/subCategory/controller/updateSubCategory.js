@@ -10,7 +10,7 @@ const updateSubCategory = async (req, res) => {
       const data = {
         name: req.body.name,
         description: req.body.description,
-        category: req.body.categoryId
+        category: req.body.categoryId,
       };
       for (let key in data) {
         if (data[key] == undefined || data[key] == "") {
@@ -22,22 +22,27 @@ const updateSubCategory = async (req, res) => {
         data.image = BASE_URL + req.file.path;
       }
 
-      await subCategorySchema.findByIdAndUpdate({ _id: id }, data, {
-        new: true,
-      });
+      const Rdata = await subCategorySchema.findByIdAndUpdate(
+        { _id: id },
+        data,
+        {
+          new: true,
+        }
+      );
 
-      return res
-        .status(200)
-        .json({ status: true, message: "updated Sucessfully" });
+      return res.status(200).json({
+        status: true,
+        message: "updated Sucessfully",
+        updatedData: Rdata,
+      });
     } catch (err) {
       return res.status(500).json({
         status: false,
         message: err.message,
-        location: "src/Modules/subcategory/controller/updateSubCategory",
+        location: "src/Modules/subCategory/controller/updateSubCategory",
       });
     }
-  })
-
+  });
 };
 
 module.exports = updateSubCategory;

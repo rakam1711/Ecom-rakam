@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+
 const vendorSchema = new mongoose.Schema(
   {
+    image: { type: String },
     number: {
       type: Number,
       required: true,
@@ -15,6 +17,8 @@ const vendorSchema = new mongoose.Schema(
     numberAlternate: { type: Number, unique: true },
     ownerName: { type: String, require: true },
     shopName: { type: String, require: true },
+    category: [],
+    subCategory: [],
     email: {
       type: String,
       lowercase: true,
@@ -27,8 +31,13 @@ const vendorSchema = new mongoose.Schema(
     },
     password: { type: String, require: true },
     gstORpan: { type: String },
-    category: [],
-    subCategory: [],
+    bankName: { type: String },
+    accountHolderName: { type: String },
+    accountNumber: { type: String },
+    ifscCode: { type: String },
+    branchName: { type: String },
+    categoryType: [],
+    paymentMode: [],
   },
   {
     timestamps: true,

@@ -12,9 +12,11 @@ const listShop = require("../Modules/shop/controller/listShopController.js");
 const updateProduct = require("../Modules/product/controller/updateProductController.js");
 const deleteProduct = require("../Modules/product/controller/deleteProductController.js");
 const listProduct = require("../Modules/product/controller/listProductController.js");
+const editProfile = require("../Modules/vendor/controller/editProfile.js");
 
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
+vendorRoute.post("/editprofile", editProfile);
 
 vendorRoute.post("/addproduct", authenticateUser, addProduct);
 vendorRoute.post("/updateproduct", authenticateUser, updateProduct);

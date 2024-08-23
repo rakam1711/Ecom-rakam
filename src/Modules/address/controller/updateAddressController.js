@@ -20,12 +20,13 @@ const updateAddress = async (req, res, next) => {
       }
     }
     const id = req.userId;
-    await Address.findOneAndUpdate({ user: id }, data, {
+    const updated = await Address.findOneAndUpdate({ user: id }, data, {
       new: true,
     });
     return res.status(200).json({
       status: true,
       message: "Address updated successfully.",
+      data: updated,
     });
   } catch (error) {
     return res.status(500).json({

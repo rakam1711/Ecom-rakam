@@ -1,6 +1,6 @@
 const subcategorySchema = require("../model/subcategorySchema.js");
 const upload = require("../../../Middleware/multer/singleImageUpload.js");
-
+const BASE_URL = process.env.BASE_URL;
 const subcreateCategory = async (req, res, next) => {
   const adminId = req.userId;
 
@@ -35,10 +35,11 @@ const subcreateCategory = async (req, res, next) => {
           category: mustData.categoryId,
           image: BASE_URL + mustData.image,
         });
-        await addCategory.save();
+        const data = await addCategory.save();
         return res.status(201).json({
           status: true,
           message: "subcategory created successfully",
+          data: data._id,
         });
       } else {
         throw new Error("subcategory already present");
@@ -47,7 +48,7 @@ const subcreateCategory = async (req, res, next) => {
       return res.status(500).json({
         status: false,
         message: err.message,
-        location: "src/Modules/category/controller/createsubCategory",
+        location: "src/Modules/subCategory/controller/createsubCategory",
       });
     }
   });
