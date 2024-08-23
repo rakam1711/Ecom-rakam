@@ -6,7 +6,10 @@ const vendorRoute = require("./vendorRoute.js");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("../../swagger.json");
 const limitter1 = require("../../apiRateLimitter/limitter1.js");
+const limitter2 = require("../../apiRateLimitter/limmiter2.js");
 const adminroutes = require("./adminRouter.js");
+const productRouter = require("./productRouter.js");
+
 const serviceRoute = require("./serviceRoute.js");
 
 const appRoutes = (app) => {
@@ -24,6 +27,7 @@ const appRoutes = (app) => {
   app.use("/user", limitter1, userRoute);
   app.use("/vendor", limitter1, vendorRoute);
   app.use("/services", limitter1, serviceRoute);
+  app.use("/api", limitter2, productRouter)
 
   app.use(unspecifiedRoutesHandler);
   app.use(finalErrorHandler);
