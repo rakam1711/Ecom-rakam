@@ -8,7 +8,7 @@ const swaggerDocument = require("../../swagger.json");
 const limitter1 = require("../../apiRateLimitter/limitter1.js");
 const limitter2 = require("../../apiRateLimitter/limmiter2.js");
 const adminroutes = require("./adminRouter.js");
-const productRouter = require("./adminRouter.js");
+const productRouter = require("./productRouter.js");
 
 const serviceRoute = require("./serviceRoute.js");
 
