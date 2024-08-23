@@ -21,14 +21,15 @@ const addProduct = async (req, res, next) => {
         category: req.body.categoryId,
         price: req.body.price,
         stock: req.body.stock,
-        rating: req.body.rating,
-        numRatings: req.body.numRatings,
+        // rating: req.body.rating,
+        // numRatings: req.body.numRatings,
+        productSize: req.body.productSize,
+        productColor: req.body.productColor,
       };
-      const image = [];
-      if (req.files)
-        req.files.map((x) => {
-          image.push(BASE_URL + x.path);
-        });
+      if (req.files) {
+        mustData.images = req.files.map((file) => BASE_URL + file.path);
+      }
+
       for (let key in mustData) {
         if (mustData[key] == undefined || mustData[key] == "") {
           throw new Error(`invalid field ${key}`);
@@ -47,9 +48,11 @@ const addProduct = async (req, res, next) => {
         category: mustData.category,
         price: mustData.price,
         stock: mustData.stock,
-        rating: mustData.rating,
-        numRatings: mustData.numRatings,
-        image: image,
+        // rating: mustData.rating,
+        // numRatings: mustData.numRatings,
+        images: mustData.images,
+        productSize: mustData.productSize,
+        productColor: mustData.productColor,
       });
 
       await product.save();
