@@ -23,13 +23,18 @@ const addProduct = async (req, res, next) => {
         stock: req.body.stock,
         rating: req.body.rating,
         numRatings: req.body.numRatings,
-        // image: req.file ? req.file.path : undefined,
       };
+      const image = [];
+      if (req.files)
+        req.files.map((x) => {
+          image.push(BASE_URL + x.path);
+        });
       for (let key in mustData) {
         if (mustData[key] == undefined || mustData[key] == "") {
           throw new Error(`invalid field ${key}`);
         }
       }
+
       const productName = await Product.findOne({ name: mustData.name });
       if (productName) throw new Error("Product Name already present");
 
@@ -44,7 +49,7 @@ const addProduct = async (req, res, next) => {
         stock: mustData.stock,
         rating: mustData.rating,
         numRatings: mustData.numRatings,
-        // image: BASE_URL + mustData.image,
+        image: image,
       });
 
       await product.save();
