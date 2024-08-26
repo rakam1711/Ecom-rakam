@@ -7,4 +7,3 @@ const varientSchema = new mongoose.Schema({
 const varient = mongoose.model("Varient", varientSchema);
 
 module.exports = varient;
-``;
