@@ -1,6 +1,6 @@
 const adminroutes = require("express").Router();
 
-const authenticateUser = require("../Middleware/JWT/userAuthentication.js");
+const authenticateAdmin = require("../Middleware/JWT/adminAuthentication.js");
 
 const loginAdmin = require("../Modules/admin/controller/loginAdmin");
 const createCategory = require("../Modules/category/controller/createCategory.js");
@@ -14,14 +14,14 @@ const updateSubCategory = require("../Modules/subCategory/controller/updateSubCa
 
 adminroutes.post("/adminlogin", loginAdmin);
 
-adminroutes.post("/createcategory", authenticateUser, createCategory);
-adminroutes.post("/deletecategory", authenticateUser, deleteCategory);
+adminroutes.post("/createcategory", authenticateAdmin, createCategory);
+adminroutes.post("/deletecategory", authenticateAdmin, deleteCategory);
 adminroutes.post("/listcategory", getAllCategory);
-adminroutes.post("/updatecategory", authenticateUser, updateCategory);
+adminroutes.post("/updatecategory", authenticateAdmin, updateCategory);
 
-adminroutes.post("/createsubcategory", authenticateUser, createSubCategory);
-adminroutes.post("/deletesubcategory", authenticateUser, deleteSubCategory);
+adminroutes.post("/createsubcategory", authenticateAdmin, createSubCategory);
+adminroutes.post("/deletesubcategory", authenticateAdmin, deleteSubCategory);
 adminroutes.post("/listsubcategory", listSubCategory);
-adminroutes.post("/updatesubcategory", authenticateUser, updateSubCategory);
+adminroutes.post("/updatesubcategory", authenticateAdmin, updateSubCategory);
 
 module.exports = adminroutes;

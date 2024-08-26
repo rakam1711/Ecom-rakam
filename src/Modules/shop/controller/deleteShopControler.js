@@ -6,7 +6,7 @@ const deleteShop = async (req, res, next) => {
     if (!shopId) throw new Error("shopId is required");
     const data = await Shop.findById({ _id: shopId });
     deleteImage(data.logo);
-    const shop = await Shop.findOneAndDelete(
+    await Shop.findOneAndDelete(
       { _id: shopId },
       { isActive: false },
       { new: true }
@@ -15,7 +15,6 @@ const deleteShop = async (req, res, next) => {
     return res.status(200).json({
       status: true,
       message: "shop deleted successfully",
-      data: shop,
     });
   } catch (err) {
     return res.status(500).json({

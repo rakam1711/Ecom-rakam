@@ -1,7 +1,8 @@
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const { ApiError } = require("../../../errorHandler/index.js");
-const User = require("../../Modules/user/model/userSchema.js");
+const Admin = require("../../Modules/admin/model/adminSchema.js");
+
 const JWTSECRET = process.env.JWTSECRET;
 
 const secretKey = process.env.SECRETKEY;
@@ -17,14 +18,14 @@ const decrypt = async (encryptedToken) => {
   return decrypted;
 };
 
-const authenticateUser = async (req, res, next) => {
+const authenticateAdmin = async (req, res, next) => {
   try {
     const authHeader = req.headers["authorization"];
     if (!authHeader) {
       return new ApiError(
         "Not authenticated.",
         401,
-        "moddleware=>JWT=>userAuthentication"
+        "moddleware=>JWT=>adminAuthentication"
       );
     }
     const encryptedtoken = authHeader.split(" ")[1];
@@ -36,32 +37,34 @@ const authenticateUser = async (req, res, next) => {
       return new ApiError(
         "Please Login First.",
         401,
-        "moddleware=>JWT=>userAuthentication"
+        "moddleware=>JWT=>adminAuthentication"
       );
     }
     if (!decodedToken) {
       return new ApiError(
         "Not authenticated.",
         401,
-        "moddleware=>JWT=>userAuthentication"
+        "moddleware=>JWT=>adminAuthentication"
       );
     }
-
-    if (decodedToken.role === "USER") {
-      const user = await User.findById(decodedToken?.id);
-      if (!user) {
+    // ------------------------------------
+    if (decodedToken.role === "ADMIN") {
+      const admin = await Admin.findById(decodedToken?.id);
+      if (!admin) {
         res
-          .json({ success: false, message: "User does not exist " })
+          .json({ success: false, message: "Admin does not exist " })
           .status(404);
       }
-      req.userId = decodedToken.id;
-      req.role = "USER";
+      req.adminId = decodedToken.id;
+      req.role = "ADMIN";
     }
+
+    // ---------------------------------------------
 
     return next();
   } catch (err) {
-    console.log(err.message, "src/Middleware/JWT/userAuthentication");
+    console.log(err.message, "src/Middleware/JWT/adminAuthentication");
   }
 };
 
-module.exports = authenticateUser;
+module.exports = authenticateAdmin;
