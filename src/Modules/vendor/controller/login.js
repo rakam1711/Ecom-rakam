@@ -14,7 +14,7 @@ const login = async (req, res) => {
         throw new Error(`${key} is require`);
       }
     }
-    const user = await vendorModel.findOne({ number: body.number });
+    const user = await vendorModel.findOne({ number: body.number }).select({password:true});
     if (!user) throw new Error("invalid userName");
     const isValid = bcryptjs.compareSync(body.password, user.password);
     if (!isValid) throw new Error("invalid Password");

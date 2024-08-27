@@ -29,7 +29,7 @@ const vendorSchema = new mongoose.Schema(
         message: "{VALUE} is not a valid email",
       },
     },
-    password: { type: String, require: true },
+    password: { type: String, require: true, select: false },
     gstORpan: { type: String },
     bankName: { type: String },
     accountHolderName: { type: String },

@@ -3,6 +3,7 @@ const vendorRoute = require("express").Router();
 // const loginUser = require("../user/controller/loginUser.js")
 const register = require("../Modules/vendor/controller/register.js");
 const login = require("../Modules/vendor/controller/login.js");
+const profile = require("../Modules/vendor/controller/profile.js");
 const createShop = require("../Modules/shop/controller/createShopController.js");
 const addProduct = require("../Modules/product/controller/addProductController.js");
 const authenticateVendor = require("../Middleware/JWT/vendorAuthentication.js");
@@ -16,6 +17,7 @@ const editProfile = require("../Modules/vendor/controller/editProfile.js");
 
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
+vendorRoute.post("/profile", authenticateVendor, profile);
 vendorRoute.post("/editprofile", editProfile);
 
 vendorRoute.post("/addproduct", authenticateVendor, addProduct);
