@@ -26,7 +26,7 @@ vendorRoute.post("/deleteproduct", authenticateVendor, deleteProduct);
 vendorRoute.post("/listproduct", authenticateVendor, listProduct);
 
 vendorRoute.post("/createshop", authenticateVendor, createShop);
-vendorRoute.post("/myshop", myShop);
+vendorRoute.post("/myshop", myshop);
 vendorRoute.post("/deleteshop", authenticateVendor, deleteShop);
 vendorRoute.post("/updateshop", authenticateVendor, updateShop);
 
