@@ -4,6 +4,7 @@ const categoryModel = new mongoose.Schema(
   {
     image: {
       type: String,
+      default: " ",
     },
     name: {
       type: String,

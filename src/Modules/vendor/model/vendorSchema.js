@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const vendorSchema = new mongoose.Schema(
   {
-    image: { type: String },
+    image: { type: String, default: " " },
     number: {
       type: Number,
       required: true,
