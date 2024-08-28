@@ -24,11 +24,22 @@ const shopSchema = new mongoose.Schema(
       email: { type: String },
       website: { type: String },
     },
-    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: "categorySchema" }],
+    categories: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "categorySchema" },
+    ],
+    subCategories: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "subCategorySchema" },
+    ],
+    gallerySchema: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "gallerySchema" },
+    ],
+
     logo: { type: String },
     rating: { type: Number, default: 0 },
     numberOfRatings: { type: Number, default: 0 },
-  }, { timestamps: true, });
+  },
+  { timestamps: true }
+);
 
 const Shop = mongoose.model("shop", shopSchema);
 
