@@ -9,7 +9,7 @@ const addProduct = require("../Modules/product/controller/addProductController.j
 const authenticateVendor = require("../Middleware/JWT/vendorAuthentication.js");
 const deleteShop = require("../Modules/shop/controller/deleteShopControler.js");
 const updateShop = require("../Modules/shop/controller/updateShopController.js");
-const listShop = require("../Modules/shop/controller/listShopController.js");
+const myshop = require("../Modules/shop/controller/myShopController.js");
 const updateProduct = require("../Modules/product/controller/updateProductController.js");
 const deleteProduct = require("../Modules/product/controller/deleteProductController.js");
 const listProduct = require("../Modules/product/controller/listProductController.js");
@@ -26,7 +26,7 @@ vendorRoute.post("/deleteproduct", authenticateVendor, deleteProduct);
 vendorRoute.post("/listproduct", authenticateVendor, listProduct);
 
 vendorRoute.post("/createshop", authenticateVendor, createShop);
-vendorRoute.post("/listshop", authenticateVendor, listShop);
+vendorRoute.post("/myshop", myShop);
 vendorRoute.post("/deleteshop", authenticateVendor, deleteShop);
 vendorRoute.post("/updateshop", authenticateVendor, updateShop);
 
