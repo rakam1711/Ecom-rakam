@@ -12,21 +12,16 @@ const shopSchema = new mongoose.Schema(
       ref: "vendorModel",
       required: true,
     },
-    address: {
-      street: String,
-      city: String,
-      state: String,
-      postalCode: String,
-      country: String,
-    },
-    contactInfo: {
-      phone: { type: String },
-      email: { type: String },
-      website: { type: String },
-    },
-    categories: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "categorySchema" },
-    ],
+    street: String,
+    city: String,
+    state: String,
+    postalCode: String,
+    country: { type: String, default: "india" },
+    phone: { type: String, required: true },
+    email: { type: String },
+    website: { type: String },
+    categories: { type: mongoose.Schema.Types.ObjectId, ref: "categorySchema" },
+
     subCategories: [
       { type: mongoose.Schema.Types.ObjectId, ref: "subCategorySchema" },
     ],

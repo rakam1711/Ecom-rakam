@@ -8,22 +8,17 @@ const editProfile = async (req, res) => {
       const id = req.vendorId;
       const vendor = await vendorModel.findById({ _id: id });
       const mustdata = {
+        image: req.body.image,
         ownerName: req.body.ownerName,
-        shopName: req.body.shopName,
         number: req.body.number,
         numberAlternate: req.body.numberAlternate,
-        category: req.body.category,
-        subCategory: req.body.subCategory,
         email: req.body.email,
-        password: req.body.password,
         gstORpan: req.body.gstORpan,
         bankName: req.body.bankName,
         accountHolderName: req.body.accountHolderName,
         accountNumber: req.body.accountNumber,
         ifscCode: req.body.ifscCode,
         branchName: req.body.branchName,
-        categoryType: req.body.categoryType,
-        paymentMode: req.body.paymentMode,
       };
       for (let key in data) {
         if (mustdata[key] == undefined || mustdata[key] == "") {
@@ -35,13 +30,9 @@ const editProfile = async (req, res) => {
         mustdata.image = BASE_URL + req.file.path;
       }
 
-      const data = await subCategorySchema.findByIdAndUpdate(
-        { _id: id },
-        mustdata,
-        {
-          new: true,
-        }
-      );
+      const data = await vendorModel.findByIdAndUpdate({ _id: id }, mustdata, {
+        new: true,
+      });
 
       return res.status(200).json({
         status: true,

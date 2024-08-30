@@ -18,7 +18,7 @@ const editProfile = require("../Modules/vendor/controller/editProfile.js");
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
 vendorRoute.post("/profile", authenticateVendor, profile);
-vendorRoute.post("/editprofile", editProfile);
+vendorRoute.post("/editprofile", authenticateVendor, editProfile);
 
 vendorRoute.post("/addproduct", authenticateVendor, addProduct);
 vendorRoute.post("/updateproduct", authenticateVendor, updateProduct);

@@ -10,10 +10,15 @@ const createShop = async (req, res, next) => {
       const mustData = {
         name: req.body.name,
         description: req.body.description,
-        address: req.body.address,
-        contactInfo: req.body.contactInfo,
         categories: req.body.categories,
         subCategories: req.body.subCategories,
+        street: req.body.String,
+        city: req.body.String,
+        state: req.body.String,
+        postalCode: req.body.String,
+        phone: req.body.phone,
+        email: req.body.emaiil,
+        website: req.body.website,
       };
       for (let key in mustData) {
         if (mustData[key] == undefined || mustData[key] == "") {
@@ -28,8 +33,14 @@ const createShop = async (req, res, next) => {
       const shop = Shop({
         name: mustData.name,
         description: mustData.description,
-        address: mustData.address,
-        contactInfo: mustData.contactInfo,
+
+        street: mustData.String,
+        city: mustData.String,
+        state: mustData.String,
+        postalCode: mustData.String,
+        phone: mustData.phone,
+        email: mustData.email,
+        website: mustData.website,
         owner: req.vendorId,
         subCategories: mustData.subCategories,
         categories: mustData.categories,

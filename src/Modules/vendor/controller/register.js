@@ -15,12 +15,9 @@ const register = async (req, res) => {
     try {
       const dataa = {
         ownerName: req.body.ownerName,
-        shopName: req.body.shopName,
         number: req.body.number,
         password: req.body.password,
         email: req.body.email,
-        category: req.body.category,
-        subCategory: req.body.subCategory,
         image: req.file ? req.file.path : undefined,
       };
       const optionalDataa = {
@@ -28,8 +25,11 @@ const register = async (req, res) => {
         gstORpan: req.body.gstORpan,
       };
 
-      const isUser = await vendorModel.findOne({ number: dataa.number });
-      if (isUser) throw new Error("Number is already exist", 500);
+      const isUser = await vendorModel.findOne({
+        $or: [{ number: dataa.number }, { email: dataa.email }],
+      });
+      if (isUser) throw new Error("vendor is already exist", 500);
+
       for (let key in dataa) {
         if (dataa[key] == "" || dataa[key] == undefined) {
           throw new Error(`${key} is require`);
@@ -39,14 +39,11 @@ const register = async (req, res) => {
       const hashPassword = bcryptjs.hashSync(dataa.password, salt);
       const data = new vendorModel({
         ownerName: dataa.ownerName,
-        shopName: dataa.shopName,
         email: dataa.email,
         numberAlternate: optionalDataa.numberAlternate,
         number: dataa.number,
         gstORpan: optionalDataa.gstORpan,
         password: hashPassword,
-        category: dataa.category,
-        subCategory: dataa.subCategory,
         image: BASE_URL + dataa.image,
       });
       const result = await data.save();
