@@ -20,14 +20,8 @@ const shopSchema = new mongoose.Schema(
     phone: { type: String, required: true },
     email: { type: String },
     website: { type: String },
-    categories: { type: mongoose.Schema.Types.ObjectId, ref: "categorySchema" },
-
-    subCategories: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "subCategorySchema" },
-    ],
-    gallerySchema: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "gallerySchema" },
-    ],
+    categories: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+    gallerySchema: [],
 
     logo: { type: String },
     rating: { type: Number, default: 0 },

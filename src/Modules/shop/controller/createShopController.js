@@ -7,6 +7,7 @@ const createShop = async (req, res, next) => {
     try {
       const shop1 = await Shop.findOne({ owner: req.vendorId });
       if (shop1) throw new Error("shop already present for this vendor");
+      console.log(req.body, "<================");
       const mustData = {
         name: req.body.name,
         description: req.body.description,
