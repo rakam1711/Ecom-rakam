@@ -9,10 +9,6 @@ const myShop = async (req, res, next) => {
       shop = await Shop.find({ owner: req.vendorId, isActive: true })
         .skip((page - 1) * limit)
         .limit(limit);
-    } else {
-      shop = await Shop.find({ isActive: true })
-        .skip((page - 1) * limit)
-        .limit(limit);
     }
 
     return res.status(200).json({
