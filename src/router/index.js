@@ -24,12 +24,12 @@ const appRoutes = (app) => {
   );
   app.use("/public", express.static("public"));
 
-  app.use("/admin", limitter1, adminroutes);
-  app.use("/user", limitter1, userRoute);
-  app.use("/vendor", limitter1, vendorRoute);
-  app.use("/services", limitter1, serviceRoute);
-  app.use("/api", limitter2, productRouter);
-  app.use("/varient", limitter2, varientRouter);
+  app.use("/admin", adminroutes);
+  app.use("/user", userRoute);
+  app.use("/vendor", vendorRoute);
+  app.use("/services", serviceRoute);
+  app.use("/api", productRouter);
+  app.use("/varient", varientRouter);
 
   app.use(unspecifiedRoutesHandler);
   app.use(finalErrorHandler);

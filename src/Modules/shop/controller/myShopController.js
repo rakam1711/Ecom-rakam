@@ -15,7 +15,7 @@ const myShop = async (req, res, next) => {
       message: "data listed successfully",
       status: true,
       isShop: shop ? true : false,
-      data: shop,
+      data: shop ? shop : [],
     });
   } catch (err) {
     return res.status(500).json({

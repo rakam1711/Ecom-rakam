@@ -9,7 +9,7 @@ const listSubCategory = async (req, res) => {
 
     if (!categoryId) throw new Error("categoryId is missing");
     const data = await subCategorySchema
-      .findById({ _id: categoryId })
+      .find({ category: categoryId })
       .skip((page - 1) * limit)
       .limit(limit);
     if (!data)
