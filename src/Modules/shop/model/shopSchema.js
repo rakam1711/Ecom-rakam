@@ -20,6 +20,7 @@ const shopSchema = new mongoose.Schema(
     phone: { type: String, required: true },
     email: { type: String },
     website: { type: String },
+    service: { type: mongoose.Schema.Types.ObjectId, ref: "service" },
     categories: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
     subCategories: [
       {

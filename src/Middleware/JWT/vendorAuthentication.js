@@ -49,14 +49,15 @@ const authenticateVendor = async (req, res, next) => {
     }
 
     if (decodedToken.role === "VENDOR") {
-      const resturant = await vendorModel.findById(decodedToken?.id);
-      if (!resturant) {
+      const Vendor = await vendorModel.findById(decodedToken?.id);
+      if (!Vendor) {
         res
           .json({ success: false, message: "vendor does not exist " })
           .status(404);
       }
       req.vendorId = decodedToken.id;
       req.role = "VENDOR";
+      req.vendorr = Vendor
     }
     // ---------------------------------------------
 

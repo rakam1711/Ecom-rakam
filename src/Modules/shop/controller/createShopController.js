@@ -6,11 +6,9 @@ const createShop = async (req, res, next) => {
   upload(req, res, async () => {
     try {
       const data1 = JSON.parse(req.body.subCategories);
-      console.log("data", data1);
-      console.log("type", typeof data1);
+
       const shop1 = await Shop.findOne({ owner: req.vendorId });
       if (shop1) throw new Error("shop already present for this vendor");
-      // console.log(req.body, "<================");
       const mustData = {
         name: req.body.name,
         description: req.body.description,
@@ -36,7 +34,7 @@ const createShop = async (req, res, next) => {
       const shop = Shop({
         name: mustData.name,
         description: mustData.description,
-
+        service: req.Vendorr.service,
         street: mustData.street,
         city: mustData.city,
         state: mustData.state,
