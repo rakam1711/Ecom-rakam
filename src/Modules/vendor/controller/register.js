@@ -19,6 +19,7 @@ const register = async (req, res) => {
         password: req.body.password,
         email: req.body.email,
         image: req.file ? req.file.path : undefined,
+        service: req.body.serviceId
       };
       const optionalDataa = {
         numberAlternate: req.body.numberAlternate,
@@ -45,6 +46,7 @@ const register = async (req, res) => {
         gstORpan: optionalDataa.gstORpan,
         password: hashPassword,
         image: BASE_URL + dataa.image,
+        service: dataa.service,
       });
       const result = await data.save();
       return res

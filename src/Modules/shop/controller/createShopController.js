@@ -5,9 +5,6 @@ const BASE_URL = process.env.BASE_URL;
 const createShop = async (req, res, next) => {
   upload(req, res, async () => {
     try {
-      // console.log("req.body", req.body.subCategories);
-      // console.log("req.body", typeof req.body.subCategories);
-
       const data1 = JSON.parse(req.body.subCategories);
       console.log("data", data1);
       console.log("type", typeof data1);
@@ -25,14 +22,13 @@ const createShop = async (req, res, next) => {
         postalCode: req.body.postalCode,
         phone: req.body.phone,
         email: req.body.email,
-        website: req.body.website,
       };
       for (let key in mustData) {
         if (mustData[key] == undefined || mustData[key] == "") {
           throw new Error(`invalid field ${key}`);
         }
       }
-
+      mustData.website = req.body.website
       if (req.file) {
         mustData.image = BASE_URL + req.file.path;
       }
