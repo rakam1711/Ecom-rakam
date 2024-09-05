@@ -5,14 +5,20 @@ const BASE_URL = process.env.BASE_URL;
 const createShop = async (req, res, next) => {
   upload(req, res, async () => {
     try {
+      // console.log("req.body", req.body.subCategories);
+      // console.log("req.body", typeof req.body.subCategories);
+
+      const data1 = JSON.parse(req.body.subCategories);
+      console.log("data", data1);
+      console.log("type", typeof data1);
       const shop1 = await Shop.findOne({ owner: req.vendorId });
       if (shop1) throw new Error("shop already present for this vendor");
-      console.log(req.body, "<================");
+      // console.log(req.body, "<================");
       const mustData = {
         name: req.body.name,
         description: req.body.description,
         categories: req.body.categories,
-        subCategories: req.body.subCategories,
+        subCategories: data1,
         street: req.body.street,
         city: req.body.city,
         state: req.body.state,

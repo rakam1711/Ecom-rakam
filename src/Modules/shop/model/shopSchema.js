@@ -21,6 +21,12 @@ const shopSchema = new mongoose.Schema(
     email: { type: String },
     website: { type: String },
     categories: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+    subCategories: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "subCategory",
+      },
+    ],
     gallerySchema: [],
 
     logo: { type: String },
