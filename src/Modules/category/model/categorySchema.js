@@ -23,6 +23,9 @@ const categoryModel = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    service:{
+      type:mongoose.Schema.Types.ObjectId, ref:"service"
+    }
   },
   { timestamps: true }
 );

@@ -4,7 +4,7 @@ const getAllCategory = async (req, res) => {
   try {
     let limit = req.body.limit || 10;
     let page = req.body.page || 1;
-    const max = await categorySchema.countDocuments();
+    const max = await categorySchema.countDocuments({});
     const data = await categorySchema
       .find()
       .skip((page - 1) * limit)

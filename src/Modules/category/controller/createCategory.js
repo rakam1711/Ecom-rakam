@@ -17,6 +17,7 @@ const createCategory = async (req, res, next) => {
         name: req.body.name,
         description: req.body.description,
         image: req.file ? req.file.path : undefined,  // Include the image path
+        service: req.body.serviceId,
       };
 
       for (let key in mustData) {
@@ -32,6 +33,7 @@ const createCategory = async (req, res, next) => {
           description: mustData.description,
           image: BASE_URL + mustData.image,  // Save the image path
           createdBy: req.adminId,
+          service: mustData.service,
         });
         await addCategory.save();
         return res.status(201).json({

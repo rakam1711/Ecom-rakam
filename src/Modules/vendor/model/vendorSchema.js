@@ -36,6 +36,7 @@ const vendorSchema = new mongoose.Schema(
     accountNumber: { type: String },
     ifscCode: { type: String },
     branchName: { type: String },
+    service: { type: mongoose.Schema.Types.ObjectId, require: true, ref: "service" },
     categoryType: [],
     paymentMode: [],
   },
