@@ -5,10 +5,9 @@ const BASE_URL = process.env.BASE_URL;
 const createShop = async (req, res, next) => {
   upload(req, res, async () => {
     try {
-      const data1 = JSON.parse(req.body.subCategories);
+     const data1 = JSON.parse(req.body.subCategories);
 
       const shop1 = await Shop.findOne({ owner: req.vendorId });
-      console.log("==================>",req.body,"<============================")
       if (shop1) throw new Error("shop already present for this vendor");
       const mustData = {
         name: req.body.name,
