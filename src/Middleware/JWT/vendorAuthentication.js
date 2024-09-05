@@ -51,7 +51,7 @@ const authenticateVendor = async (req, res, next) => {
     if (decodedToken.role === "VENDOR") {
       const Vendor = await vendorModel.findById(decodedToken?.id);
       if (!Vendor) {
-        res
+       return res
           .json({ success: false, message: "vendor does not exist " })
           .status(404);
       }

@@ -14,6 +14,9 @@ const productSchema = new mongoose.Schema({
   rating: { type: Number, default: 0 },
   numRatings: { type: Number, default: 0 },
   status: { type: Boolean, default: true },
+}, {
+  timestamps: true,
+  strict: false
 });
 
 const Product = mongoose.model("Product", productSchema);
