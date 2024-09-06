@@ -14,6 +14,10 @@ const updateProduct = require("../Modules/product/controller/updateProductContro
 const deleteProduct = require("../Modules/product/controller/deleteProductController.js");
 const listProduct = require("../Modules/product/controller/listProductController.js");
 const editProfile = require("../Modules/vendor/controller/editProfile.js");
+const createTag = require("../Modules/tags/controller/createTagcontroller.js");
+const listTag = require("../Modules/tags/controller/listTagController.js");
+const updateTag = require("../Modules/tags/controller/updateTagController.js");
+const deleteTag = require("../Modules/tags/controller/deleteTagController.js");
 
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
@@ -29,5 +33,10 @@ vendorRoute.post("/createshop", authenticateVendor, createShop);
 vendorRoute.post("/myshop", authenticateVendor, myshop);
 vendorRoute.post("/deleteshop", authenticateVendor, deleteShop);
 vendorRoute.post("/updateshop", authenticateVendor, updateShop);
+
+vendorRoute.post("/addtag", authenticateVendor, createTag);
+vendorRoute.post("/updatetag", authenticateVendor, updateTag);
+vendorRoute.post("/deletetag", authenticateVendor, deleteTag);
+vendorRoute.post("/listtag", listTag);
 
 module.exports = vendorRoute;

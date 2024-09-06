@@ -17,3 +17,5 @@ const listTag = async (req, res, next) => {
     });
   }
 };
+
+module.exports = listTag;

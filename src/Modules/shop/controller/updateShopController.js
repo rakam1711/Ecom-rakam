@@ -3,12 +3,15 @@ const upload = require("../../../Middleware/multer/singleImageUpload.js");
 const BASE_URL = process.env.BASE_URL;
 const updateShop = async (req, res, next) => {
   upload(req, res, async () => {
+    console.log("heer is the code");
+    let data1 = JSON.parse(req.body.subCategories);
+    console.log("data", data1);
     try {
       const data = {
         name: req.body.name,
         description: req.body.description,
         categories: req.body.categories,
-        subCategories: JSON.parse(req.body.subCategories),
+        subCategories: data1,
         street: req.body.street,
         city: req.body.city,
         state: req.body.state,
@@ -16,6 +19,8 @@ const updateShop = async (req, res, next) => {
         phone: req.body.phone,
         email: req.body.email,
       };
+
+      console.log("datanew", data.subCategories);
       if (req.file) {
         data.logo = BASE_URL + req.file.path;
       }
@@ -34,7 +39,6 @@ const updateShop = async (req, res, next) => {
       return res.status(200).json({
         status: true,
         message: "shop updated successfully.",
-        data: update,
       });
     } catch (error) {
       return res.status(500).json({

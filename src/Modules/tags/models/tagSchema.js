@@ -4,6 +4,7 @@ const tagSchema = new mongoose.Schema(
   {
     tagName: { type: String, unique: true },
     description: { type: String },
+    status: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

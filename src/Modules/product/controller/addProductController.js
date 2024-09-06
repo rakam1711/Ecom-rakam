@@ -15,16 +15,24 @@ const addProduct = async (req, res, next) => {
     try {
       const mustData = {
         shop: req.body.shopId,
+        vendor: req.vendorId,
         name: req.body.name,
         description: req.body.description,
         brand: req.body.brand,
         category: req.body.categoryId,
         price: req.body.price,
         stock: req.body.stock,
-        // rating: req.body.rating,
-        // numRatings: req.body.numRatings,
-        productSize: req.body.productSize,
-        productColor: req.body.productColor,
+        productShipingDetails: req.body.productShipingDetails,
+        tag: req.body.tagId,
+        minOrderQnt: req.body.minOrderQnt,
+        maxOrderQnt: req.body.minOrderQnt,
+        specialLabel: req.body.specialLabel,
+        availableForSubscription: req.body.availableForSubscription,
+        frequency: req.body.frequency,
+        varient: req.body.varientId,
+        deliveryTimeline: req.body.deliveryTimeline,
+        deliveryInstruction: req.body.deliveryInstruction,
+        isProduct: req.body.isProduct,
       };
       if (req.files) {
         mustData.images = req.files.map((file) => BASE_URL + file.path);
@@ -41,18 +49,25 @@ const addProduct = async (req, res, next) => {
 
       const product = Product({
         shop: mustData.shop,
-        vendor: req.vendorId,
+        vendor: mustData.vendor,
         name: mustData.name,
         description: mustData.description,
         brand: mustData.brand,
         category: mustData.category,
         price: mustData.price,
         stock: mustData.stock,
-        // rating: mustData.rating,
-        // numRatings: mustData.numRatings,
         images: mustData.images,
-        productSize: mustData.productSize,
-        productColor: mustData.productColor,
+        productShipingDetails: mustData.productShipingDetails,
+        tag: mustData.tag,
+        minOrderQnt: mustData.minOrderQnt,
+        maxOrderQnt: mustData.minOrderQnt,
+        specialLabel: mustData.specialLabel,
+        availableForSubscription: mustData.availableForSubscription,
+        frequency: mustData.frequency,
+        varient: mustData.varient,
+        deliveryTimeline: mustData.deliveryTimeline,
+        deliveryInstruction: mustData.deliveryInstruction,
+        isProduct: mustData.isProduct,
       });
 
       await product.save();

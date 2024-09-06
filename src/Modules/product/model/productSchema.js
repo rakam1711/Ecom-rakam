@@ -1,23 +1,48 @@
 const mongoose = require("mongoose");
-const productSchema = new mongoose.Schema({
-  shop: { type: mongoose.Schema.Types.ObjectId, ref: "Shop" },
-  vendor: { type: mongoose.Schema.Types.ObjectId, ref: "vendorModel" },
-  name: { type: String, required: true },
-  description: { type: String, maxlength: 1000 },
-  brand: { type: String },
-  category: { type: mongoose.Schema.Types.ObjectId, ref: "category" },
-  price: { type: Number, required: true, min: 0 },
-  stock: { type: Number, required: true, min: 0 },
-  images: [],
-  productSize: { type: String },
-  productColor: [],
-  rating: { type: Number, default: 0 },
-  numRatings: { type: Number, default: 0 },
-  status: { type: Boolean, default: true },
-}, {
-  timestamps: true,
-  strict: false
-});
+const productSchema = new mongoose.Schema(
+  {
+    shop: { type: mongoose.Schema.Types.ObjectId, ref: "Shop" },
+    vendor: { type: mongoose.Schema.Types.ObjectId, ref: "vendorModel" },
+    name: { type: String, required: true },
+    description: { type: String, maxlength: 1000 },
+    brand: { type: String },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: "category" },
+    price: { type: Number, required: true, min: 0 },
+    stock: { type: Number, required: true, min: 0 },
+    images: [],
+    productShipingDetails: {
+      weight: { type: Number, default: 0 },
+      length: { type: Number, default: 0 },
+      width: { type: Number, default: 0 },
+      height: { type: Number, default: 0 },
+    },
+    tag: { type: mongoose.Schema.Types.ObjectId, ref: "Tag" },
+    minOrderQnt: { type: Number, default: 1 },
+    maxOrderQnt: { type: Number, default: 5 },
+    specialLabel: {
+      type: String,
+      enum: ["HotSeller", "Trending", "Latest"],
+      default: "Latest",
+    },
+    availableForSubscription: { type: Boolean, default: true },
+    frequency: {
+      type: String,
+      enum: ["Daily", "Alternative", "Weekly", "Monthly"],
+      default: "Monthly",
+    },
+    varient: { type: mongoose.Schema.Types.ObjectId, ref: "Varientt" },
+    deliveryTimeline: { type: String, default: "pickup up after 2 hr" },
+    deliveryInstruction: { type: String, default: "be cautious from dogs" },
+
+    rating: { type: Number, default: 0 },
+    numRatings: { type: Number, default: 0 },
+    isProduct: { type: Boolean, default: true },
+  },
+  {
+    timestamps: true,
+    strict: false,
+  }
+);
 
 const Product = mongoose.model("Product", productSchema);
 

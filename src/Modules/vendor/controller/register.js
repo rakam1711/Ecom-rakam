@@ -19,7 +19,7 @@ const register = async (req, res) => {
         password: req.body.password,
         email: req.body.email,
         image: req.file ? req.file.path : undefined,
-        service: req.body.serviceId
+        service: req.body.serviceId,
       };
       const optionalDataa = {
         numberAlternate: req.body.numberAlternate,

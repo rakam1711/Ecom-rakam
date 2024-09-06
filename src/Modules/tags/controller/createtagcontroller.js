@@ -3,14 +3,16 @@ const Tag = require("../models/tagSchema.js");
 const createTag = async (req, res, next) => {
   try {
     const { tagName, description } = req.body;
+    const value = Tag.findOne({ tagName: tagName });
+    if (value) throw new Error("tag name already present");
     const data = Tag({
       tagName: tagName,
       description: description,
     });
     await data.save();
-    return res.status.json({
+    return res.status(201).json({
       status: true,
-      message: "data created successfully",
+      message: "shop created successfully",
     });
   } catch (err) {
     return res.status(500).json({
