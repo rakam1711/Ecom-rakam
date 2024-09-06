@@ -5,15 +5,13 @@ const BASE_URL = process.env.BASE_URL;
 const createShop = async (req, res, next) => {
   upload(req, res, async () => {
     try {
-     const data1 = JSON.parse(req.body.subCategories);
-
       const shop1 = await Shop.findOne({ owner: req.vendorId });
       if (shop1) throw new Error("shop already present for this vendor");
       const mustData = {
         name: req.body.name,
         description: req.body.description,
         categories: req.body.categories,
-        subCategories: data1,
+        subCategories: JSON.parse(req.body.subCategories),
         street: req.body.street,
         city: req.body.city,
         state: req.body.state,
@@ -26,7 +24,7 @@ const createShop = async (req, res, next) => {
           throw new Error(`invalid field ${key}`);
         }
       }
-      mustData.website = req.body.website
+      mustData.website = req.body.website;
       if (req.file) {
         mustData.image = BASE_URL + req.file.path;
       }

@@ -7,8 +7,14 @@ const updateShop = async (req, res, next) => {
       const data = {
         name: req.body.name,
         description: req.body.description,
-        address: req.body.address,
-        contactInfo: req.body.contactInfo,
+        categories: req.body.categories,
+        subCategories: JSON.parse(req.body.subCategories),
+        street: req.body.street,
+        city: req.body.city,
+        state: req.body.state,
+        postalCode: req.body.postalCode,
+        phone: req.body.phone,
+        email: req.body.email,
       };
       if (req.file) {
         data.logo = BASE_URL + req.file.path;
