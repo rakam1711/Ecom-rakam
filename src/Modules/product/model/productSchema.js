@@ -27,7 +27,7 @@ const productSchema = new mongoose.Schema(
     availableForSubscription: { type: Boolean, default: true },
     frequency: {
       type: String,
-      enum: ["Daily", "Alternative", "Weekly", "Monthly"],
+      enum: ["Daily", "Alternative", "Weekly", "Monthly", "None"],
       default: "None",
     },
     varient: { type: mongoose.Schema.Types.ObjectId, ref: "Varientt" },
