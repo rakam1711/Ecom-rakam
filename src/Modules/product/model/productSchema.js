@@ -28,7 +28,7 @@ const productSchema = new mongoose.Schema(
     frequency: {
       type: String,
       enum: ["Daily", "Alternative", "Weekly", "Monthly"],
-      default: "Monthly",
+      default: "None",
     },
     varient: { type: mongoose.Schema.Types.ObjectId, ref: "Varientt" },
     deliveryTimeline: { type: String, default: "pickup up after 2 hr" },

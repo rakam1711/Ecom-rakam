@@ -38,11 +38,11 @@ const addProduct = async (req, res, next) => {
         mustData.images = req.files.map((file) => BASE_URL + file.path);
       }
 
-      for (let key in mustData) {
-        if (mustData[key] == undefined || mustData[key] == "") {
-          throw new Error(`invalid field ${key}`);
-        }
-      }
+      // for (let key in mustData) {
+      //   if (mustData[key] == undefined || mustData[key] == "") {
+      //     throw new Error(`invalid field ${key}`);
+      //   }
+      // }
 
       const productName = await Product.findOne({ name: mustData.name });
       if (productName) throw new Error("Product Name already present");
