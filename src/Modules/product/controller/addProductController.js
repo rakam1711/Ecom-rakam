@@ -44,8 +44,8 @@ const addProduct = async (req, res, next) => {
       //   }
       // }
 
-      const productName = await Product.findOne({ name: mustData.name });
-      if (productName) throw new Error("Product Name already present");
+      // const productName = await Product.findOne({ name: mustData.name });
+      // if (productName) throw new Error("Product Name already present");
 
       const product = Product({
         shop: mustData.shop,
