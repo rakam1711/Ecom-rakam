@@ -3,7 +3,7 @@ const subVarient = require("../model/subVarientSchema.js");
 const listSubVarient = async (req, res, next) => {
   try {
     const id = req.body.id;
-    const data = subVarient.findById(id);
+    const data = await subVarient.find({ varient: id });
     return res.status(200).send({
       status: true,
       message: "successfully listed",

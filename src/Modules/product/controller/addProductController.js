@@ -14,14 +14,15 @@ const addProduct = async (req, res, next) => {
       });
     }
     try {
-      // const shopId = await shop.findOne({owner:})
+      const shop1 = await shop.findOne({ owner: req.vendorId });
       const mustData = {
-        shop: req.body.shopId,
+        shop: shop1._id,
         vendor: req.vendorId,
         name: req.body.name,
         description: req.body.description,
         brand: req.body.brand,
         category: req.body.categoryId,
+        subCategory: req.body.subCategoryId,
         price: req.body.price,
         stock: req.body.stock,
         productShipingDetails: req.body.productShipingDetails,
@@ -32,22 +33,15 @@ const addProduct = async (req, res, next) => {
         availableForSubscription: req.body.availableForSubscription,
         frequency: req.body.frequency,
         varient: req.body.varientId,
+        subVarient: req.body.subVarient,
         deliveryTimeline: req.body.deliveryTimeline,
         deliveryInstruction: req.body.deliveryInstruction,
         isProduct: req.body.isProduct,
+        colorCode: req.body.colorCode,
       };
       if (req.files) {
         mustData.images = req.files.map((file) => BASE_URL + file.path);
       }
-
-      // for (let key in mustData) {
-      //   if (mustData[key] == undefined || mustData[key] == "") {
-      //     throw new Error(`invalid field ${key}`);
-      //   }
-      // }
-
-      // const productName = await Product.findOne({ name: mustData.name });
-      // if (productName) throw new Error("Product Name already present");
 
       const product = Product({
         shop: mustData.shop,
@@ -56,10 +50,11 @@ const addProduct = async (req, res, next) => {
         description: mustData.description,
         brand: mustData.brand,
         category: mustData.category,
+        subCategory: mustData.subCategory,
         price: mustData.price,
         stock: mustData.stock,
         images: mustData.images,
-        productShipingDetails: mustData.productShipingDetails,
+        productShipingDetails: JSON.parse(mustData.productShipingDetails),
         tag: mustData.tag,
         minOrderQnt: mustData.minOrderQnt,
         maxOrderQnt: mustData.minOrderQnt,
@@ -67,9 +62,11 @@ const addProduct = async (req, res, next) => {
         availableForSubscription: mustData.availableForSubscription,
         frequency: mustData.frequency,
         varient: mustData.varient,
+        subVarient: mustData.subVarient,
         deliveryTimeline: mustData.deliveryTimeline,
         deliveryInstruction: mustData.deliveryInstruction,
         isProduct: mustData.isProduct,
+        colorCode: mustData.colorCode,
       });
 
       await product.save();

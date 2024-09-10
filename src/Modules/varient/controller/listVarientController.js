@@ -2,8 +2,7 @@ const Varient = require("../model/varientSchema.js");
 
 const listVarient = async (req, res, next) => {
   try {
-    const id = req.body.id;
-    const data = Varient.findById(id);
+    const data = await Varient.find();
     return res.status(200).send({
       status: true,
       message: "successfully listed",
