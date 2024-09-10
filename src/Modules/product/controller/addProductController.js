@@ -1,6 +1,7 @@
 const Product = require("../model/productSchema.js");
 const upload = require("../../../Middleware/multer/multipleImageUpload.js");
 const BASE_URL = process.env.BASE_URL;
+const shop = require("../../shop/model/shopSchema.js");
 
 const addProduct = async (req, res, next) => {
   upload(req, res, async (err) => {
@@ -13,6 +14,7 @@ const addProduct = async (req, res, next) => {
       });
     }
     try {
+      // const shopId = await shop.findOne({owner:})
       const mustData = {
         shop: req.body.shopId,
         vendor: req.vendorId,

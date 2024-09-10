@@ -20,7 +20,7 @@ const editProfile = async (req, res) => {
         ifscCode: req.body.ifscCode,
         branchName: req.body.branchName,
       };
-      for (let key in data) {
+      for (let key in mustdata) {
         if (mustdata[key] == undefined || mustdata[key] == "") {
           delete mustdata[key];
         }
@@ -30,14 +30,13 @@ const editProfile = async (req, res) => {
         mustdata.image = BASE_URL + req.file.path;
       }
 
-      const data = await vendorModel.findByIdAndUpdate({ _id: id }, mustdata, {
+      await vendorModel.findByIdAndUpdate({ _id: id }, mustdata, {
         new: true,
       });
 
       return res.status(200).json({
         status: true,
         message: "updated Sucessfully",
-        updatedData: data,
       });
     } catch (err) {
       return res.status(500).json({
