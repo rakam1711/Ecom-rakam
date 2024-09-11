@@ -8,7 +8,7 @@ const loginUser = async (req, res) => {
       number: req.body.number,
     };
     body.otp = await getOTP();
-    body.time = new Date(Date.now() + 60000 * 5).getTime();
+    body.time = new Date(Date.now() + 60000 * 2).getTime();
     const user = await otpSchema.findOne({ number: body.number });
     if (!user) {
       let newUser = new otpSchema({

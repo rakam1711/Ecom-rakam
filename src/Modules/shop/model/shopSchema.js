@@ -33,6 +33,7 @@ const shopSchema = new mongoose.Schema(
     logo: { type: String },
     rating: { type: Number, default: 0 },
     numberOfRatings: { type: Number, default: 0 },
+    isPopular: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

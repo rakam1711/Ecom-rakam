@@ -8,16 +8,16 @@ module.exports = {
             method: "POST",
             url: "https://api.msg91.com/api/v5/flow/",
             headers: {
-                authkey: "124283AhNChXVL584110faa",
-                // authkey: "124283AhNChXVL584110fa", // rignt API key
+                authkey: "372078AVkzLEKti61I61e7c540F1",
+                // authkey: "372078AVkzLEKti61I61e7c540P1", // rignt API key
                 "content-type": "application/JSON",
                 Cookie: "PHPSESSID=p6sigj223tdkhtfnq7l41tplh3",
             },
             data: {
-                flow_id: "62333edd43408375e71a6f84",
-                sender: "RGHTPS",
+                flow_id: "61e80b152189eb79e85bb0f2",
+                sender: "BGGIES",
                 mobiles: "91" + number,
-                otp: otp,
+                var: otp,
             },
         };
         console.log(number, otp);
