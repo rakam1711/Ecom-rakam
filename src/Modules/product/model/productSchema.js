@@ -7,14 +7,17 @@ const productSchema = new mongoose.Schema(
     description: { type: String, maxlength: 1000 },
     brand: { type: String },
     category: { type: mongoose.Schema.Types.ObjectId, ref: "category" },
+    subCategory: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "subCategory",
+      },
+    ],
     price: { type: Number, required: true, min: 0 },
     stock: { type: Number, required: true, min: 0 },
     images: [],
     productShipingDetails: {
-      weight: { type: Number, default: 0 },
-      length: { type: Number, default: 0 },
-      width: { type: Number, default: 0 },
-      height: { type: Number, default: 0 },
+      type: Array,
     },
     tag: { type: mongoose.Schema.Types.ObjectId, ref: "Tag" },
     minOrderQnt: { type: Number, default: 1 },
@@ -31,12 +34,15 @@ const productSchema = new mongoose.Schema(
       default: "None",
     },
     varient: { type: mongoose.Schema.Types.ObjectId, ref: "Varientt" },
+    subVarient: { type: mongoose.Schema.Types.ObjectId, ref: "subVarient" },
+
     deliveryTimeline: { type: String, default: "pickup up after 2 hr" },
     deliveryInstruction: { type: String, default: "be cautious from dogs" },
 
     rating: { type: Number, default: 0 },
     numRatings: { type: Number, default: 0 },
     isProduct: { type: Boolean, default: true },
+    colorCode: { type: String },
   },
   {
     timestamps: true,
@@ -47,3 +53,8 @@ const productSchema = new mongoose.Schema(
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
+
+// weight: { type: Number, default: 0 },
+// length: { type: Number, default: 0 },
+// width: { type: Number, default: 0 },
+// height: { type: Number, default: 0 },

@@ -5,6 +5,6 @@ const subVarientSchema = new mongoose.Schema({
   varient: { type: mongoose.Schema.Types.ObjectId, ref: "Varientt" },
 });
 
-const subVarient = mongoose.model("Varient", subVarientSchema);
+const subVarient = mongoose.model("subVarient", subVarientSchema);
 
 module.exports = subVarient;
