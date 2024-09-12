@@ -11,6 +11,7 @@ const updateAddress = require("../Modules/address/controller/updateAddressContro
 const deleteAddress = require("../Modules/address/controller/deleteAddressController.js");
 const listAddress = require("../Modules/address/controller/listAddressController.js");
 const popularShop = require("../Modules/shop/controller/popularShop.js");
+const listBanner = require("../Modules/banner/controller/listBannerController.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -24,5 +25,7 @@ userroutes.post("/updateaddress", authenticateUser, updateAddress);
 userroutes.post("/deleteaddress", authenticateUser, deleteAddress);
 userroutes.post("/listaddress", authenticateUser, listAddress);
 userroutes.get("/popularshop", popularShop);
+
+userroutes.post("/listbanner", listBanner);
 
 module.exports = userroutes;
