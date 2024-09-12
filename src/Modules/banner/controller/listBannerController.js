@@ -4,12 +4,23 @@ const listBanner = async (req, res) => {
   try {
     let limit = req.body.limit || 10;
     let page = req.body.page || 1;
-    const data = await bannerSchema
-      .find()
-      .skip((page - 1) * limit)
-      .limit(limit);
+
+    if (req.body.categoryId) {
+      data = await bannerSchema
+        .find({ categoryId: req.body.categoryId })
+        .skip((page - 1) * limit)
+        .limit(limit);
+    } else {
+      data = await bannerSchema
+        .find({
+          $or: [{ home: "Home1" }, { home: "Home2" }, { home: "Home3" }],
+        })
+        .skip((page - 1) * limit)
+        .limit(limit);
+    }
     if (!data)
       return res.status(200).json({ status: true, message: "No data found" });
+
     return res.status(200).json({
       status: true,
       message: "successfully listing",
