@@ -12,26 +12,33 @@ const createBannerController = async (req, res, next) => {
         data: {},
       });
     }
+
     try {
-      if (req.files) {
-        let images = req.files.map((file) => BASE_URL + file.path);
-        const { home, status, categoryId } = req.body;
+      const categoryId = req.body.categoryId;
+      const home = req.body.home;
 
-        if (categoryId) {
-          const data = new bannerSchema({
-            image: images,
-            home: home,
-            status: status,
-            categoryId: categoryId,
-          });
-        }
-
-        await data.save();
+      if (!req.files || req.files.length !== 3) {
+        return res.status(400).json({
+          statusText: "BAD REQUEST",
+          status: 400,
+          message: "You must upload exactly 3 images.",
+          data: {},
+        });
       }
+
+      let images = req.files.map((file) => BASE_URL + file.path);
+      console.log(home);
+      const data = new bannerSchema({
+        image: images,
+        home: home || undefined,
+        categoryId: categoryId || undefined,
+      });
+
+      await data.save();
 
       return res.status(201).json({
         status: true,
-        message: "banner successfully craeted",
+        message: "Banner successfully created",
       });
     } catch (err) {
       return res.status(500).json({

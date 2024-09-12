@@ -1,6 +1,7 @@
 const Product = require("../model/productSchema.js");
 const upload = require("../../../Middleware/multer/multipleImageUpload.js");
 const BASE_URL = process.env.BASE_URL;
+const shop = require("../../shop/model/shopSchema.js");
 
 const updateProduct = async (req, res, next) => {
   upload(req, res, async (err) => {
@@ -12,6 +13,7 @@ const updateProduct = async (req, res, next) => {
         data: {},
       });
     }
+
     try {
       const id = req.body.id;
       const product = await Product.findById(id);
@@ -22,14 +24,31 @@ const updateProduct = async (req, res, next) => {
         });
       }
 
+      const shop1 = await shop.findOne({ owner: req.vendorId });
+
       const mustData = {
-        shop: req.body.shopId,
+        shop: shop1 ? shop1._id : product.shop,
+        vendor: req.vendorId || product.vendor,
         name: req.body.name,
         description: req.body.description,
         brand: req.body.brand,
         category: req.body.categoryId,
+        subCategory: req.body.subCategoryId,
         price: req.body.price,
         stock: req.body.stock,
+        productShipingDetails: req.body.productShipingDetails,
+        tag: req.body.tagId,
+        minOrderQnt: req.body.minOrderQnt,
+        maxOrderQnt: req.body.maxOrderQnt,
+        specialLabel: req.body.specialLabel,
+        availableForSubscription: req.body.availableForSubscription,
+        frequency: req.body.frequency,
+        varient: req.body.varientId,
+        subVarient: req.body.subVarient,
+        deliveryTimeline: req.body.deliveryTimeline,
+        deliveryInstruction: req.body.deliveryInstruction,
+        isProduct: req.body.isProduct,
+        colorCode: req.body.colorCode,
         rating: req.body.rating,
         numRatings: req.body.numRatings,
       };
@@ -49,7 +68,6 @@ const updateProduct = async (req, res, next) => {
         req.files.length > 0
       ) {
         const imageIndex = parseInt(req.body.imageIndex, 10);
-
         if (imageIndex >= 0 && imageIndex < product.images.length) {
           product.images[imageIndex] = BASE_URL + req.files[0].path;
         } else {
@@ -58,6 +76,12 @@ const updateProduct = async (req, res, next) => {
             message: "Invalid image index.",
           });
         }
+      }
+
+      if (mustData.productShipingDetails) {
+        product.productShipingDetails = JSON.parse(
+          mustData.productShipingDetails
+        );
       }
 
       await product.save();
