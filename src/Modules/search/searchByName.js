@@ -6,7 +6,7 @@ const aggregatedSearch = async (req, res, next) => {
     const results = await Product.aggregate([
       {
         $lookup: {
-          from: "subcategories",
+          from: "subCategory",
           localField: "subcategoryId",
           foreignField: "_id",
           as: "subcategory",

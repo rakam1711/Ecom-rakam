@@ -2,10 +2,7 @@ const mongoose = require("mongoose");
 
 const bannerModel = new mongoose.Schema(
   {
-    image: {
-      type: String,
-      default: " ",
-    },
+    image: [],
     home: {
       type: String,
     },

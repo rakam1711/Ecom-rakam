@@ -1,5 +1,6 @@
 const bannerSchema = require("../model/bannerSchema.js");
 const BASE_URL = process.env.BASE_URL;
+const upload = require("../../../Middleware/multer/multipleImageUpload.js");
 
 const createBannerController = async (req, res, next) => {
   upload(req, res, async (err) => {
@@ -12,17 +13,22 @@ const createBannerController = async (req, res, next) => {
       });
     }
     try {
-      const { home, status, categoryId } = req.body;
-      const image = req.file ? req.file.path : "";
+      if (req.files) {
+        let images = req.files.map((file) => BASE_URL + file.path);
+        const { home, status, categoryId } = req.body;
 
-      const data = new bannerSchema({
-        image: BASE_URL + image,
-        home: home,
-        status: status,
-        categoryId: categoryId,
-      });
+        if (categoryId) {
+          const data = new bannerSchema({
+            image: images,
+            home: home,
+            status: status,
+            categoryId: categoryId,
+          });
+        }
 
-      await data.save();
+        await data.save();
+      }
+
       return res.status(201).json({
         status: true,
         message: "banner successfully craeted",
