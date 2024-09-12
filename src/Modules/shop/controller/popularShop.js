@@ -10,7 +10,6 @@ const popularShop = async (req, res) => {
         const maxpage = Math.ceil(count) || 0;
         return res.status(200).json({ status: true, result: data, maxPage: maxpage })
 
-
     } catch (err) {
         return res.status(400).json({ status: false, message: err.message, location: "src/Modules/shop/controller/popularShop" })
     }
