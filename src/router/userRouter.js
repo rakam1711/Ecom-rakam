@@ -11,6 +11,7 @@ const updateAddress = require("../Modules/address/controller/updateAddressContro
 const deleteAddress = require("../Modules/address/controller/deleteAddressController.js");
 const listAddress = require("../Modules/address/controller/listAddressController.js");
 const popularShop = require("../Modules/shop/controller/popularShop.js");
+const search = require("../Modules/search/controller/searchdynamyc.js");
 const shopbyCategoryid = require("../Modules/shop/controller/shopbyCategoryid.js");
 const listBanner = require("../Modules/banner/controller/listBannerController.js");
 
@@ -27,6 +28,7 @@ userroutes.post("/deleteaddress", authenticateUser, deleteAddress);
 userroutes.post("/listaddress", authenticateUser, listAddress);
 userroutes.get("/popularshop", popularShop);
 userroutes.get("/shopbyCategoryid", shopbyCategoryid);
+userroutes.get("/search", search);
 
 userroutes.post("/listbanner", listBanner);
 
