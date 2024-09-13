@@ -15,8 +15,8 @@ const updateProduct = async (req, res, next) => {
     }
 
     try {
-      const id = req.body.id;
-      const product = await Product.findById(id);
+      const productId = req.body.productId;
+      const product = await Product.findById(productId);
       if (!product) {
         return res.status(404).json({
           status: false,

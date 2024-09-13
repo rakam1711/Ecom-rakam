@@ -13,6 +13,8 @@ const deleteSubCategory = require("../Modules/subCategory/controller/deleteSubCa
 const listSubCategory = require("../Modules/subCategory/controller/listSubCategory.js");
 const updateSubCategory = require("../Modules/subCategory/controller/updateSubCategory.js");
 const createBannerController = require("../Modules/banner/controller/createBannerController.js");
+const createSubVarient = require("../Modules/subVarient/controller/createSubVarient.js");
+const listSubVarient = require("../Modules/subVarient/controller/listSubVarient.js");
 
 adminroutes.post("/adminlogin", loginAdmin);
 
@@ -28,5 +30,7 @@ adminroutes.post("/listsubcategory", listSubCategory);
 adminroutes.post("/updatesubcategory", authenticateAdmin, updateSubCategory);
 
 adminroutes.post("/createbanner", authenticateAdmin, createBannerController);
+adminroutes.post("/createsubvarient", authenticateAdmin, createSubVarient);
+adminroutes.post("/listsubvarient", authenticateAdmin, listSubVarient);
 
 module.exports = adminroutes;

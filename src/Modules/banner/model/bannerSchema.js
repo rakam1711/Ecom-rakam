@@ -5,6 +5,7 @@ const bannerModel = new mongoose.Schema(
     image: [],
     home: {
       type: String,
+      enum: ["Home1", "Home2", "Home3"],
     },
 
     status: {

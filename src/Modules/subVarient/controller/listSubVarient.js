@@ -2,12 +2,19 @@ const subVarient = require("../model/subVarientSchema.js");
 
 const listSubVarient = async (req, res, next) => {
   try {
-    const id = req.body.id;
-    const data = await subVarient.find({ varient: id });
+    const varientId = req.body.varientId;
+    const vendorId = req.vendorId;
+    const sexa = { role: "ADMIN", varient: varientId };
+    if (vendorId) {
+      sexa.createdBy = vendorId;
+    }
+
+    const data = await subVarient.find(sexa);
+
     return res.status(200).send({
       status: true,
       message: "successfully listed",
-      data: data,
+      data,
     });
   } catch (err) {
     return res.status(500).send({
