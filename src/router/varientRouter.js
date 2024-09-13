@@ -6,6 +6,7 @@ const createVarient = require("../Modules/varient/controller/createVarientContro
 const deleteVarient = require("../Modules/varient/controller/deleteVarientController");
 const listVarient = require("../Modules/varient/controller/listVarientController");
 const updateVarient = require("../Modules/varient/controller/updateVarientController");
+const vendorAuthentication = require("../../src/Middleware/JWT/vendorAuthentication.js");
 
 const varientRoutes = require("express").Router();
 
@@ -14,9 +15,9 @@ varientRoutes.post("/updatevarient", updateVarient);
 varientRoutes.post("/deletevarient", deleteVarient);
 varientRoutes.post("/listvarient", listVarient);
 
-varientRoutes.post("/createsubvarient", createSubVarient);
+varientRoutes.post("/createsubvarient", vendorAuthentication, createSubVarient);
 varientRoutes.post("/updatesubvarient", updateSubVarient);
 varientRoutes.post("/deletesubvarient", deleteSubVarient);
-varientRoutes.post("/listsubvarient", listSubVarient);
+varientRoutes.post("/listsubvarient", vendorAuthentication, listSubVarient);
 
 module.exports = varientRoutes;

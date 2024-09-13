@@ -2,11 +2,14 @@ const subVarient = require("../model/subVarientSchema.js");
 
 const createSubVarient = async (req, res, next) => {
   try {
-    const { name, varientId } = req.body;
+    const { name, varientId, code } = req.body;
     if (!name) throw new Error("sub variet name not provided");
     const data = subVarient({
       name: name,
       varient: varientId,
+      createdBy: req.vendorId || req.adminId,
+      role: req.role,
+      code: code || undefined,
     });
 
     await data.save();
