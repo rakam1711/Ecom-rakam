@@ -4,17 +4,24 @@ const listSubVarient = async (req, res, next) => {
   try {
     const varientId = req.body.varientId;
     const vendorId = req.vendorId;
-    const sexa = { role: "ADMIN", varient: varientId };
+    const pipeline = { varient: varientId };
     if (vendorId) {
-      sexa.createdBy = vendorId;
+      pipeline.role = "ADMIN";
     }
-
-    const data = await subVarient.find(sexa);
+    const data = await subVarient.find(pipeline);
+    let additionalData = [];
+    if (vendorId) {
+      additionalData = await subVarient.find({
+        createdBy: vendorId,
+        varient: varientId,
+      });
+    }
+    const result = [...data, ...additionalData];
 
     return res.status(200).send({
       status: true,
       message: "successfully listed",
-      data,
+      data: result
     });
   } catch (err) {
     return res.status(500).send({
