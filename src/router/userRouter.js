@@ -15,6 +15,8 @@ const search = require("../Modules/search/controller/searchdynamyc.js");
 const shopbyCategoryid = require("../Modules/shop/controller/shopbyCategoryid.js");
 const listBanner = require("../Modules/banner/controller/listBannerController.js");
 const addToCart = require("../Modules/cart/controller/addToCart.js");
+const listCartItems = require("../Modules/cart/controller/listCartItems.js");
+const deleteCartItems = require("../Modules/cart/controller/deleteFromCart.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -34,5 +36,8 @@ userroutes.get("/search", search);
 userroutes.post("/listbanner", listBanner);
 
 userroutes.post("/addtocart", authenticateUser, addToCart);
+userroutes.post("/listcartitems", authenticateUser, listCartItems);
+userroutes.post("/deletecartItems", authenticateUser, deleteCartItems);
+userroutes.post("/updatecartItems", authenticateUser, updateCartItems);
 
 module.exports = userroutes;
