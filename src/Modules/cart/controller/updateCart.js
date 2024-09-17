@@ -1,6 +1,6 @@
 const Cart = require("../model/cartSchema.js");
 
-const listCartItems = async (req, res, next) => {
+const updateCartItems = async (req, res, next) => {
   try {
     const { productId, itemId, varient, subVarient, unit, price, amount } =
       req.body;
@@ -32,16 +32,16 @@ const listCartItems = async (req, res, next) => {
 
     res.status(200).json({
       status: true,
-      message: "successfully cart listed",
+      message: "successfully cart updated",
       updatedCart: updatedCart,
     });
   } catch (err) {
     return res.status(500).json({
       status: false,
       message: err.message,
-      location: "src/modules/cart/controller/deleteCartItem.js",
+      location: "src/modules/cart/controller/updateCartItem.js",
     });
   }
 };
 
-module.exports = listCartItems;
+module.exports = updateCartItems;

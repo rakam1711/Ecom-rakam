@@ -17,6 +17,7 @@ const listBanner = require("../Modules/banner/controller/listBannerController.js
 const addToCart = require("../Modules/cart/controller/addToCart.js");
 const listCartItems = require("../Modules/cart/controller/listCartItems.js");
 const deleteCartItems = require("../Modules/cart/controller/deleteFromCart.js");
+const updateCartItems = require("../Modules/cart/controller/updateCart.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
