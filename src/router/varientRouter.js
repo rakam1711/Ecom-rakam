@@ -10,7 +10,7 @@ const vendorAuthentication = require("../../src/Middleware/JWT/vendorAuthenticat
 
 const varientRoutes = require("express").Router();
 
-varientRoutes.post("/createvarient", createVarient);
+varientRoutes.post("/createvarient", vendorAuthentication, createVarient);
 varientRoutes.post("/updatevarient", updateVarient);
 varientRoutes.post("/deletevarient", deleteVarient);
 varientRoutes.post("/listvarient", listVarient);
