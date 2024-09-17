@@ -6,6 +6,8 @@ const createVarient = async (req, res, next) => {
     if (!name) throw new Error("variet name not provided");
     const data = Varient({
       name: name,
+      createdBy: req.vendorId || req.adminId,
+      role: req.role,
     });
 
     await data.save();
