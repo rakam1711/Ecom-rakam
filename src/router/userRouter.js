@@ -17,12 +17,14 @@ const addToCart = require("../Modules/cart/controller/addToCart.js");
 const listCartItems = require("../Modules/cart/controller/listCartItems.js");
 const deleteCartItems = require("../Modules/cart/controller/deleteFromCart.js");
 const updateCartItems = require("../Modules/cart/controller/updateCart.js");
+const like = require("../Modules/shopLikes/controller/likeController.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
 userroutes.post("/register", register);
 
-userroutes.post("/followunfollow", authenticateUser, follow);
+userroutes.post("/followUnfollow", authenticateUser, follow);
+userroutes.post("/likeUnlike", authenticateUser, like);
 
 userroutes.post("/addaddress", authenticateUser, addAddress);
 userroutes.post("/updateaddress", authenticateUser, updateAddress);

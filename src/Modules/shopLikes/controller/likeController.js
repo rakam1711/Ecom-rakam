@@ -1,40 +1,40 @@
-const followerSchema = require("../model/followerSchema.js");
+const likeSchema = require("../model/likeSchema.js");
 
-const follow = async (req, res, next) => {
+const like = async (req, res, next) => {
   try {
     if (!req.userId) throw new Error("userId is not provided ");
     if (!req.body.shopId) throw new Error("shopId is not provided in req.body");
-    const result = await followerSchema.findOne({
+    const result = await likeSchema.findOne({
       userId: req.userId,
       shopId: req.body.shopId,
     });
     if (!result) {
-      const data = await followerSchema({
+      const data = await likeSchema({
         userId: req.userId,
         shopId: req.body.shopId,
       });
       await data.save();
       return res.status(200).json({
         status: true,
-        message: "follow successfully",
+        message: "like successfully",
       });
     } else {
-      await followerSchema.findOneAndDelete({
+      await likeSchema.findOneAndDelete({
         userId: req.userId,
         shopId: req.body.shopId,
       });
       return res.status(200).json({
         status: true,
-        message: "unfollow Successfully",
+        message: "unlike Successfully",
       });
     }
   } catch (err) {
     return res.status(500).json({
       status: false,
       message: err.message,
-      location: "src/Modules/shopFollowers/controller/followController",
+      location: "src/Modules/shopLike/controller/likeController",
     });
   }
 };
 
-module.exports = follow;
+module.exports = like;
