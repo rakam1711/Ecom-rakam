@@ -22,6 +22,8 @@ const shopSchema = new mongoose.Schema(
     website: { type: String },
     service: { type: mongoose.Schema.Types.ObjectId, ref: "service" },
     categories: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+    followers: { type: mongoose.Schema.Types.ObjectId, ref: "Follower" },
+
     subCategories: [
       {
         type: mongoose.Schema.Types.ObjectId,
