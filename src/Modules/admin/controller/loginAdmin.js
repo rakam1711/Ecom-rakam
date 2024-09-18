@@ -3,7 +3,6 @@ const Admin = require("../model/adminSchema.js");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWTSECRET;
-const jwtMiddleware = require("../../../Middleware/JWT/userAuthentication.js");
 const { encrypt } = require("../../../Middleware/encryption.js");
 
 const loginAdmin = async (req, res, next) => {
@@ -18,7 +17,7 @@ const loginAdmin = async (req, res, next) => {
 
     if (!match) throw new ApiError("Invalid password", 403);
 
-    const newToken = jwt.sign({ id: admin._id, role: "ADMIN" }, jwtSecret);
+    const newToken = jwt.sign({ id: admin._id, role: admin.role }, jwtSecret);
     const token = await encrypt(newToken);
     return res.status(200).json({
       status: true,
