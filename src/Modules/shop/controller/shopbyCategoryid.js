@@ -15,7 +15,7 @@ const shopbyCategoryid = async (req, res) => {
         .json({ status: false, message: "Invalid Category ID" });
     }
 
-    const categoryId = new mongoose.Types.ObjectId(catId); // Use 'new' for ObjectId
+    const categoryId = new mongoose.Types.ObjectId(catId);
 
     // Aggregation pipeline to get shops and follower count
     const shopsWithFollowers = await Shop.aggregate([
@@ -67,10 +67,16 @@ const shopbyCategoryid = async (req, res) => {
           followerCount: { $size: "$followers" },
           likeCount: { $size: "$likes" }, // The count of followers
           // The count of followers
+          isFollowedByUser: {
+            $in: [new mongoose.Types.ObjectId(req.userId), "$followers.userId"],
+          },
+          isLikedByUser: {
+            $in: [new mongoose.Types.ObjectId(req.userId), "$likes.userId"],
+          },
         },
       },
     ]);
-
+    console.log("---------", req.userId);
     // Count total number of shops with the given category (for pagination)
     const totalShops = await Shop.countDocuments({ categories: categoryId });
 
