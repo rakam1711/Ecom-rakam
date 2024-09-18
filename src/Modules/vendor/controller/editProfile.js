@@ -19,6 +19,7 @@ const editProfile = async (req, res) => {
         accountNumber: req.body.accountNumber,
         ifscCode: req.body.ifscCode,
         branchName: req.body.branchName,
+        MSME: req.body.msme,
       };
       for (let key in mustdata) {
         if (mustdata[key] == undefined || mustdata[key] == "") {

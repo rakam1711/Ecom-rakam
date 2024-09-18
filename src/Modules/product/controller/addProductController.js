@@ -50,7 +50,7 @@ const addProduct = async (req, res, next) => {
         description: mustData.description,
         brand: mustData.brand,
         category: mustData.category,
-        subCategory: mustData.subCategory,
+        subCategory: JSON.parse(mustData.subCategory),
         price: mustData.price,
         stock: mustData.stock,
         images: mustData.images,

@@ -7,12 +7,7 @@ const productSchema = new mongoose.Schema(
     description: { type: String, maxlength: 1000 },
     brand: { type: String },
     category: { type: mongoose.Schema.Types.ObjectId, ref: "category" },
-    subCategory: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "subCategory",
-      },
-    ],
+    subCategory: [],
     price: { type: Number, required: true, min: 0 },
     stock: { type: Number, required: true, min: 0 },
     images: [],

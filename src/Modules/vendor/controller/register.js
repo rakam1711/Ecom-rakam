@@ -24,6 +24,7 @@ const register = async (req, res) => {
       const optionalDataa = {
         numberAlternate: req.body.numberAlternate,
         gstORpan: req.body.gstORpan,
+        MSME:req.body.msme
       };
 
       const isUser = await vendorModel.findOne({
@@ -42,6 +43,7 @@ const register = async (req, res) => {
         ownerName: dataa.ownerName,
         email: dataa.email,
         numberAlternate: optionalDataa.numberAlternate,
+        MSME: optionalDataa.MSME,
         number: dataa.number,
         gstORpan: optionalDataa.gstORpan,
         password: hashPassword,

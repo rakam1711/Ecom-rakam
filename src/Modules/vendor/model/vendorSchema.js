@@ -36,6 +36,7 @@ const vendorSchema = new mongoose.Schema(
     accountNumber: { type: String, default: " " },
     ifscCode: { type: String, default: " " },
     branchName: { type: String, default: " " },
+    MSME: { type: String, default: " " },
     service: {
       type: mongoose.Schema.Types.ObjectId,
       require: true,
