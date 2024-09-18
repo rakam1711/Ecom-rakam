@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema(
     productShipingDetails: {
       type: Array,
     },
-    tag: { type: mongoose.Schema.Types.ObjectId, ref: "Tag" },
+    tag: [],
     minOrderQnt: { type: Number, default: 1 },
     maxOrderQnt: { type: Number, default: 5 },
     specialLabel: {
@@ -33,7 +33,6 @@ const productSchema = new mongoose.Schema(
       enum: ["Daily", "Alternative", "Weekly", "Monthly", "None"],
       default: "None",
     },
-    varient: { type: mongoose.Schema.Types.ObjectId, ref: "Varientt" },
     subVarient: { type: mongoose.Schema.Types.ObjectId, ref: "subVarient" },
 
     deliveryTimeline: { type: String, default: "pickup up after 2 hr" },
