@@ -23,8 +23,7 @@ userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
 userroutes.post("/register", register);
 
-userroutes.post("/follow", authenticateUser, follow);
-userroutes.post("/unfollow", authenticateUser, unfollow);
+userroutes.post("/followunfollow", authenticateUser, follow);
 
 userroutes.post("/addaddress", authenticateUser, addAddress);
 userroutes.post("/updateaddress", authenticateUser, updateAddress);
