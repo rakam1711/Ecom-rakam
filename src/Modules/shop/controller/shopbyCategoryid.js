@@ -7,7 +7,7 @@ const shopbyCategoryid = async (req, res) => {
         const skip = (page - 1) * limit;
         const catId = req.body.Categoryid;
         const count = await Shop.countDocuments({ categories: catId });
-        const result = await Shop.find({ categories: catId }).skip(skip).limit(limit);
+        const result = (await Shop.find({ categories: catId }).skip(skip).limit(limit));
         const pagination = {
             maxCount: Math.ceil(count),
             page: page,

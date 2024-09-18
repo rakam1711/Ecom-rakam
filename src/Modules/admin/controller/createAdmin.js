@@ -8,6 +8,7 @@ const createAdmin = async (req, res, next) => {
       email: req.body.email,
       name: req.body.name,
       password: req.body.password,
+      role:req.body.role
     };
     for (let key in mustData) {
       if (mustData[key] == undefined || mustData[key] == "") {
@@ -22,6 +23,7 @@ const createAdmin = async (req, res, next) => {
       email: mustData.email,
       name: mustData.name,
       password: hashedPassword,
+      role:mustData.role
     });
 
     await admin.save();

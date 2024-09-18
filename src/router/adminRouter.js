@@ -2,6 +2,7 @@ const adminroutes = require("express").Router();
 
 const authenticateAdmin = require("../Middleware/JWT/adminAuthentication.js");
 
+const createAdmin = require("../Modules/admin/controller/createAdmin.js");
 const loginAdmin = require("../Modules/admin/controller/loginAdmin");
 const createCategory = require("../Modules/category/controller/createCategory.js");
 const getAllCategory = require("../Modules/category/controller/getAllCategory.js");
@@ -16,6 +17,7 @@ const createBannerController = require("../Modules/banner/controller/createBanne
 const createSubVarient = require("../Modules/subVarient/controller/createSubVarient.js");
 const listSubVarient = require("../Modules/subVarient/controller/listSubVarient.js");
 
+adminroutes.post("/createadmin", authenticateAdmin, createAdmin);
 adminroutes.post("/adminlogin", loginAdmin);
 
 adminroutes.post("/createcategory", authenticateAdmin, createCategory);
