@@ -37,9 +37,9 @@ const shopbyCategoryid = async (req, res) => {
       },
       {
         $lookup: {
-          from: "likes", // Use actual collection name of Follower
+          from: "likes", // Use actual collection name of Likes
           localField: "_id", // Match by shopId in the Shop collection
-          foreignField: "shopId", // Match with the shopId in the Follower collection
+          foreignField: "shopId", // Match with the shopId in the Likes collection
           as: "likes", // Name of the joined field
         },
       },
@@ -65,8 +65,8 @@ const shopbyCategoryid = async (req, res) => {
           createdAt: 1,
           updatedAt: 1,
           followerCount: { $size: "$followers" },
-          likeCount: { $size: "$likes" }, // The count of followers
-          // The count of followers
+          likeCount: { $size: "$likes" },
+
         },
       },
     ]);
