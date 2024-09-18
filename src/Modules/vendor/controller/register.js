@@ -17,11 +17,11 @@ const register = async (req, res) => {
         ownerName: req.body.ownerName,
         number: req.body.number,
         password: req.body.password,
-        email: req.body.email,
-        image: req.file ? req.file.path : undefined,
         service: req.body.serviceId,
       };
       const optionalDataa = {
+        email: req.body.email,
+        image: req.file ? req.file.path : undefined,
         numberAlternate: req.body.numberAlternate,
         gstORpan: req.body.gstORpan,
         MSME:req.body.msme
