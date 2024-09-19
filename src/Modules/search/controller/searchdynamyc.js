@@ -1,10 +1,11 @@
 const Product = require("../../product/model/productSchema");
-
+const mongoose = require("mongoose");
 const searchdynamic = async (req, res) => {
     try {
         const item = req.body.searchItem;
-        const tags = ["male", "female",""]
-        const pipeline = await getPipeline(item);
+        const tags = [];
+        const category = ["66d95b1b9632708c0757b6c2"];
+        const pipeline = await getPipeline(item, category, tags);
 
         // Aggregate the products using the pipeline
         const products = await Product.aggregate(pipeline);
@@ -25,17 +26,17 @@ const searchdynamic = async (req, res) => {
                 index === self.findIndex((s) => s._id.toString() === shop._id.toString())
         );
 
-        return res.status(200).json({ 
-            status: true, 
-            products, 
-            categories: uniqueCategories, 
-            shops: uniqueShops 
+        return res.status(200).json({
+            status: true,
+            products,
+            categories: uniqueCategories,
+            shops: uniqueShops
         });
     } catch (e) {
-        return res.status(400).json({ 
-            status: false, 
-            message: e.message, 
-            location: "src/Modules/search/controller/searchdynamic" 
+        return res.status(400).json({
+            status: false,
+            message: e.message,
+            location: "src/Modules/search/controller/searchdynamic"
         });
     }
 };
@@ -44,8 +45,44 @@ const searchdynamic = async (req, res) => {
 
 module.exports = searchdynamic
 
-const getPipeline = async (item) => {
+const getPipeline = async (item, category, tags) => {
     try {
+        // Create a base match object
+        let matchConditions = [];
+
+        // If search item is provided, add search-related match conditions
+        if (item) {
+            matchConditions.push({
+                $or: [
+                    { name: { $regex: item, $options: "i" } }, // Case-insensitive search on product name
+                    { description: { $regex: item, $options: "i" } }, // Case-insensitive search on product description
+                    { "categoryData.name": { $regex: item, $options: "i" } }, // Search in category name
+                    { "subCategoryData.name": { $regex: item, $options: "i" } }, // Search in subcategory name
+                    { "shopData.name": { $regex: item, $options: "i" } } // Search in shop name
+                ]
+            });
+        }
+
+        // If category is provided, add category match condition
+        if (category && category.length > 0) {
+            matchConditions.push({
+                category: { $in: category.map(id => new mongoose.Types.ObjectId(id)) }
+            });
+        }
+
+        // If tags are provided, add tag match condition
+        if (tags && tags.length > 0) {
+            matchConditions.push({
+                tags: { $in: tags.map(id => new mongoose.Types.ObjectId(id)) }
+            });
+        }
+
+        // Final condition: if no search item, category, or tags are provided, return all products
+        if (matchConditions.length === 0) {
+            matchConditions.push({}); // If no filters are applied, return all products
+        }
+
+        // Combine all match conditions
         const pipeline = [
             // Lookup for categories in product pipeline
             {
@@ -77,13 +114,7 @@ const getPipeline = async (item) => {
             // Match to search in name, description, categories, and subcategories
             {
                 $match: {
-                    $or: [
-                        { name: { $regex: item, $options: "i" } }, // Case-insensitive search on product name
-                        { description: { $regex: item, $options: "i" } }, // Case-insensitive search on product description
-                        { "categoryData.name": { $regex: item, $options: "i" } }, // Search in category name
-                        { "subCategoryData.name": { $regex: item, $options: "i" } }, // Search in subcategory name
-                        { "shopData.name": { $regex: item, $options: "i" } } // Search in shop name
-                    ]
+                    $and: matchConditions
                 }
             },
             // Project the necessary fields
@@ -111,4 +142,5 @@ const getPipeline = async (item) => {
         throw e;
     }
 };
+
 
