@@ -3,6 +3,7 @@ const Product = require("../../product/model/productSchema");
 const searchdynamic = async (req, res) => {
     try {
         const item = req.body.searchItem;
+        const tags = ["male", "female",""]
         const pipeline = await getPipeline(item);
 
         // Aggregate the products using the pipeline
