@@ -37,7 +37,10 @@ const shopSchema = new mongoose.Schema(
     numberOfRatings: { type: Number, default: 0 },
     isPopular: { type: Boolean, default: false },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    strict: false
+  }
 );
 
 const Shop = mongoose.model("shop", shopSchema);
