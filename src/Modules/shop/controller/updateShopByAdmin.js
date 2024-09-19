@@ -45,6 +45,7 @@ const updateShopByAdmin = async (req, res, next) => {
         postalCode: req.body.postalCode,
         phone: req.body.phone,
         email: req.body.email,
+        isActive: req.body.isActive,
         logo: req.file ? BASE_URL + req.file.path : undefined,
       };
 
