@@ -5,12 +5,13 @@ const myShop = async (req, res, next) => {
     let page = req.body.page || 1;
     let shop = "";
     if (req.role == "VENDOR") {
-      shop = await Shop.find({ owner: req.vendorId, isActive: true })
+      shop = await Shop.find({ owner: req.vendorId })
         .skip((page - 1) * limit)
         .limit(limit)
         .populate("categories", { name: 1 })
         .populate("subCategories", { name: 1 });
     }
+    if (shop.length > 0) { if (!shop.isActive) throw new Error("Your verification is pending. Please contact to 9311620027"); }
     return res.status(200).json({
       message: "data listed successfully",
       status: true,

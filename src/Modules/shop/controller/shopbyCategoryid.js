@@ -20,7 +20,7 @@ const shopbyCategoryid = async (req, res) => {
     // Aggregation pipeline to get shops and follower count
     const shopsWithFollowers = await Shop.aggregate([
       // Match shops by category ID
-      { $match: { categories: categoryId } },
+      { $match: { categories: categoryId, isActive: true } },
 
       // Pagination: Skip and limit
       { $skip: skip },

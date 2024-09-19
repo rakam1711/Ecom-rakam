@@ -6,7 +6,7 @@ const shopSchema = new mongoose.Schema(
     shopId: { type: String, default: uuidv4 },
     name: { type: String, required: true },
     description: { type: String },
-    isActive: { type: Boolean, default: true },
+    isActive: { type: Boolean, default: false },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "vendorModel",
