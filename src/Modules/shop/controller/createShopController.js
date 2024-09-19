@@ -17,7 +17,6 @@ const createShop = async (req, res, next) => {
         state: req.body.state,
         postalCode: req.body.postalCode,
         phone: req.body.phone,
-        email: req.body.email,
       };
       for (let key in mustData) {
         if (mustData[key] == undefined || mustData[key] == "") {
@@ -25,6 +24,7 @@ const createShop = async (req, res, next) => {
         }
       }
       mustData.website = req.body.website;
+      mustData.email = req.body.email;
       if (req.file) {
         mustData.image = BASE_URL + req.file.path;
       }
