@@ -19,10 +19,7 @@ const follow = async (req, res, next) => {
         message: "follow successfully",
       });
     } else {
-      await followerSchema.findOneAndDelete({
-        userId: req.userId,
-        shopId: req.body.shopId,
-      });
+      await followerSchema.findByIdAndDelete({ _id: result._id });
       return res.status(200).json({
         status: true,
         message: "unfollow Successfully",
