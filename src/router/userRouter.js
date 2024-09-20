@@ -32,7 +32,7 @@ userroutes.post("/deleteaddress", authenticateUser, deleteAddress);
 userroutes.post("/listaddress", authenticateUser, listAddress);
 userroutes.get("/popularshop", popularShop);
 userroutes.post("/shopbyCategoryid", authenticateUser, shopbyCategoryid);
-userroutes.get("/search", search);
+userroutes.post("/search", search);
 
 userroutes.post("/listbanner", listBanner);
 

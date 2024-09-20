@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const searchdynamic = async (req, res) => {
     try {
         const item = req.body.searchItem;
-        const tags = [];
-        const category = ["66d95b1b9632708c0757b6c2"];
+        const tags = req.body.tags;
+        const category = req.body.catrgories;
         const pipeline = await getPipeline(item, category, tags);
 
         // Aggregate the products using the pipeline
