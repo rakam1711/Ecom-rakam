@@ -1,11 +1,17 @@
 const Product = require("../../product/model/productSchema");
 const mongoose = require("mongoose");
+
 const searchdynamic = async (req, res) => {
     try {
         const item = req.body.searchItem;
         const tags = req.body.tags;
-        const category = req.body.catrgories;
-        const pipeline = await getPipeline(item, category, tags);
+        const category = req.body.categories;
+        const service = req.body.service;  // Service from the request body
+        const shop = req.body.shopId;  // shop from the request body
+        const priceRange = req.body.priceRange; // 200-2000 or 3000 - 5000
+        const priceLowtoHigh = req.body.priceLowtoHigh; // "HighToLow" or "LowToHigh"
+
+        const pipeline = await getPipeline(item, category, tags, service, shop, priceRange, priceLowtoHigh); // Pass service to the pipeline
 
         // Aggregate the products using the pipeline
         const products = await Product.aggregate(pipeline);
@@ -41,11 +47,10 @@ const searchdynamic = async (req, res) => {
     }
 };
 
+module.exports = searchdynamic;
 
 
-module.exports = searchdynamic
-
-const getPipeline = async (item, category, tags) => {
+const getPipeline = async (item, category, tags, service, shop, priceRange, priceLowtoHigh) => {
     try {
         // Create a base match object
         let matchConditions = [];
@@ -70,6 +75,11 @@ const getPipeline = async (item, category, tags) => {
             });
         }
 
+        if (shop) {
+            matchConditions.push({
+                shop: shop
+            });
+        }
         // If tags are provided, add tag match condition
         if (tags && tags.length > 0) {
             matchConditions.push({
@@ -77,9 +87,11 @@ const getPipeline = async (item, category, tags) => {
             });
         }
 
-        // Final condition: if no search item, category, or tags are provided, return all products
-        if (matchConditions.length === 0) {
-            matchConditions.push({}); // If no filters are applied, return all products
+        if (priceRange && priceRange.length === 2) {
+            const [minPrice, maxPrice] = priceRange;
+            matchConditions.push({
+                price: { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) }
+            });
         }
 
         // Combine all match conditions
@@ -111,10 +123,25 @@ const getPipeline = async (item, category, tags) => {
                     as: "shopData"
                 }
             },
+            // Lookup for service related to categories
+            {
+                $lookup: {
+                    from: "services", // Join the Service collection
+                    localField: "categoryData.service",
+                    foreignField: "_id",
+                    as: "serviceData"
+                }
+            },
+            // If service is provided, match only products where the category belongs to the given service
+            ...(service ? [{
+                $match: {
+                    "serviceData._id": new mongoose.Types.ObjectId(service)
+                }
+            }] : []),
             // Match to search in name, description, categories, and subcategories
             {
                 $match: {
-                    $and: matchConditions
+                    $and: matchConditions.length > 0 ? matchConditions : [{}]
                 }
             },
             // Project the necessary fields
@@ -137,10 +164,18 @@ const getPipeline = async (item, category, tags) => {
             }
         ];
 
+        if (priceLowtoHigh) {
+            const sortOrder = priceLowtoHigh === "LowToHigh" ? 1 : -1;
+            pipeline.push({
+                $sort: { price: sortOrder }
+            });
+        }
+
         return pipeline;
     } catch (e) {
         throw e;
     }
 };
+
 
 
