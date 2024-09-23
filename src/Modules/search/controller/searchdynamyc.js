@@ -83,7 +83,7 @@ const getPipeline = async (item, category, tags, service, shop, priceRange, pric
         // If tags are provided, add tag match condition
         if (tags && tags.length > 0) {
             matchConditions.push({
-                tags: { $in: tags.map(id => new mongoose.Types.ObjectId(id)) }
+                tag: { $in: tags.map(id => new mongoose.Types.ObjectId(id)) }
             });
         }
 
@@ -147,19 +147,9 @@ const getPipeline = async (item, category, tags, service, shop, priceRange, pric
             // Project the necessary fields
             {
                 $project: {
-                    name: 1,
-                    description: 1,
-                    categoryData: 1,
-                    subCategoryData: 1,
-                    shopData: 1,
-                    price: 1,
-                    stock: 1,
-                    images: 1,
-                    specialLabel: 1,
-                    availableForSubscription: 1,
-                    deliveryTimeline: 1,
-                    rating: 1,
-                    numRatings: 1
+                    __v: 0,
+                    updatedAt: 0,
+                    createdAt: 0
                 }
             }
         ];
