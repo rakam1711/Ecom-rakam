@@ -19,6 +19,7 @@ const listTag = require("../Modules/tags/controller/listTagController.js");
 const updateTag = require("../Modules/tags/controller/updateTagController.js");
 const deleteTag = require("../Modules/tags/controller/deleteTagController.js");
 const categoryByServiceId = require("../Modules/category/controller/categoryByServiceId.js");
+const myCategory = require("../Modules/category/controller/myCategory.js");
 
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
@@ -40,11 +41,8 @@ vendorRoute.post("/updatetag", authenticateVendor, updateTag);
 vendorRoute.post("/deletetag", authenticateVendor, deleteTag);
 vendorRoute.post("/listtag", listTag);
 
-
+vendorRoute.post("/mycategory", authenticateVendor, myCategory);
 
 vendorRoute.post("/categiryByServiceId", categoryByServiceId);
-
-
-
 
 module.exports = vendorRoute;
