@@ -4,12 +4,12 @@ const Product = require("../../product/model/productSchema.js");
 const listCartItems = async (req, res, next) => {
   try {
     const userId = req.userId;
-    const cart = await Cart.findOne({ userId: userId })
+    const cart = await Cart.findOne({ userId })
       .populate("productId", "name price")
       .populate("items.varient", "name")
       .populate("items.subVarient", "name");
 
-    const product = await Product.find("id");
+    // const product = await Product.find("id");
 
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
