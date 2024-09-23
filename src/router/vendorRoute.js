@@ -43,6 +43,4 @@ vendorRoute.post("/listtag", listTag);
 
 vendorRoute.post("/mycategory", authenticateVendor, myCategory);
 
-vendorRoute.post("/categiryByServiceId", categoryByServiceId);
-
 module.exports = vendorRoute;
