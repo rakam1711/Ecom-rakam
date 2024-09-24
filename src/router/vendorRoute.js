@@ -43,7 +43,7 @@ vendorRoute.post("/updatetag", authenticateVendor, updateTag);
 vendorRoute.post("/deletetag", authenticateVendor, deleteTag);
 vendorRoute.post("/listtag", listTag);
 
-vendorRoute.post("/mycategory", authenticateVendor, myCategory);
+vendorRoute.get("/mycategory", authenticateVendor, myCategory);
 
 vendorRoute.get("/subCategoryByCategoryId", subCategoryByCategoryId);
 
