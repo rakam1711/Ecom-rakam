@@ -32,13 +32,14 @@ const addProduct = async (req, res, next) => {
         specialLabel: req.body.specialLabel,
         availableForSubscription: req.body.availableForSubscription,
         frequency: req.body.frequency,
-        varient: req.body.varientId,
+        varient: JSON.parse(req.body.varientId),
         subVarient: req.body.subVarient,
         deliveryTimeline: req.body.deliveryTimeline,
         deliveryInstruction: req.body.deliveryInstruction,
         isProduct: req.body.isProduct,
         colorCode: req.body.colorCode,
       };
+      console.log(mustData);
       if (req.files) {
         mustData.images = req.files.map((file) => BASE_URL + file.path);
       }

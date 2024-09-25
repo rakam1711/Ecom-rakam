@@ -17,9 +17,13 @@ const createBannerController = require("../Modules/banner/controller/createBanne
 const createSubVarient = require("../Modules/subVarient/controller/createSubVarient.js");
 const listSubVarient = require("../Modules/subVarient/controller/listSubVarient.js");
 const updateShop = require("../Modules/shop/controller/updateShopByAdmin.js");
-
+const listAdmin = require("../Modules/admin/controller/listAdmin.js");
+const updateAdmin = require("../Modules/admin/controller/updateAdmin.js");
 
 adminroutes.post("/createadmin", authenticateAdmin, createAdmin);
+adminroutes.post("/listadmin", authenticateAdmin, listAdmin);
+adminroutes.post("/updateadmin", authenticateAdmin, updateAdmin);
+
 adminroutes.post("/adminlogin", loginAdmin);
 
 adminroutes.post("/createcategory", authenticateAdmin, createCategory);

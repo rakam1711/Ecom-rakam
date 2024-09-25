@@ -19,7 +19,6 @@ const productSchema = new mongoose.Schema(
     maxOrderQnt: { type: Number, default: 5 },
     specialLabel: {
       type: String,
-      enum: ["HotSeller", "Trending", "Latest"],
       default: "Latest",
     },
     availableForSubscription: { type: Boolean, default: true },

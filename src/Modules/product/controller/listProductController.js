@@ -7,6 +7,7 @@ const listProduct = async (req, res, next) => {
     const product = await Product.find()
       .skip((page - 1) * limit)
       .limit(limit);
+    console.log(product);
     return res.status(200).json({
       status: true,
       message: "product listed successfully",
