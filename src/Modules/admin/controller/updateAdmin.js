@@ -21,10 +21,11 @@ const updateAdmin = async (req, res, next) => {
       const hashedPassword = await bcryptjs.hash(mustData.password, salt);
       data.password = hashedPassword;
     }
-    const admin = await Admin.findOne(req.admin._id);
+    const admin = await Admin.findOne(req.adminId);
     if (!admin) throw new ApiError("Invalid credential", 403);
 
-    await Cart.findByIdAndUpdate(req.admin._id, data);
+    await Admin.findByIdAndUpdate(req.adminId, data);
+
     return res.status(200).json({
       status: true,
       message: "Admin updated successfully.",
