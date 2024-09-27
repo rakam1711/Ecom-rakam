@@ -17,14 +17,20 @@ const updateAdmin = async (req, res, next) => {
     }
 
     if (data.password) {
-      const salt = await bcryptjs.genSaltSync(2);
+      const salt = bcryptjs.genSaltSync(2);
       const hashedPassword = await bcryptjs.hash(mustData.password, salt);
       data.password = hashedPassword;
     }
-    const admin = await Admin.findOne(req.adminId);
+    const admin = await Admin.findOne({ _id: req.adminId });
     if (!admin) throw new ApiError("Invalid credential", 403);
 
-    await Admin.findByIdAndUpdate(req.adminId, data);
+    const sex = await Admin.findByIdAndUpdate(
+      {
+        _id: admin._id,
+      },
+      data,
+      { new: true }
+    );
 
     return res.status(200).json({
       status: true,

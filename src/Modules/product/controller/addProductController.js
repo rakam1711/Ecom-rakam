@@ -22,11 +22,11 @@ const addProduct = async (req, res, next) => {
         description: req.body.description,
         brand: req.body.brand,
         category: req.body.categoryId,
-        subCategory: req.body.subCategoryId,
+        subCategory: JSON.parse(req.body.subCategoryId),
         price: req.body.price,
         stock: req.body.stock,
-        productShipingDetails: req.body.productShipingDetails,
-        tag: req.body.tagId,
+        productShipingDetails: JSON.parse(req.body.productShipingDetails),
+        tag: JSON.parse(req.body.tagId),
         minOrderQnt: req.body.minOrderQnt,
         maxOrderQnt: req.body.minOrderQnt,
         specialLabel: req.body.specialLabel,
@@ -39,7 +39,6 @@ const addProduct = async (req, res, next) => {
         isProduct: req.body.isProduct,
         colorCode: req.body.colorCode,
       };
-      console.log(mustData);
       if (req.files) {
         mustData.images = req.files.map((file) => BASE_URL + file.path);
       }

@@ -48,7 +48,7 @@ const authenticateAdmin = async (req, res, next) => {
       );
     }
     // ------------------------------------
-    if (decodedToken.role == "ADMIN" || decodedToken.role=="SUBADMIN") {
+    if (decodedToken.role == "ADMIN" || decodedToken.role == "SUBADMIN") {
       const admin = await Admin.findById(decodedToken?.id);
       if (!admin) {
         res

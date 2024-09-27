@@ -24,12 +24,10 @@ const register = async (req, res) => {
         image: req.file ? req.file.path : undefined,
         numberAlternate: req.body.numberAlternate,
         gstORpan: req.body.gstORpan,
-        MSME:req.body.msme
+        MSME: req.body.msme,
       };
 
-      const isUser = await vendorModel.findOne({
-        $or: [{ number: dataa.number }, { email: dataa.email }],
-      });
+      const isUser = await vendorModel.findOne({ number: dataa.number });
       if (isUser) throw new Error("vendor is already exist", 500);
 
       for (let key in dataa) {
@@ -47,7 +45,7 @@ const register = async (req, res) => {
         number: dataa.number,
         gstORpan: optionalDataa.gstORpan,
         password: hashPassword,
-        image: BASE_URL + dataa.image,
+        image: BASE_URL + optionalDataa.image,
         service: dataa.service,
       });
       const result = await data.save();

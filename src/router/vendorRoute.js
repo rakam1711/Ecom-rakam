@@ -22,6 +22,9 @@ const deleteTag = require("../Modules/tags/controller/deleteTagController.js");
 const subCategoryByCategoryId = require("../Modules/subCategory/controller/listSubCategory.js");
 
 const myCategory = require("../Modules/category/controller/myCategory.js");
+const listSubCategory = require("../Modules/subCategory/controller/listSubCategory.js");
+const categoryByServiceId = require("../Modules/category/controller/categoryByServiceId.js");
+const listProductBySubCategory = require("../Modules/product/controller/listProductBySubCategory.js");
 
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
@@ -32,6 +35,12 @@ vendorRoute.post("/addproduct", authenticateVendor, addProduct);
 vendorRoute.post("/updateproduct", authenticateVendor, updateProduct);
 vendorRoute.post("/deleteproduct", authenticateVendor, deleteProduct);
 vendorRoute.post("/listproduct", authenticateVendor, listProduct);
+
+vendorRoute.post(
+  "/listProductBySubCategory",
+  authenticateVendor,
+  listProductBySubCategory
+);
 
 vendorRoute.post("/createshop", authenticateVendor, createShop);
 vendorRoute.post("/myshop", authenticateVendor, myshop);
@@ -44,6 +53,8 @@ vendorRoute.post("/deletetag", authenticateVendor, deleteTag);
 vendorRoute.post("/listtag", listTag);
 
 vendorRoute.get("/mycategory", authenticateVendor, myCategory);
+vendorRoute.post("/listsubcategory", listSubCategory);
+vendorRoute.post("/categorybyserviceid", categoryByServiceId);
 
 vendorRoute.get("/subCategoryByCategoryId", subCategoryByCategoryId);
 
