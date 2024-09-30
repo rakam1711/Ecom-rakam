@@ -31,7 +31,7 @@ const shopSchema = new mongoose.Schema(
       },
     ],
     gallerySchema: [],
-
+    verifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
     logo: { type: String },
     rating: { type: Number, default: 0 },
     numberOfRatings: { type: Number, default: 0 },
@@ -39,7 +39,7 @@ const shopSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    strict: false
+    strict: false,
   }
 );
 

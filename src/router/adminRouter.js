@@ -19,6 +19,10 @@ const listSubVarient = require("../Modules/subVarient/controller/listSubVarient.
 const updateShop = require("../Modules/shop/controller/updateShopByAdmin.js");
 const listAdmin = require("../Modules/admin/controller/listAdmin.js");
 const updateAdmin = require("../Modules/admin/controller/updateAdmin.js");
+const createBrand = require("../Modules/brand/controller/addBrand.js");
+const deleteBrand = require("../Modules/brand/controller/deleteBrand.js");
+const nonActiveListShop = require("../Modules/shop/controller/listNonActiveShops.js");
+const updateShopByAdmin = require("../Modules/shop/controller/updateShopByAdmin.js");
 
 adminroutes.post("/createadmin", authenticateAdmin, createAdmin);
 adminroutes.post("/listadmin", authenticateAdmin, listAdmin);
@@ -41,5 +45,12 @@ adminroutes.post("/createbanner", authenticateAdmin, createBannerController);
 adminroutes.post("/createsubvarient", authenticateAdmin, createSubVarient);
 adminroutes.post("/listsubvarient", authenticateAdmin, listSubVarient);
 adminroutes.post("/updateShop", authenticateAdmin, updateShop);
+
+adminroutes.post("/createbrand", authenticateAdmin, createBrand);
+adminroutes.post("/deletebrand", authenticateAdmin, deleteBrand);
+
+adminroutes.post("/updateShopByAdmin", authenticateAdmin, updateShopByAdmin);
+
+adminroutes.post("/nonActiveListShop", authenticateAdmin, nonActiveListShop);
 
 module.exports = adminroutes;

@@ -76,8 +76,6 @@ const shopbyCategoryid = async (req, res) => {
         },
       },
     ]);
-    console.log("---------", req.userId);
-    // Count total number of shops with the given category (for pagination)
     const totalShops = await Shop.countDocuments({ categories: categoryId });
 
     const pagination = {

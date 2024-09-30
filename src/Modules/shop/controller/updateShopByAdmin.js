@@ -14,54 +14,45 @@ const updateShopByAdmin = async (req, res, next) => {
     }
 
     try {
-      let subCategories = [];
-      if (req.body.subCategories) {
-        try {
-          subCategories = JSON.parse(req.body.subCategories);
-        } catch (parseError) {
-          return res.status(400).json({
+      if (req.role == "ADMIN" || req.role == "SUBADMIN") {
+        const shop = await Shop.findById({ _id: req.body.id });
+        if (!shop) {
+          return res.status(404).json({
             status: false,
-            message: "Invalid format for subCategories.",
+            message: "Shop not found.",
           });
         }
-      }
 
-      const shop = await Shop.findById({ _id: req.body.id });
-      if (!shop) {
-        return res.status(404).json({
-          status: false,
-          message: "Shop not found.",
+        const fieldsToUpdate = {
+          name: req.body.name,
+          description: req.body.description,
+          categories: req.body.categories,
+          subCategories:req.body.subCategories,
+          street: req.body.street,
+          city: req.body.city,
+          state: req.body.state,
+          postalCode: req.body.postalCode,
+          phone: req.body.phone,
+          email: req.body.email,
+          isActive: req.body.isActive,
+          verifiedBy: req.adminId,
+          logo: req.file ? BASE_URL + req.file.path : undefined,
+        };
+
+        for (const [key, value] of Object.entries(fieldsToUpdate)) {
+          if (value !== undefined) {
+            shop[key] = value;
+          }
+        }
+
+        const updatedShop = await shop.save();
+
+        return res.status(200).json({
+          status: true,
+          message: "Shop updated successfully.",
+          data: updatedShop,
         });
       }
-
-      const fieldsToUpdate = {
-        name: req.body.name,
-        description: req.body.description,
-        categories: req.body.categories,
-        subCategories: subCategories.length > 0 ? subCategories : undefined,
-        street: req.body.street,
-        city: req.body.city,
-        state: req.body.state,
-        postalCode: req.body.postalCode,
-        phone: req.body.phone,
-        email: req.body.email,
-        isActive: req.body.isActive,
-        logo: req.file ? BASE_URL + req.file.path : undefined,
-      };
-
-      for (const [key, value] of Object.entries(fieldsToUpdate)) {
-        if (value !== undefined) {
-          shop[key] = value;
-        }
-      }
-
-      const updatedShop = await shop.save();
-
-      return res.status(200).json({
-        status: true,
-        message: "Shop updated successfully.",
-        data: updatedShop,
-      });
     } catch (error) {
       return res.status(500).json({
         status: false,
