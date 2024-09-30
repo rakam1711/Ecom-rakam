@@ -25,6 +25,7 @@ const myCategory = require("../Modules/category/controller/myCategory.js");
 const listSubCategory = require("../Modules/subCategory/controller/listSubCategory.js");
 const categoryByServiceId = require("../Modules/category/controller/categoryByServiceId.js");
 const listProductBySubCategory = require("../Modules/product/controller/listProductBySubCategory.js");
+const productById = require("../Modules/product/controller/productById.js");
 
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
@@ -35,6 +36,7 @@ vendorRoute.post("/addproduct", authenticateVendor, addProduct);
 vendorRoute.post("/updateproduct", authenticateVendor, updateProduct);
 vendorRoute.post("/deleteproduct", authenticateVendor, deleteProduct);
 vendorRoute.post("/listproduct", authenticateVendor, listProduct);
+vendorRoute.post("/productbyid", productById);
 
 vendorRoute.post(
   "/listProductBySubCategory",
