@@ -23,7 +23,6 @@ const createAdmin = async (req, res, next) => {
         status: req.body.status,
         image: req.file ? req.file.path : undefined,
       };
-
       const salt = bcryptjs.genSaltSync(2);
       const hashedPassword = await bcryptjs.hash(mustData.password, salt);
 
@@ -34,6 +33,7 @@ const createAdmin = async (req, res, next) => {
         password: hashedPassword,
         role: mustData.role,
         image: BASE_URL + mustData.image,
+        status: mustData.status,
       });
 
       await admin.save();
