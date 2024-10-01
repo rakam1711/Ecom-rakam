@@ -36,6 +36,7 @@ const productSchema = new mongoose.Schema(
     numRatings: { type: Number, default: 0 },
     isProduct: { type: Boolean, default: true },
     colorCode: { type: String },
+    isActive: { type: Boolean, default: false },
   },
   {
     timestamps: true,
