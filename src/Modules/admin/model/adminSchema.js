@@ -8,7 +8,7 @@ const admin = new mongoose.Schema(
     name: { type: String, trim: true, default: "" },
     password: { type: String, required: true },
     profile_image: { type: String, default: null },
-    status: { type: Boolean, default: true },
+    status: { type: Boolean, default: false },
   },
   {
     timestamps: true,
