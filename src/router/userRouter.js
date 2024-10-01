@@ -18,6 +18,7 @@ const listCartItems = require("../Modules/cart/controller/listCartItems.js");
 const deleteCartItems = require("../Modules/cart/controller/deleteFromCart.js");
 const updateCartItems = require("../Modules/cart/controller/updateCart.js");
 const like = require("../Modules/shopLikes/controller/likeController.js");
+const orderproducts = require("../Modules/shopLikes/controller/likeController.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -40,5 +41,6 @@ userroutes.post("/addtocart", authenticateUser, addToCart);
 userroutes.post("/listcartitems", authenticateUser, listCartItems);
 userroutes.post("/deletecartItems", authenticateUser, deleteCartItems);
 userroutes.post("/updatecartItems", authenticateUser, updateCartItems);
+userroutes.post("/orderproducts", authenticateUser, orderproducts);
 
 module.exports = userroutes;
