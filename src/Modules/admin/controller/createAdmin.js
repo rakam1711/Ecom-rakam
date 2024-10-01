@@ -20,6 +20,7 @@ const createAdmin = async (req, res, next) => {
         name: req.body.name,
         password: req.body.password,
         role: req.body.role,
+        status: req.body.status,
         image: req.file ? req.file.path : undefined,
       };
 
