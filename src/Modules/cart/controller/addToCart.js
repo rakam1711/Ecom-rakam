@@ -2,15 +2,15 @@ const Cart = require("../model/cartSchema.js");
 
 const addToCart = async (req, res, next) => {
   try {
-    const { productId, items, totalAmount } = req.body;
+    const { items, totalAmount } = req.body;
     let cart = await Cart.findOne({ userId: req.userId });
     if (cart) {
-      cart.items.push(...items);
+      cart.items.push(items);
       cart.totalAmount += totalAmount;
     } else {
       cart = new Cart({
         userId: req.userId,
-        productId: productId,
+
         items: items,
         totalAmount: totalAmount,
       });

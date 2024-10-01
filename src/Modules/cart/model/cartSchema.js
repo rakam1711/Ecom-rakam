@@ -6,6 +6,7 @@ const cartSchema = new mongoose.Schema(
     items: [
       {
         productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+        shopId: { type: mongoose.Schema.Types.ObjectId, ref: "shop" },
         varient: { type: mongoose.Schema.Types.ObjectId, ref: "Varientt" },
         subVarient: { type: mongoose.Schema.Types.ObjectId, ref: "subVarient" },
         unit: { type: Number },
