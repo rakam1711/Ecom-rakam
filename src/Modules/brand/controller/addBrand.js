@@ -5,7 +5,7 @@ const createBrand = async (req, res, next) => {
     const { Name, description } = req.body;
     const value = await Brand.findOne({ Name: Name });
     if (value) throw new Error("brand name already present");
-    const data =await Brand({
+    const data = await Brand({
       Name: Name,
       description: description,
     });

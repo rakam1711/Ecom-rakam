@@ -2,7 +2,10 @@ const Brand = require("../model/brandSchema.js");
 
 const listBrand = async (req, res, next) => {
   try {
-    const brand = await Brand.find();
+    const key = req.body.name;
+    const brand = await Brand.find({
+      Name: { $regex: `${key}`, $options: "i" },
+    });
     return res.status(200).json({
       message: "successfully listed Brands",
       status: true,

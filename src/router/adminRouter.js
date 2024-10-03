@@ -23,6 +23,8 @@ const createBrand = require("../Modules/brand/controller/addBrand.js");
 const deleteBrand = require("../Modules/brand/controller/deleteBrand.js");
 const nonActiveListShop = require("../Modules/shop/controller/listNonActiveShops.js");
 const updateShopByAdmin = require("../Modules/shop/controller/updateShopByAdmin.js");
+const listVendor = require("../Modules/vendor/controller/listVendor.js");
+const listUser = require("../Modules/user/controller/listUser.js");
 
 adminroutes.post("/createadmin", authenticateAdmin, createAdmin);
 adminroutes.post("/listadmin", authenticateAdmin, listAdmin);
@@ -52,5 +54,8 @@ adminroutes.post("/deletebrand", authenticateAdmin, deleteBrand);
 adminroutes.post("/updateShopByAdmin", authenticateAdmin, updateShopByAdmin);
 
 adminroutes.post("/nonActiveListShop", authenticateAdmin, nonActiveListShop);
+
+adminroutes.get("/listvendor", authenticateAdmin, listVendor);
+adminroutes.get("/listuser", authenticateAdmin, listUser);
 
 module.exports = adminroutes;

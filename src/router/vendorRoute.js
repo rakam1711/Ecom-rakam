@@ -60,6 +60,6 @@ vendorRoute.post("/listsubcategory", listSubCategory);
 vendorRoute.post("/categorybyserviceid", categoryByServiceId);
 
 vendorRoute.get("/subCategoryByCategoryId", subCategoryByCategoryId);
-vendorRoute.get("/listBrand", listBrand);
+vendorRoute.post("/listBrand", listBrand);
 
 module.exports = vendorRoute;
