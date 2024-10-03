@@ -4,6 +4,10 @@ const mongoose = require("mongoose");
 const Myorders = async (req, res) => {
     try {
         const shopId = req.body.shopId;
+        const productStatus = req.body.ProductStatus || "pending";
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
 
         if (!mongoose.Types.ObjectId.isValid(shopId)) {
             return res.status(400).json({ status: false, message: "Invalid Shop ID" });
@@ -12,7 +16,8 @@ const Myorders = async (req, res) => {
         const orders = await Order.aggregate([
             {
                 $match: {
-                    "items.shopId": new mongoose.Types.ObjectId(shopId) // Match shopId in the items array
+                    "items.shopId": new mongoose.Types.ObjectId(shopId),// Match shopId in the items array
+                    "items.ProductStatus": productStatus
                 }
             },
             {
@@ -57,6 +62,12 @@ const Myorders = async (req, res) => {
                         }
                     }
                 }
+            },
+            {
+                $skip: skip 
+            },
+            {
+                $limit: limit 
             }
         ]);
 
