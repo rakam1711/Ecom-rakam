@@ -12,7 +12,7 @@ const cartSchema = new mongoose.Schema(
         unit: { type: Number },
         price: { type: Number },
         amount: { type: Number },
-        ProductStatus: { type: String },
+        ProductStatus: { type: String, default: "pending" },
       },
     ],
     totalAmount: { type: Number },
