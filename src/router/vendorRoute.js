@@ -27,6 +27,7 @@ const categoryByServiceId = require("../Modules/category/controller/categoryBySe
 const listProductBySubCategory = require("../Modules/product/controller/listProductBySubCategory.js");
 const productById = require("../Modules/product/controller/productById.js");
 const listBrand = require("../Modules/brand/controller/listBrand.js");
+const myOrdersByShopId = require("../Modules/orderProduct/controller/myOrdersByShopId.js");
 
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
@@ -60,6 +61,7 @@ vendorRoute.post("/listsubcategory", listSubCategory);
 vendorRoute.post("/categorybyserviceid", categoryByServiceId);
 
 vendorRoute.get("/subCategoryByCategoryId", subCategoryByCategoryId);
-vendorRoute.post("/listBrand", listBrand);
+vendorRoute.get("/listBrand", listBrand);
+vendorRoute.post("/myOrdersByShopId", myOrdersByShopId);
 
 module.exports = vendorRoute;
