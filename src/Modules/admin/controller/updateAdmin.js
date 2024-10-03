@@ -9,13 +9,15 @@ const updateAdmin = async (req, res, next) => {
   upload(req, res, async () => {
     try {
       const id = req.body.id;
-      const admin = await Admin.findById({_id:id});
+      const admin = await Admin.findById({ _id: id });
       if (!admin) throw new ApiError("Invalid credential", 403);
       console.log(req.body.name, req.body.id);
       const obj = {};
       if (req.body.number) obj.number = req.body.number;
       if (req.body.email) obj.email = req.body.email;
       if (req.body.name) obj.name = req.body.name;
+      if (req.body.status) obj.status = req.body.status;
+      if (req.body.role) obj.role = req.body.role;
       if (req.body.password) {
         const salt = bcryptjs.genSaltSync(2);
         const hashedPassword = await bcryptjs.hash(req.body.password, salt);
