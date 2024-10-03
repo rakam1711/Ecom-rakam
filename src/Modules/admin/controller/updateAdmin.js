@@ -9,9 +9,9 @@ const updateAdmin = async (req, res, next) => {
   upload(req, res, async () => {
     try {
       const id = req.body.id;
-      const admin = await Admin.findOne(id);
+      const admin = await Admin.findById({_id:id});
       if (!admin) throw new ApiError("Invalid credential", 403);
-
+      console.log(req.body.name, req.body.id);
       const obj = {};
       if (req.body.number) obj.number = req.body.number;
       if (req.body.email) obj.email = req.body.email;
