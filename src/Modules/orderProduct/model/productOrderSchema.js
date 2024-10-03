@@ -1,8 +1,16 @@
 const mongoose = require("mongoose");
+
 const OrderSchema = new mongoose.Schema(
   {
-    
-    isActive: { type: Boolean, default: false },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+
+
+    items: [
+      {
+        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+        shopId: { type: mongoose.Schema.Types.ObjectId, ref: "Shop" },
+      },
+    ],
   },
   {
     timestamps: true,
@@ -14,4 +22,3 @@ const OrderSchema = new mongoose.Schema(
 const orders = mongoose.model("Orders", OrderSchema);
 
 module.exports = orders;
-
