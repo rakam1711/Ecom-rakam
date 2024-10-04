@@ -42,6 +42,7 @@ const vendorSchema = new mongoose.Schema(
       require: true,
       ref: "service",
     },
+    isActive: { type: Boolean, default: false },
     categoryType: [],
     paymentMode: [],
   },

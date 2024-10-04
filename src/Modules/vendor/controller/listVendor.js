@@ -6,7 +6,8 @@ const listVendor = async (req, res, next) => {
     let page = req.body.page || 1;
     const list = await Vendor.find()
       .skip((page - 1) * limit)
-      .limit(limit);
+      .limit(limit)
+      .populate("service", { name: 1 });
     return res.status(200).json({
       status: true,
       message: "Vendor listed successfully",

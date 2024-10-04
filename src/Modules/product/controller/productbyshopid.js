@@ -1,16 +1,34 @@
-const productByShopId = async (req, res) => {
-    try { 
-        const shipId = req.body.shipId;
-        const item = req.body.searchItem;
-        const tags = req.body.tags;
-        const category = req.body.categories;
-        const service = req.body.service;  // Service from the request body
-        const priceRange = req.body.priceRange;
-        const priceLowtoHigh = req.body.priceLowtoHigh;
-        
-    } catch (e) {
-        return res.status(400).json({ status: false, message: e.message, location: "src/Modules/product/controller/productbushopid.js" })
-    }
-}
+const Product = require("../model/productSchema.js");
 
-module.exports = productByShopId
+const listProductsByShop = async (req, res, next) => {
+  try {
+    let limit = req.body.limit || 10;
+    let page = req.body.page || 1;
+    let shopId = req.body.shopId;
+
+    if (!shopId) {
+      return res.status(400).json({
+        status: false,
+        message: "shopId is required",
+      });
+    }
+
+    const products = await Product.find({ shop: shopId, isActive: true })
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    return res.status(200).json({
+      status: true,
+      message: "Products listed successfully for the given shop",
+      data: products,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: false,
+      message: err.message,
+      location: "src/Modules/product/controller/listProductsByShop.js",
+    });
+  }
+};
+
+module.exports = listProductsByShop;

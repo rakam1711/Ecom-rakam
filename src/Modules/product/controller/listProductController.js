@@ -4,7 +4,7 @@ const listProduct = async (req, res, next) => {
   try {
     let limit = req.body.limit || 10;
     let page = req.body.page || 1;
-    const product = await Product.find()
+    const product = await Product.find({ isActive: true })
       .skip((page - 1) * limit)
       .limit(limit);
     return res.status(200).json({
