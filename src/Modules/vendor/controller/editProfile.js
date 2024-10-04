@@ -5,7 +5,7 @@ const BASE_URL = process.env.BASE_URL;
 const editProfile = async (req, res) => {
   upload(req, res, async () => {
     try {
-      const id = req.vendorId;
+      const id = req.body.vendorId;
       const vendor = await vendorModel.findById({ _id: id });
       const mustdata = {
         image: req.body.image,
