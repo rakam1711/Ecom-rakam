@@ -11,15 +11,15 @@ const updatemyOrdersByShopId = async (req, res) => {
         const updatedOrder = await orders.findOneAndUpdate(
             {
                 _id: orderId,
-                "items.productId": productId // Match specific productId in the items array
+                "items.productId": productId
             },
             {
                 $set: {
-                    "items.$.ProductStatus": status, // Update ProductStatus for the matching item
-                    "items.$.reason": reason // Update ProductStatus for the matching item
+                    "items.$.ProductStatus": status,
+                    "items.$.reason": reason
                 }
             },
-            { new: true } // Return the updated document
+            { new: true } 
         );
 
         if (!updatedOrder) {
