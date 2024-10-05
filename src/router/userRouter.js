@@ -20,6 +20,8 @@ const updateCartItems = require("../Modules/cart/controller/updateCart.js");
 const like = require("../Modules/shopLikes/controller/likeController.js");
 const orderproducts = require("../Modules/orderProduct/controller/orderProduct.js");
 const getMyOrder = require("../Modules/orderProduct/controller/getMyOrders.js");
+const listAllShop = require("../Modules/shop/controller/listAllShops.js");
+const shopByServiceId = require("../Modules/shop/controller/shopByServiceId.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -44,5 +46,10 @@ userroutes.post("/deletecartItems", authenticateUser, deleteCartItems);
 userroutes.post("/updatecartItems", authenticateUser, updateCartItems);
 userroutes.post("/orderproducts", authenticateUser, orderproducts);
 userroutes.post("/getMyOrder", authenticateUser, getMyOrder);
+
+
+userroutes.get("/listallshop", listAllShop);
+userroutes.get("/shopbysericeid", shopByServiceId);
+
 
 module.exports = userroutes;
