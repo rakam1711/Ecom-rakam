@@ -51,8 +51,10 @@ adminroutes.post("/listsubcategory", listSubCategory);
 adminroutes.post("/updatesubcategory", authenticateAdmin, updateSubCategory);
 
 adminroutes.post("/createbanner", authenticateAdmin, createBannerController);
+
 adminroutes.post("/createsubvarient", authenticateAdmin, createSubVarient);
 adminroutes.post("/listsubvarient", authenticateAdmin, listSubVarient);
+
 adminroutes.post("/updateShop", authenticateAdmin, updateShop);
 
 adminroutes.post("/createbrand", authenticateAdmin, createBrand);

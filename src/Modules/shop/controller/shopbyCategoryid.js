@@ -7,6 +7,7 @@ const shopbyCategoryid = async (req, res) => {
     const limit = req.body.limit || 10;
     const skip = (page - 1) * limit;
     const catId = req.body.Categoryid;
+    const isPopularShop = req.body.isPopularShop;
 
     // Ensure catId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(catId)) {
@@ -16,11 +17,16 @@ const shopbyCategoryid = async (req, res) => {
     }
 
     const categoryId = new mongoose.Types.ObjectId(catId);
-
-    // Aggregation pipeline to get shops and follower count
-    const shopsWithFollowers = await Shop.aggregate([
+    const matchCondition = {
+      categories: categoryId,
+      isActive: true,
+    };
+    if (isPopularShop && isPopularShop != "") {
+      matchCondition.isPopular = true;
+    }
+    const pipeline = [
       // Match shops by category ID
-      { $match: { categories: categoryId, isActive: true } },
+      { $match: matchCondition },
 
       // Pagination: Skip and limit
       { $skip: skip },
@@ -75,7 +81,9 @@ const shopbyCategoryid = async (req, res) => {
           },
         },
       },
-    ]);
+    ];
+
+    const shopsWithFollowers = await Shop.aggregate(pipeline);
     const totalShops = await Shop.countDocuments({ categories: categoryId });
 
     const pagination = {

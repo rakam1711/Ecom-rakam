@@ -10,9 +10,7 @@ const Myorders = async (req, res) => {
     const skip = (page - 1) * limit;
 
     if (!mongoose.Types.ObjectId.isValid(shopId)) {
-      return res
-        .status(400)
-        .json({ status: false, message: "Invalid Shop ID" });
+      return res.status(400).json({ status: false, result: [] });
     }
 
     const orders = await Order.aggregate([
@@ -74,15 +72,19 @@ const Myorders = async (req, res) => {
     ]);
 
     if (!orders || orders.length === 0) {
-      return res
-        .status(404)
-        .json({ status: false, message: "No orders found for the shop" });
+      return res.status(404).json({
+        status: false,
+        result: [],
+        message: "No orders found for the shop",
+      });
     }
 
     return res.status(200).json({ status: true, result: orders });
   } catch (error) {
     console.error("Error in Myorders:", error);
-    return res.status(400).json({ status: false, message: error.message });
+    return res
+      .status(400)
+      .json({ status: false, result: [], message: error.message });
   }
 };
 

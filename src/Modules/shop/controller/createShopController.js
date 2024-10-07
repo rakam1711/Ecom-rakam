@@ -17,6 +17,7 @@ const createShop = async (req, res, next) => {
         state: req.body.state,
         postalCode: req.body.postalCode,
         phone: req.body.phone,
+        shopTag: JSON.parse(req.body.shopTag),
       };
       for (let key in mustData) {
         if (mustData[key] == undefined || mustData[key] == "") {
@@ -44,6 +45,7 @@ const createShop = async (req, res, next) => {
         subCategories: mustData.subCategories,
         categories: mustData.categories,
         logo: mustData.image,
+        shopTag: mustData.shopTag,
       });
 
       await shop.save();

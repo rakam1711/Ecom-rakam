@@ -27,7 +27,7 @@ const updateShopByAdmin = async (req, res, next) => {
           name: req.body.name,
           description: req.body.description,
           categories: req.body.categories,
-          subCategories:req.body.subCategories,
+          subCategories: req.body.subCategories,
           street: req.body.street,
           city: req.body.city,
           state: req.body.state,
@@ -37,6 +37,7 @@ const updateShopByAdmin = async (req, res, next) => {
           isActive: req.body.isActive,
           verifiedBy: req.adminId,
           logo: req.file ? BASE_URL + req.file.path : undefined,
+          shopTag: JSON.parse(req.body.shopTag),
         };
 
         for (const [key, value] of Object.entries(fieldsToUpdate)) {

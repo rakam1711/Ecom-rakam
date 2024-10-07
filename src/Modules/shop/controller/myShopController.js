@@ -9,20 +9,29 @@ const myShop = async (req, res, next) => {
         .skip((page - 1) * limit)
         .limit(limit)
         .populate("categories", { name: 1 })
-        .populate("subCategories", { name: 1 });
+        .populate("subCategories", { name: 1 })
+        .populate("shopTag", { name: 1 });
     }
     if (shop.length > 0) {
-      if (!shop[0].isActive)return res.status(200).json({
-        message: "data listed successfully",
-        isVerify: {status:false, message:"Your verification is pending. Please contact to 9311620027"},
-        status: true,
-        isShop: shop.length > 0 ? true : false,
-        data: shop ? shop : [],
-      });
+      if (!shop[0].isActive)
+        return res.status(200).json({
+          message: "data listed successfully",
+          isVerify: {
+            status: false,
+            message:
+              "Your verification is pending. Please contact to 9311620027",
+          },
+          status: true,
+          isShop: shop.length > 0 ? true : false,
+          data: shop ? shop : [],
+        });
     }
     return res.status(200).json({
       message: "data listed successfully",
-      isVerify: {status:true, message:"Your verification is pending. Please contact to 9311620027"},
+      isVerify: {
+        status: true,
+        message: "Your verification is pending. Please contact to 9311620027",
+      },
       status: true,
       isShop: shop.length > 0 ? true : false,
       data: shop ? shop : [],

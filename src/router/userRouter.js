@@ -9,7 +9,6 @@ const addAddress = require("../Modules/address/controller/addAddressController.j
 const updateAddress = require("../Modules/address/controller/updateAddressController.js");
 const deleteAddress = require("../Modules/address/controller/deleteAddressController.js");
 const listAddress = require("../Modules/address/controller/listAddressController.js");
-const popularShop = require("../Modules/shop/controller/popularShop.js");
 const search = require("../Modules/search/controller/searchdynamyc.js");
 const shopbyCategoryid = require("../Modules/shop/controller/shopbyCategoryid.js");
 const listBanner = require("../Modules/banner/controller/listBannerController.js");
@@ -22,6 +21,9 @@ const orderproducts = require("../Modules/orderProduct/controller/orderProduct.j
 const getMyOrder = require("../Modules/orderProduct/controller/getMyOrders.js");
 const listAllShop = require("../Modules/shop/controller/listAllShops.js");
 const shopByServiceId = require("../Modules/shop/controller/shopByServiceId.js");
+const listshopTagByCategoryId = require("../Modules/shopTag/controller/listShopTagByCategoryId.js");
+const popularShopHome = require("../Modules/shop/controller/popularShopHome.js");
+const shopByShopTag = require("../Modules/shop/controller/shopByShopTag.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -34,8 +36,9 @@ userroutes.post("/addaddress", authenticateUser, addAddress);
 userroutes.post("/updateaddress", authenticateUser, updateAddress);
 userroutes.post("/deleteaddress", authenticateUser, deleteAddress);
 userroutes.post("/listaddress", authenticateUser, listAddress);
-userroutes.get("/popularshop", popularShop);
+userroutes.post("/popularshophome", popularShopHome);
 userroutes.post("/shopbyCategoryid", authenticateUser, shopbyCategoryid);
+userroutes.post("/shopbyshoptag", authenticateUser, shopByShopTag);
 userroutes.post("/search", search);
 
 userroutes.post("/listbanner", listBanner);
@@ -48,6 +51,8 @@ userroutes.post("/orderproducts", authenticateUser, orderproducts);
 userroutes.post("/getMyOrder", authenticateUser, getMyOrder);
 
 userroutes.get("/listallshop", listAllShop);
-userroutes.post("/shopbyserviceid", shopByServiceId);
+userroutes.post("/shopbyserviceid", authenticateUser, shopByServiceId);
+
+userroutes.post("/shoptagbycategoryid", listshopTagByCategoryId);
 
 module.exports = userroutes;

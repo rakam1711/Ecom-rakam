@@ -46,6 +46,8 @@ const updateShop = async (req, res, next) => {
         phone: req.body.phone,
         email: req.body.email,
         logo: req.file ? BASE_URL + req.file.path : undefined,
+        shopTag: JSON.parse(req.body.shopTag),
+
       };
 
       for (const [key, value] of Object.entries(fieldsToUpdate)) {

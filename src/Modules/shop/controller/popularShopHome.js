@@ -1,25 +1,15 @@
 const Shop = require("../model/shopSchema");
 const mongoose = require("mongoose");
 
-const shopbyServiceId = async (req, res) => {
+const popularShopHome = async (req, res) => {
   try {
     const page = req.body.page || 1;
     const limit = req.body.limit || 10;
     const skip = (page - 1) * limit;
-    const serId = req.body.Serviceid;
     const isPopularShop = req.body.isPopularShop;
-
-    // Ensure catId is a valid ObjectId
-    if (!mongoose.Types.ObjectId.isValid(serId)) {
-      return res
-        .status(400)
-        .json({ status: false, message: "Invalid service ID" });
-    }
-
-    const serviceId = new mongoose.Types.ObjectId(serId);
+    const user = req.body.userId;
 
     const matchCondition = {
-      service: serviceId,
       isActive: true,
     };
     if (isPopularShop && isPopularShop != "") {
@@ -75,17 +65,17 @@ const shopbyServiceId = async (req, res) => {
 
           likeCount: { $size: "$likes" },
           isFollowedByUser: {
-            $in: [new mongoose.Types.ObjectId(req.userId), "$followers.userId"],
+            $in: [new mongoose.Types.ObjectId(user), "$followers.userId"],
           },
           isLikedByUser: {
-            $in: [new mongoose.Types.ObjectId(req.userId), "$likes.userId"],
+            $in: [new mongoose.Types.ObjectId(user), "$likes.userId"],
           },
         },
       },
     ];
 
     const shopsWithFollowers = await Shop.aggregate(pipeline);
-    const totalShops = await Shop.countDocuments({ service: serviceId });
+    const totalShops = await Shop.countDocuments();
 
     const pagination = {
       maxCount: Math.ceil(totalShops / limit),
@@ -100,9 +90,9 @@ const shopbyServiceId = async (req, res) => {
     return res.status(400).json({
       status: false,
       message: e.message,
-      location: "sec/Modules/shop/controller/shopbyServiceId",
+      location: "sec/Modules/shop/controller/popularShopHome",
     });
   }
 };
 
-module.exports = shopbyServiceId;
+module.exports = popularShopHome;
