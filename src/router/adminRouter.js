@@ -25,12 +25,19 @@ const nonActiveListShop = require("../Modules/shop/controller/listNonActiveShops
 const updateShopByAdmin = require("../Modules/shop/controller/updateShopByAdmin.js");
 const listVendor = require("../Modules/vendor/controller/listVendor.js");
 const listUser = require("../Modules/user/controller/listUser.js");
+const createshopTag = require("../Modules/shopTag/controller/addShopTag.js");
+const deleteshopTag = require("../Modules/shopTag/controller/deleteShopTag.js");
+const listshopTag = require("../Modules/shopTag/controller/listShopTag.js");
 
 adminroutes.post("/createadmin", authenticateAdmin, createAdmin);
 adminroutes.post("/listadmin", authenticateAdmin, listAdmin);
 adminroutes.post("/updateadmin", authenticateAdmin, updateAdmin);
 
 adminroutes.post("/adminlogin", loginAdmin);
+
+adminroutes.post("/createshopTag", authenticateAdmin, createshopTag);
+adminroutes.post("/deleteshopTag", authenticateAdmin, deleteshopTag);
+adminroutes.post("/listshopTag", listshopTag);
 
 adminroutes.post("/createcategory", authenticateAdmin, createCategory);
 adminroutes.post("/deletecategory", authenticateAdmin, deleteCategory);

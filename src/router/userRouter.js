@@ -47,9 +47,7 @@ userroutes.post("/updatecartItems", authenticateUser, updateCartItems);
 userroutes.post("/orderproducts", authenticateUser, orderproducts);
 userroutes.post("/getMyOrder", authenticateUser, getMyOrder);
 
-
 userroutes.get("/listallshop", listAllShop);
-userroutes.get("/shopbysericeid", shopByServiceId);
-
+userroutes.post("/shopbyserviceid", shopByServiceId);
 
 module.exports = userroutes;

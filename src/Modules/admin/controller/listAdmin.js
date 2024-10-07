@@ -7,6 +7,8 @@ const listAdmin = async (req, res, next) => {
     const list = await Admin.find()
       .skip((page - 1) * limit)
       .limit(limit);
+
+    console.log(req.role)
     return res.status(200).json({
       status: true,
       message: "Admin listed successfully",
