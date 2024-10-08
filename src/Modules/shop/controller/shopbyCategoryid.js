@@ -6,10 +6,12 @@ const shopbyCategoryid = async (req, res) => {
     const page = req.body.page || 1;
     const limit = req.body.limit || 10;
     const skip = (page - 1) * limit;
+
     const catId = req.body.Categoryid;
     const isPopularShop = req.body.isPopularShop;
+    const subCategoryId = req.body.subCategoryId;
+    const shopTag = req.body.shopTag;
 
-    // Ensure catId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(catId)) {
       return res
         .status(400)
@@ -17,38 +19,52 @@ const shopbyCategoryid = async (req, res) => {
     }
 
     const categoryId = new mongoose.Types.ObjectId(catId);
+
     const matchCondition = {
       categories: categoryId,
       isActive: true,
     };
-    if (isPopularShop && isPopularShop != "") {
+
+    if (isPopularShop && isPopularShop !== "") {
       matchCondition.isPopular = true;
     }
+
+    if (subCategoryId) {
+      matchCondition.subCategories = {
+        $in: [new mongoose.Types.ObjectId(subCategoryId)],
+      };
+    }
+
+    if (shopTag) {
+      matchCondition.shopTag = {
+        $in: [new mongoose.Types.ObjectId(shopTag)],
+      };
+    }
+
     const pipeline = [
-      // Match shops by category ID
       { $match: matchCondition },
 
-      // Pagination: Skip and limit
       { $skip: skip },
       { $limit: limit },
 
-      // Lookup to join the followers collection by shopId
       {
         $lookup: {
-          from: "followers", // Use actual collection name of Follower
-          localField: "_id", // Match by shopId in the Shop collection
-          foreignField: "shopId", // Match with the shopId in the Follower collection
-          as: "followers", // Name of the joined field
+          from: "followers",
+          localField: "_id",
+          foreignField: "shopId",
+          as: "followers",
         },
       },
+
       {
         $lookup: {
-          from: "likes", // Use actual collection name of Likes
-          localField: "_id", // Match by shopId in the Shop collection
-          foreignField: "shopId", // Match with the shopId in the Likes collection
-          as: "likes", // Name of the joined field
+          from: "likes",
+          localField: "_id",
+          foreignField: "shopId",
+          as: "likes",
         },
       },
+
       {
         $project: {
           _id: 1,
@@ -71,7 +87,6 @@ const shopbyCategoryid = async (req, res) => {
           createdAt: 1,
           updatedAt: 1,
           followerCount: { $size: "$followers" },
-
           likeCount: { $size: "$likes" },
           isFollowedByUser: {
             $in: [new mongoose.Types.ObjectId(req.userId), "$followers.userId"],
@@ -84,7 +99,20 @@ const shopbyCategoryid = async (req, res) => {
     ];
 
     const shopsWithFollowers = await Shop.aggregate(pipeline);
-    const totalShops = await Shop.countDocuments({ categories: categoryId });
+
+    const totalMatchCondition = { categories: categoryId };
+    if (subCategoryId) {
+      totalMatchCondition.subCategories = {
+        $in: [new mongoose.Types.ObjectId(subCategoryId)],
+      };
+    }
+    if (shopTag) {
+      totalMatchCondition.shopTag = {
+        $in: [new mongoose.Types.ObjectId(shopTag)],
+      };
+    }
+
+    const totalShops = await Shop.countDocuments(totalMatchCondition);
 
     const pagination = {
       maxCount: Math.ceil(totalShops / limit),

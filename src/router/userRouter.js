@@ -23,7 +23,6 @@ const listAllShop = require("../Modules/shop/controller/listAllShops.js");
 const shopByServiceId = require("../Modules/shop/controller/shopByServiceId.js");
 const listshopTagByCategoryId = require("../Modules/shopTag/controller/listShopTagByCategoryId.js");
 const popularShopHome = require("../Modules/shop/controller/popularShopHome.js");
-const shopByShopTag = require("../Modules/shop/controller/shopByShopTag.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -38,7 +37,6 @@ userroutes.post("/deleteaddress", authenticateUser, deleteAddress);
 userroutes.post("/listaddress", authenticateUser, listAddress);
 userroutes.post("/popularshophome", popularShopHome);
 userroutes.post("/shopbyCategoryid", authenticateUser, shopbyCategoryid);
-userroutes.post("/shopbyshoptag", authenticateUser, shopByShopTag);
 userroutes.post("/search", search);
 
 userroutes.post("/listbanner", listBanner);
