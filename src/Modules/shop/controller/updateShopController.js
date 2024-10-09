@@ -14,18 +14,6 @@ const updateShop = async (req, res, next) => {
     }
 
     try {
-      let subCategories = [];
-      if (req.body.subCategories) {
-        try {
-          subCategories = JSON.parse(req.body.subCategories);
-        } catch (parseError) {
-          return res.status(400).json({
-            status: false,
-            message: "Invalid format for subCategories.",
-          });
-        }
-      }
-
       const shop = await Shop.findOne({ owner: req.vendorId });
       if (!shop) {
         return res.status(404).json({
@@ -38,7 +26,7 @@ const updateShop = async (req, res, next) => {
         name: req.body.name,
         description: req.body.description,
         categories: req.body.categories,
-        subCategories: subCategories.length > 0 ? subCategories : undefined,
+        subCategories: JSON.parse(req.body.subCategories),
         street: req.body.street,
         city: req.body.city,
         state: req.body.state,
@@ -47,7 +35,8 @@ const updateShop = async (req, res, next) => {
         email: req.body.email,
         logo: req.file ? BASE_URL + req.file.path : undefined,
         shopTag: JSON.parse(req.body.shopTag),
-
+        shopTiming: req.body.shopTiming,
+        deliveryMethod: req.body.deliveryMethod,
       };
 
       for (const [key, value] of Object.entries(fieldsToUpdate)) {

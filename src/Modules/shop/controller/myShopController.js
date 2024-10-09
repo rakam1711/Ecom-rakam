@@ -30,7 +30,7 @@ const myShop = async (req, res, next) => {
       message: "data listed successfully",
       isVerify: {
         status: true,
-        message: "Your verification is pending. Please contact to 9311620027",
+        message: "shop verified",
       },
       status: true,
       isShop: shop.length > 0 ? true : false,

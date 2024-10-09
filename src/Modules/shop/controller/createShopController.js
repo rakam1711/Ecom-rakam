@@ -29,6 +29,12 @@ const createShop = async (req, res, next) => {
       if (req.file) {
         mustData.image = BASE_URL + req.file.path;
       }
+      if (req.body.shopTiming) {
+        mustData.shopTiming = req.body.shopTiming;
+      }
+      if (req.body.deliveryMethod) {
+        mustData.deliveryMethod = req.body.deliveryMethod;
+      }
 
       const shop = Shop({
         name: mustData.name,
@@ -46,6 +52,8 @@ const createShop = async (req, res, next) => {
         categories: mustData.categories,
         logo: mustData.image,
         shopTag: mustData.shopTag,
+        deliveryMethod: mustData.deliveryMethod,
+        shopTiming: mustData.shopTiming,
       });
 
       await shop.save();

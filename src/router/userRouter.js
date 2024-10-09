@@ -23,6 +23,7 @@ const listAllShop = require("../Modules/shop/controller/listAllShops.js");
 const shopByServiceId = require("../Modules/shop/controller/shopByServiceId.js");
 const listshopTagByCategoryId = require("../Modules/shopTag/controller/listShopTagByCategoryId.js");
 const popularShopHome = require("../Modules/shop/controller/popularShopHome.js");
+const shopByShopId = require("../Modules/shop/controller/shopByShopId.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -50,7 +51,7 @@ userroutes.post("/getMyOrder", authenticateUser, getMyOrder);
 
 userroutes.get("/listallshop", listAllShop);
 userroutes.post("/shopbyserviceid", authenticateUser, shopByServiceId);
-
+userroutes.post("/shopbyshopid", authenticateUser, shopByShopId);
 userroutes.post("/shoptagbycategoryid", listshopTagByCategoryId);
 
 module.exports = userroutes;
