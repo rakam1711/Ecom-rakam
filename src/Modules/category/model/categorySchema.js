@@ -13,7 +13,8 @@ const categoryModel = new mongoose.Schema(
       type: String,
     },
     createdBy: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Admin",
     },
     is_active: {
       type: Boolean,
@@ -23,9 +24,10 @@ const categoryModel = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    service:{
-      type:mongoose.Schema.Types.ObjectId, ref:"service"
-    }
+    service: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "service",
+    },
   },
   { timestamps: true }
 );

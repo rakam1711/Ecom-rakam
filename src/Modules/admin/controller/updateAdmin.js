@@ -11,7 +11,6 @@ const updateAdmin = async (req, res, next) => {
       const id = req.body.id;
       const admin = await Admin.findById({ _id: id });
       if (!admin) throw new ApiError("Invalid credential", 403);
-      console.log(req.body.name, req.body.id);
       const obj = {};
       if (req.body.number) obj.number = req.body.number;
       if (req.body.email) obj.email = req.body.email;
@@ -23,7 +22,7 @@ const updateAdmin = async (req, res, next) => {
         const hashedPassword = await bcryptjs.hash(req.body.password, salt);
         obj.password = hashedPassword;
       }
-      if (req.file.path) {
+      if (req?.file?.path) {
         deleteImageHandler(admin?.image);
         obj.image = BASE_URL + req.file.path;
       }

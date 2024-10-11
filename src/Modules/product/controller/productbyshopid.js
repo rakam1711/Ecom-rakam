@@ -13,7 +13,7 @@ const listProductsByShop = async (req, res, next) => {
       });
     }
 
-    const products = await Product.find({ shop: shopId, isActive: true })
+    const products = await Product.find({ shop: shopId })
       .skip((page - 1) * limit)
       .limit(limit);
 

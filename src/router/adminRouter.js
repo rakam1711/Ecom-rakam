@@ -28,6 +28,7 @@ const listUser = require("../Modules/user/controller/listUser.js");
 const createshopTag = require("../Modules/shopTag/controller/addShopTag.js");
 const deleteshopTag = require("../Modules/shopTag/controller/deleteShopTag.js");
 const listshopTag = require("../Modules/shopTag/controller/listShopTag.js");
+const editProfile = require("../Modules/vendor/controller/editProfile.js");
 
 adminroutes.post("/createadmin", authenticateAdmin, createAdmin);
 adminroutes.post("/listadmin", authenticateAdmin, listAdmin);
@@ -66,5 +67,7 @@ adminroutes.post("/nonActiveListShop", authenticateAdmin, nonActiveListShop);
 
 adminroutes.get("/listvendor", authenticateAdmin, listVendor);
 adminroutes.get("/listuser", authenticateAdmin, listUser);
+
+adminroutes.post("/updatevendor", editProfile);
 
 module.exports = adminroutes;

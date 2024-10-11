@@ -8,7 +8,9 @@ const getAllCategory = async (req, res) => {
     const data = await categorySchema
       .find()
       .skip((page - 1) * limit)
-      .limit(limit);
+      .limit(limit)
+      .populate("service", { name: 1 })
+      .populate("createdBy", { name: 1 });
     if (!data)
       return res.status(200).json({ status: true, message: "No data found" });
     const maxPage = Math.ceil(max / limit);
