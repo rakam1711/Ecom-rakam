@@ -8,7 +8,8 @@ const shopByShopId = async (req, res, next) => {
     const skip = (page - 1) * limit;
     const shopId = req.body.shopId;
 
-    const sId = new mongoose.Types.ObjectId(shopId);` `
+    const sId = new mongoose.Types.ObjectId(shopId);
+    ` `;
     const matchCondition = {
       _id: sId,
     };

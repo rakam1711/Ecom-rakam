@@ -30,11 +30,11 @@ const register = async (req, res) => {
       const isUser = await vendorModel.findOne({ number: dataa.number });
       if (isUser) throw new Error("vendor is already exist", 500);
 
-      for (let key in dataa) {
-        if (dataa[key] == "" || dataa[key] == undefined) {
-          throw new Error(`${key} is require`);
-        }
-      }
+      // for (let key in dataa) {
+      //   if (dataa[key] == "" || dataa[key] == undefined) {
+      //     throw new Error(`${key} is require`);
+      //   }
+      // }
       const salt = bcryptjs.genSaltSync(2);
       const hashPassword = bcryptjs.hashSync(dataa.password, salt);
       const data = new vendorModel({

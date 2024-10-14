@@ -3,24 +3,26 @@ const Product = require("../model/productSchema.js");
 
 const listProductBySubCategory = async (req, res, next) => {
   try {
-    let limit = parseInt(req.body.limit) || 10;
-    let page = parseInt(req.body.page) || 1;
+    let limit = parseInt(req.body.limit) || 10; 
+    let page = parseInt(req.body.page) || 1;   
 
-    let subcategoryId = new mongoose.Types.ObjectId(req.body.SubcategoryId);
+    const subcategoryId = new mongoose.Types.ObjectId(req.body.SubcategoryId);
     const vendorId = new mongoose.Types.ObjectId(req.vendorId);
+
 
     const products = await Product.aggregate([
       {
         $match: {
-          vendor: vendorId,
-          subCategory: { $elemMatch: { _id: subcategoryId.toString() } },
+          vendor: vendorId, 
+          subCategory: { $in: [subcategoryId] }, 
+          isActive: true, 
         },
       },
       {
-        $skip: (page - 1) * limit,
+        $skip: (page - 1) * limit, // Skip items for pagination
       },
       {
-        $limit: limit,
+        $limit: limit, // Limit the number of items per page
       },
     ]);
 

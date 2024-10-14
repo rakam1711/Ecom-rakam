@@ -2,11 +2,14 @@ const vendorModel = require("../model/vendorSchema.js");
 const upload = require("../../../Middleware/multer/singleImageUpload.js");
 const deleteImage = require("../../../Middleware/DeleteImage/deleteImgaeHandler.js");
 const BASE_URL = process.env.BASE_URL;
+const bcryptjs = require("bcryptjs");
 const editProfile = async (req, res) => {
   upload(req, res, async () => {
     try {
       const id = req.body.vendorId;
       const vendor = await vendorModel.findById({ _id: id });
+      const salt = bcryptjs.genSaltSync(2);
+      const hashPassword = bcryptjs.hashSync(req.body.password, salt);
       const mustdata = {
         image: req.body.image,
         ownerName: req.body.ownerName,
@@ -20,6 +23,7 @@ const editProfile = async (req, res) => {
         ifscCode: req.body.ifscCode,
         branchName: req.body.branchName,
         MSME: req.body.msme,
+        password: hashPassword,
       };
       for (let key in mustdata) {
         if (mustdata[key] == undefined || mustdata[key] == "") {

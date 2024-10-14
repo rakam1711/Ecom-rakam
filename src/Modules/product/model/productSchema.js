@@ -7,12 +7,7 @@ const productSchema = new mongoose.Schema(
     description: { type: String, maxlength: 1000 },
     brand: { type: String },
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
-    subCategory: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "subCategory",
-      },
-    ],
+    subCategory: [{ type: mongoose.Schema.Types.ObjectId, ref: "subCategory" }],
     price: { type: Number, required: true, min: 0 },
     stock: { type: Number, required: true, min: 0 },
     images: [],
@@ -42,6 +37,7 @@ const productSchema = new mongoose.Schema(
     isProduct: { type: Boolean, default: true },
     colorCode: { type: String },
     isActive: { type: Boolean, default: false },
+    shopTag: [{ type: mongoose.Schema.Types.ObjectId, ref: "shopTag" }],
   },
   {
     timestamps: true,
@@ -52,8 +48,3 @@ const productSchema = new mongoose.Schema(
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
-
-// weight: { type: Number, default: 0 },
-// length: { type: Number, default: 0 },
-// width: { type: Number, default: 0 },
-// height: { type: Number, default: 0 },

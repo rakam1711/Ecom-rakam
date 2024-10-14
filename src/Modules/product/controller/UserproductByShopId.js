@@ -1,29 +1,35 @@
 const Product = require("../model/productSchema.js");
 const mongoose = require("mongoose");
 
-const listProductsByShopId = async (req, res, next) => {
+const listProducts = async (req, res, next) => {
   try {
     let limit = parseInt(req.body.limit) || 10;
     let page = parseInt(req.body.page) || 1;
     const skip = (page - 1) * limit;
 
     let shopId = req.body.shopId;
-    if (!shopId) {
-      return res.status(400).json({
-        status: false,
-        message: "shopId is required",
-      });
+    let subCategoryId = req.body.subCategoryId;
+
+    const matchCondition = { isActive: true };
+
+    if (shopId) {
+      matchCondition.shop = new mongoose.Types.ObjectId(shopId);
     }
 
-    const matchCondition = {
-      shop:new mongoose.Types.ObjectId(shopId),
-      isActive: true,
-    };
+    if (subCategoryId) {
+      matchCondition.subCategory = new mongoose.Types.ObjectId(subCategoryId);
+    }
 
     const pipeline = [
       { $match: matchCondition },
-      { $skip: skip },
-      { $limit: limit },
+      {
+        $lookup: {
+          from: "shops",
+          localField: "shop",
+          foreignField: "_id",
+          as: "shopDetails",
+        },
+      },
       {
         $lookup: {
           from: "subcategories",
@@ -56,25 +62,33 @@ const listProductsByShopId = async (req, res, next) => {
           rating: 1,
           numRatings: 1,
           colorCode: 1,
+          images: 1,
+          productShipingDetails: 1,
+          deliveryTimeline: 1,
+          deliveryInstruction: 1,
+          availableForSubscription: 1,
         },
       },
+      { $skip: skip },
+      { $limit: limit },
     ];
 
-    // Execute the aggregation
     const products = await Product.aggregate(pipeline);
 
+    // Respond with the fetched products
     return res.status(200).json({
       status: true,
-      message: "Products listed successfully for the given shop",
+      message: "Products listed successfully",
       data: products,
     });
   } catch (err) {
+    // Error handling
     return res.status(500).json({
       status: false,
       message: err.message,
-      location: "src/Modules/product/controller/listProductsByShop.js",
+      location: "src/Modules/product/controller/listProducts.js",
     });
   }
 };
 
-module.exports = listProductsByShopId;
+module.exports = listProducts;
