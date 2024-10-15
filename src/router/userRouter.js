@@ -25,6 +25,7 @@ const listshopTagByCategoryId = require("../Modules/shopTag/controller/listShopT
 const popularShopHome = require("../Modules/shop/controller/popularShopHome.js");
 const shopByShopId = require("../Modules/shop/controller/shopByShopId.js");
 const listProductsByShopId = require("../Modules/product/controller/UserproductByShopId.js");
+const productByProductId = require("../Modules/product/controller/productByProductId.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -56,5 +57,6 @@ userroutes.post("/shopbyshopid", authenticateUser, shopByShopId);
 userroutes.post("/shoptagbycategoryid", listshopTagByCategoryId);
 
 userroutes.post("/listproductbyshopid", listProductsByShopId);
+userroutes.post("/productbyproductid", productByProductId);
 
 module.exports = userroutes;
