@@ -16,10 +16,6 @@ const cartSchema = new mongoose.Schema(
       },
     ],
     totalAmount: { type: Number },
-    modifiedOn: {
-      type: Date,
-      default: Date.now,
-    },
   },
   {
     timestamps: true,

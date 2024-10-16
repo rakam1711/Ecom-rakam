@@ -67,6 +67,7 @@ const productByProductId = async (req, res, next) => {
         $project: {
           name: 1,
           description: 1,
+          vendorDetails: 1,
           price: 1,
           stock: 1,
           images: 1,
@@ -86,10 +87,19 @@ const productByProductId = async (req, res, next) => {
           isActive: 1,
           // shopDetails: { $arrayElemAt: ["$shopDetails", 0] },
           vendorDetails: { $arrayElemAt: ["$vendorDetails", 0] },
-          categoryDetails: { $arrayElemAt: ["$categoryDetails", 0] },
-          subCategoryDetails: 1,
-          subVarientDetails: { $arrayElemAt: ["$subVarientDetails", 0] },
-          shopTagDetails: 1,
+          // categoryDetails: { $arrayElemAt: ["$categoryDetails", 0] },
+          subCategories: {
+            $map: {
+              input: "$subCategoryDetails",
+              as: "subCategory",
+              in: {
+                _id: "$$subCategory._id",
+                name: "$$subCategory.name",
+              },
+            },
+          },
+          // subVarientDetails: { $arrayElemAt: ["$subVarientDetails", 0] },
+          // shopTagDetails: 1,
         },
       },
     ];
