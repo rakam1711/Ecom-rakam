@@ -15,14 +15,10 @@ const addService = async (req, res, next) => {
     try {
       const mustData = {
         name: req.body.name,
-        description: req.body.name,
+        description: req.body.description,
         image: req.file ? req.file.path : undefined,
       };
-      for (let key in mustData) {
-        if (mustData[key] == undefined || mustData[key] == "") {
-          throw new Error(`invalid field ${key}`);
-        }
-      }
+
       const serviceName = await Service.findOne({ name: mustData.name });
       if (serviceName) throw new Error("service Name already present");
 
