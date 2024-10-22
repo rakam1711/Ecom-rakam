@@ -30,6 +30,7 @@ const deleteshopTag = require("../Modules/shopTag/controller/deleteShopTag.js");
 const listshopTag = require("../Modules/shopTag/controller/listShopTag.js");
 const editProfile = require("../Modules/vendor/controller/editProfile.js");
 const searchAdmin = require("../Modules/admin/controller/searchAdmin.js");
+const searchUser = require("../Modules/user/controller/searchUser.js");
 
 adminroutes.post("/createadmin", authenticateAdmin, createAdmin);
 adminroutes.post("/listadmin", authenticateAdmin, listAdmin);
@@ -71,5 +72,6 @@ adminroutes.get("/listuser", authenticateAdmin, listUser);
 
 adminroutes.post("/updatevendor", editProfile);
 adminroutes.post("/searchadmin", searchAdmin);
+adminroutes.post("/searchuser", searchUser);
 
 module.exports = adminroutes;

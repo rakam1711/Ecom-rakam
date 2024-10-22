@@ -3,7 +3,8 @@ const Tag = require("../models/tagSchema.js");
 const createTag = async (req, res, next) => {
   try {
     const { tagName, description } = req.body;
-    const value =await Tag.findOne({ tagName: tagName });
+    console.log(description);
+    const value = await Tag.findOne({ tagName: tagName });
     if (value) throw new Error("tag name already present");
     const data = Tag({
       tagName: tagName,
