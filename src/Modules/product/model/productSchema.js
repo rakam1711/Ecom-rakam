@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema(
     productShipingDetails: {
       type: Array,
     },
-    tag: [],
+    tag: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
     minOrderQnt: { type: Number, default: 1 },
     maxOrderQnt: { type: Number, default: 5 },
     specialLabel: {

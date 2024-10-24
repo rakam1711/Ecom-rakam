@@ -1,7 +1,7 @@
 const Product = require("../model/productSchema.js");
 const mongoose = require("mongoose");
 
-const listProducts = async (req, res, next) => {
+const UserproductByShopId = async (req, res, next) => {
   try {
     let limit = parseInt(req.body.limit) || 10;
     let page = parseInt(req.body.page) || 1;
@@ -86,9 +86,9 @@ const listProducts = async (req, res, next) => {
     return res.status(500).json({
       status: false,
       message: err.message,
-      location: "src/Modules/product/controller/listProducts.js",
+      location: "src/Modules/product/controller/UserproductByShopId.js",
     });
   }
 };
 
-module.exports = listProducts;
+module.exports = UserproductByShopId;

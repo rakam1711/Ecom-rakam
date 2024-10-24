@@ -5,6 +5,8 @@ const tagSchema = new mongoose.Schema(
     tagName: { type: String, unique: true },
     description: { type: String },
     status: { type: Boolean, default: false },
+    shopId: { type: mongoose.Schema.Types.ObjectId, ref: "shop" },
+
   },
   { timestamps: true }
 );

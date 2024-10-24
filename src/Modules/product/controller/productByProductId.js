@@ -85,6 +85,7 @@ const productByProductId = async (req, res, next) => {
           isProduct: 1,
           colorCode: 1,
           isActive: 1,
+          varient: 1,
           // shopDetails: { $arrayElemAt: ["$shopDetails", 0] },
           vendorDetails: { $arrayElemAt: ["$vendorDetails", 0] },
           // categoryDetails: { $arrayElemAt: ["$categoryDetails", 0] },
