@@ -9,6 +9,7 @@ const UserproductByShopId = async (req, res, next) => {
 
     let shopId = req.body.shopId;
     let subCategoryId = req.body.subCategoryId;
+    let tagId = req.body.tagId; // New tag filter
 
     const matchCondition = { isActive: true };
 
@@ -18,6 +19,10 @@ const UserproductByShopId = async (req, res, next) => {
 
     if (subCategoryId) {
       matchCondition.subCategory = new mongoose.Types.ObjectId(subCategoryId);
+    }
+
+    if (tagId) {
+      matchCondition.tag = new mongoose.Types.ObjectId(tagId);
     }
 
     const pipeline = [
@@ -39,6 +44,14 @@ const UserproductByShopId = async (req, res, next) => {
         },
       },
       {
+        $lookup: {
+          from: "tags",
+          localField: "tag",
+          foreignField: "_id",
+          as: "tagDetails",
+        },
+      },
+      {
         $project: {
           _id: 1,
           name: 1,
@@ -54,6 +67,16 @@ const UserproductByShopId = async (req, res, next) => {
               in: {
                 _id: "$$subCategory._id",
                 name: "$$subCategory.name",
+              },
+            },
+          },
+          tag: {
+            $map: {
+              input: "$tagDetails",
+              as: "tag",
+              in: {
+                _id: "$$tag._id",
+                name: "$$tag.name",
               },
             },
           },

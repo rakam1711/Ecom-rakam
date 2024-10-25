@@ -32,6 +32,9 @@ const editProfile = require("../Modules/vendor/controller/editProfile.js");
 const searchAdmin = require("../Modules/admin/controller/searchAdmin.js");
 const searchUser = require("../Modules/user/controller/searchUser.js");
 const listshopTagAdmin = require("../Modules/shopTag/controller/listShopTagAdmin.js");
+const listTagAdmin = require("../Modules/tags/controller/listTagAdmin.js");
+const updateBanner = require("../Modules/banner/controller/updateBannerController.js");
+const listBannerById = require("../Modules/banner/controller/listBannerById.js");
 
 adminroutes.post("/createadmin", authenticateAdmin, createAdmin);
 adminroutes.post("/listadmin", authenticateAdmin, listAdmin);
@@ -55,6 +58,7 @@ adminroutes.post("/listsubcategory", listSubCategory);
 adminroutes.post("/updatesubcategory", authenticateAdmin, updateSubCategory);
 
 adminroutes.post("/createbanner", authenticateAdmin, createBannerController);
+adminroutes.post("/updatebanner", authenticateAdmin, updateBanner);
 
 adminroutes.post("/createsubvarient", authenticateAdmin, createSubVarient);
 adminroutes.post("/listsubvarient", authenticateAdmin, listSubVarient);
@@ -75,5 +79,7 @@ adminroutes.post("/updatevendor", editProfile);
 adminroutes.post("/searchadmin", searchAdmin);
 adminroutes.post("/searchuser", searchUser);
 adminroutes.post("/listshoptagadmin", listshopTagAdmin);
+adminroutes.post("/listtagadmin", listTagAdmin);
+adminroutes.post("/listbannerbyid", listBannerById);
 
 module.exports = adminroutes;

@@ -37,7 +37,6 @@ const productSchema = new mongoose.Schema(
     isProduct: { type: Boolean, default: true },
     colorCode: { type: String },
     isActive: { type: Boolean, default: false },
-    shopTag: [{ type: mongoose.Schema.Types.ObjectId, ref: "shopTag" }],
   },
   {
     timestamps: true,

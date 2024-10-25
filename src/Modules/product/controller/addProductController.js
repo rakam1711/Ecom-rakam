@@ -38,7 +38,6 @@ const addProduct = async (req, res, next) => {
         deliveryInstruction: req.body.deliveryInstruction,
         isProduct: req.body.isProduct,
         colorCode: req.body.colorCode,
-        shopTag: req.body.shopTag,
       };
       if (req.files) {
         mustData.images = req.files.map((file) => BASE_URL + file.path);
@@ -68,7 +67,6 @@ const addProduct = async (req, res, next) => {
         deliveryInstruction: mustData.deliveryInstruction,
         isProduct: mustData.isProduct,
         colorCode: mustData.colorCode,
-        shopTag: mustData.shopTag,
       });
 
       await product.save();

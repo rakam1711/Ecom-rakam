@@ -1,4 +1,4 @@
-const bannerSchema = require("../model/productSchema.js");
+const bannerSchema = require("../model/bannerSchema.js");
 const upload = require("../../../Middleware/multer/multipleImageUpload.js");
 const BASE_URL = process.env.BASE_URL;
 
@@ -36,7 +36,7 @@ const updateBanner = async (req, res, next) => {
 
       if (!req.body.imageIndex && req.files && req.files.length > 0) {
         const newImages = req.files.map((file) => BASE_URL + file.path);
-        banner.images = [...banner.images, ...newImages];
+        banner.image = [...banner.image, ...newImages];
       } else if (
         req.body.imageIndex !== undefined &&
         req.files &&
@@ -44,8 +44,8 @@ const updateBanner = async (req, res, next) => {
       ) {
         const imageIndex = parseInt(req.body.imageIndex, 10);
 
-        if (imageIndex >= 0 && imageIndex < banner.images.length) {
-          banner.images[imageIndex] = BASE_URL + req.files[0].path;
+        if (imageIndex >= 0 && imageIndex < banner.image.length) {
+          banner.image[imageIndex] = BASE_URL + req.files[0].path;
         } else {
           return res.status(400).json({
             status: false,

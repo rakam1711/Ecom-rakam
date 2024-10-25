@@ -1,10 +1,8 @@
 const Tag = require("../models/tagSchema.js");
 
-const listTag = async (req, res, next) => {
+const listTagAdmin = async (req, res, next) => {
   try {
-    const id = req.body.id;
-    console.log("id", id);
-    const tags = await Tag.find();
+    const tags = await Tag.find().populate("shopId", { name: 1 });
     return res.status(200).json({
       message: "successfully listed",
       status: true,
@@ -19,4 +17,4 @@ const listTag = async (req, res, next) => {
   }
 };
 
-module.exports = listTag;
+module.exports = listTagAdmin;
