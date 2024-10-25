@@ -65,10 +65,10 @@ const popularShopHome = async (req, res) => {
 
           likeCount: { $size: "$likes" },
           isFollowedByUser: {
-            $in: [new mongoose.Types.ObjectId(req.userId), "$followers.userId"],
+            $in: [new mongoose.Types.ObjectId(user), "$followers.userId"],
           },
           isLikedByUser: {
-            $in: [new mongoose.Types.ObjectId(req.userId), "$likes.userId"],
+            $in: [new mongoose.Types.ObjectId(user), "$likes.userId"],
           },
         },
       },

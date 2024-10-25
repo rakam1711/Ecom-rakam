@@ -6,7 +6,7 @@ const myFollowingShop = async (req, res) => {
     const page = req.body.page || 1;
     const limit = req.body.limit || 10;
     const skip = (page - 1) * limit;
-
+    console.log(req.userId, "myfolloing");
     const matchCondition = {
       isActive: true,
     };
@@ -65,11 +65,11 @@ const myFollowingShop = async (req, res) => {
         },
       },
 
-      //   {
-      //     $match: {
-      //       isFollowedByUser: true,
-      //     },
-      //   },
+      {
+        $match: {
+          isFollowedByUser: true,
+        },
+      },
     ];
 
     const shopsWithFollowers = await Shop.aggregate(pipeline);

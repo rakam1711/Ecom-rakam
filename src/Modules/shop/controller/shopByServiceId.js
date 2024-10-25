@@ -8,6 +8,7 @@ const shopbyServiceId = async (req, res) => {
     const skip = (page - 1) * limit;
     const serId = req.body.Serviceid;
     const isPopularShop = req.body.isPopularShop;
+    console.log(req.userId);
 
     // Ensure catId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(serId)) {
