@@ -3,7 +3,7 @@ const upload = require("../../../Middleware/multer/multipleImageUpload.js");
 const BASE_URL = process.env.BASE_URL;
 const shop = require("../../shop/model/shopSchema.js");
 
-const                                                                                                                                                      updateProduct = async (req, res, next) => {
+const updateProduct = async (req, res, next) => {
   upload(req, res, async (err) => {
     if (err) {
       return res.status(400).send({

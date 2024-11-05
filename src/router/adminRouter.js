@@ -35,6 +35,8 @@ const listshopTagAdmin = require("../Modules/shopTag/controller/listShopTagAdmin
 const listTagAdmin = require("../Modules/tags/controller/listTagAdmin.js");
 const updateBanner = require("../Modules/banner/controller/updateBannerController.js");
 const listBannerById = require("../Modules/banner/controller/listBannerById.js");
+const listProductByVendorId = require("../Modules/product/controller/listProductByVendorId.js");
+const updateProduct = require("../Modules/product/controller/updateProductController.js");
 
 adminroutes.post("/createadmin", authenticateAdmin, createAdmin);
 adminroutes.post("/listadmin", authenticateAdmin, listAdmin);
@@ -81,5 +83,7 @@ adminroutes.post("/searchuser", searchUser);
 adminroutes.post("/listshoptagadmin", listshopTagAdmin);
 adminroutes.post("/listtagadmin", listTagAdmin);
 adminroutes.post("/listbannerbyid", listBannerById);
+adminroutes.post("/listproductbyvendorid", listProductByVendorId);
+adminroutes.post("/updateproduct", authenticateAdmin, updateProduct);
 
 module.exports = adminroutes;

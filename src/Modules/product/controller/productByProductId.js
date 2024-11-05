@@ -73,6 +73,7 @@ const productByProductId = async (req, res, next) => {
           images: 1,
           productShipingDetails: 1,
           tag: 1,
+          shop: 1,
           minOrderQnt: 1,
           maxOrderQnt: 1,
           specialLabel: 1,
