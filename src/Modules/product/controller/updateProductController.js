@@ -33,17 +33,23 @@ const updateProduct = async (req, res, next) => {
         description: req.body.description,
         brand: req.body.brand,
         category: req.body.categoryId,
-        subCategory: req.body.subCategoryId,
+        subCategory: req.body.subCategoryId
+          ? JSON.parse(req.body.subCategoryId)
+          : product.subCategory,
         price: req.body.price,
         stock: req.body.stock,
-        productShipingDetails: req.body.productShipingDetails,
-        tag: req.body.tagId,
+        productShipingDetails: req.body.productShipingDetails
+          ? JSON.parse(req.body.productShipingDetails)
+          : product.productShipingDetails,
+        tag: req.body.tagId ? JSON.parse(req.body.tagId) : product.tag,
         minOrderQnt: req.body.minOrderQnt,
         maxOrderQnt: req.body.maxOrderQnt,
         specialLabel: req.body.specialLabel,
         availableForSubscription: req.body.availableForSubscription,
         frequency: req.body.frequency,
-        varient: req.body.varientId,
+        varient: req.body.varientId
+          ? JSON.parse(req.body.varientId)
+          : product.varient,
         subVarient: req.body.subVarient,
         deliveryTimeline: req.body.deliveryTimeline,
         deliveryInstruction: req.body.deliveryInstruction,
@@ -51,6 +57,7 @@ const updateProduct = async (req, res, next) => {
         colorCode: req.body.colorCode,
         rating: req.body.rating,
         numRatings: req.body.numRatings,
+        isActive: req.body.isActive,
       };
 
       for (let key in mustData) {
