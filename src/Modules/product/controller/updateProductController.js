@@ -1,12 +1,26 @@
 const Product = require("../model/productSchema.js");
 const upload = require("../../../Middleware/multer/multipleImageUpload.js");
 const BASE_URL = process.env.BASE_URL;
-const shop = require("../../shop/model/shopSchema.js");
+const Shop = require("../../shop/model/shopSchema.js");
+
+const safeParseArray = (data) => {
+  if (Array.isArray(data)) return data;
+  if (typeof data === "string") {
+    try {
+      const parsedData = JSON.parse(data);
+      return Array.isArray(parsedData) ? parsedData : [];
+    } catch (error) {
+      console.error("JSON parse error:", error);
+      return [];
+    }
+  }
+  return [];
+};
 
 const updateProduct = async (req, res, next) => {
   upload(req, res, async (err) => {
     if (err) {
-      return res.status(400).send({
+      return res.status(400).json({
         statusText: "BAD REQUEST",
         status: 400,
         message: err.message || "Error uploading file",
@@ -24,7 +38,7 @@ const updateProduct = async (req, res, next) => {
         });
       }
 
-      const shop1 = await shop.findOne({ owner: req.vendorId });
+      const shop1 = await Shop.findOne({ owner: req.vendorId || req.adminId });
 
       const mustData = {
         shop: shop1 ? shop1._id : product.shop,
@@ -33,23 +47,17 @@ const updateProduct = async (req, res, next) => {
         description: req.body.description,
         brand: req.body.brand,
         category: req.body.categoryId,
-        subCategory: req.body.subCategoryId
-          ? JSON.parse(req.body.subCategoryId)
-          : product.subCategory,
+        subCategory: safeParseArray(req.body.subCategoryId),
         price: req.body.price,
         stock: req.body.stock,
-        productShipingDetails: req.body.productShipingDetails
-          ? JSON.parse(req.body.productShipingDetails)
-          : product.productShipingDetails,
-        tag: req.body.tagId ? JSON.parse(req.body.tagId) : product.tag,
+        productShipingDetails: safeParseArray(req.body.productShipingDetails),
+        tag: safeParseArray(req.body.tagId),
         minOrderQnt: req.body.minOrderQnt,
         maxOrderQnt: req.body.maxOrderQnt,
         specialLabel: req.body.specialLabel,
         availableForSubscription: req.body.availableForSubscription,
         frequency: req.body.frequency,
-        varient: req.body.varientId
-          ? JSON.parse(req.body.varientId)
-          : product.varient,
+        varient: safeParseArray(req.body.varientId),
         subVarient: req.body.subVarient,
         deliveryTimeline: req.body.deliveryTimeline,
         deliveryInstruction: req.body.deliveryInstruction,
@@ -85,17 +93,10 @@ const updateProduct = async (req, res, next) => {
         }
       }
 
-      if (mustData.productShipingDetails) {
-        product.productShipingDetails = JSON.parse(
-          mustData.productShipingDetails
-        );
-      }
-
       await product.save();
       return res.status(200).json({
         status: true,
         message: "Product updated successfully",
-        data: product,
       });
     } catch (err) {
       return res.status(500).json({

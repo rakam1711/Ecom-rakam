@@ -5,7 +5,7 @@ const listCartItems = async (req, res, next) => {
   try {
     const userId = req.userId;
     const cart = await Cart.findOne({ userId })
-      .populate("items.productId", "name price")
+      .populate("items.productId", "name price images shop brand")
       .populate("items.shopId", "name")
       .populate("items.varient", "name")
       .populate("items.subVarient", "name");

@@ -1,7 +1,20 @@
 const Shop = require("../model/shopSchema.js");
 const upload = require("../../../Middleware/multer/singleImageUpload.js");
 const BASE_URL = process.env.BASE_URL;
-
+const safeParseArray = (data) => {
+  if (Array.isArray(data)) return data;
+  if (typeof data === "string") {
+    try {
+      const parsedData = JSON.parse(data);
+      console.log(parsedData, "data")
+      return Array.isArray(parsedData) ? parsedData : [];
+    } catch (error) {
+      console.error("JSON parse error:", error);
+      return [];
+    }
+  }
+  // return [];
+};
 const updateShopByAdmin = async (req, res, next) => {
   upload(req, res, async (err) => {
     if (err) {
@@ -27,7 +40,8 @@ const updateShopByAdmin = async (req, res, next) => {
           name: req.body.name,
           description: req.body.description,
           categories: req.body.categories,
-          subCategories: JSON.parse(req.body.subCategories),
+          subCategories: safeParseArray(req.body.subCategories),
+          // subCategories: JSON.parse(req.body.subCategories),
           street: req.body.street,
           city: req.body.city,
           state: req.body.state,
@@ -37,7 +51,8 @@ const updateShopByAdmin = async (req, res, next) => {
           isActive: req.body.isActive,
           verifiedBy: req.adminId,
           logo: req.file ? BASE_URL + req.file.path : undefined,
-          shopTag: JSON.parse(req.body.shopTag),
+          shopTag: safeParseArray(req.body.shopTag),
+          // shopTag: JSON.parse(req.body.shopTag),
           shopTiming: req.body.shopTiming,
           deliveryMethod: req.body.deliveryMethod,
         };
@@ -53,7 +68,6 @@ const updateShopByAdmin = async (req, res, next) => {
         return res.status(200).json({
           status: true,
           message: "Shop updated successfully.",
-          data: updatedShop,
         });
       }
     } catch (error) {

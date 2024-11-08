@@ -15,6 +15,7 @@ const addProduct = async (req, res, next) => {
     }
     try {
       const shop1 = await shop.findOne({ owner: req.vendorId });
+      console.log(req.body.subCategoryId, "fsdfhkjsdhfksdfksdfkdh");
       const mustData = {
         shop: shop1._id,
         vendor: req.vendorId,
@@ -42,7 +43,7 @@ const addProduct = async (req, res, next) => {
       if (req.files) {
         mustData.images = req.files.map((file) => BASE_URL + file.path);
       }
-
+      console.log(req.body.subCategoryId);
       const product = Product({
         shop: mustData.shop,
         vendor: mustData.vendor,
