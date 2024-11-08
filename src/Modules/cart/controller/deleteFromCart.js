@@ -1,8 +1,13 @@
+const mongoose = require("mongoose");
 const Cart = require("../model/cartSchema.js");
 
 const deleteCartItems = async (req, res, next) => {
   try {
     const { itemId } = req.body;
+
+    if (!itemId) {
+      return res.status(400).json({ message: "Item ID is required" });
+    }
 
     const cart = await Cart.findOne({ userId: req.userId });
 
@@ -10,18 +15,26 @@ const deleteCartItems = async (req, res, next) => {
       return res.status(404).json({ message: "Cart not found" });
     }
 
-    if (itemId) {
-      cart.items = cart.items.filter((item) => item._id.toString() !== itemId);
+    const itemObjectId = new mongoose.Types.ObjectId(itemId);
 
-      cart.totalAmount = cart.items.reduce((acc, item) => acc + item.amount, 0);
+    const initialItemCount = cart.items.length;
+    cart.items = cart.items.filter(
+      (item) => !item.productId.equals(itemObjectId)
+    );
 
-      await cart.save();
-      res.status(200).json({
-        status: true,
-        message: "successfully cart deleted",
-        cart,
-      });
+    if (cart.items.length === initialItemCount) {
+      return res.status(404).json({ message: "Product not found in cart" });
     }
+
+  
+    cart.totalAmount = cart.items.reduce((acc, item) => acc + item.amount, 0);
+
+    await cart.save();
+
+    res.status(200).json({
+      status: true,
+      message: "Successfully deleted item from cart",
+    });
   } catch (err) {
     return res.status(500).json({
       status: false,

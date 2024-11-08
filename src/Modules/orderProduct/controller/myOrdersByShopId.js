@@ -16,21 +16,21 @@ const Myorders = async (req, res) => {
     const orders = await Order.aggregate([
       {
         $match: {
-          "items.shopId": new mongoose.Types.ObjectId(shopId), // Match shopId in the items array
+          "items.shopId": new mongoose.Types.ObjectId(shopId), 
           "items.ProductStatus": productStatus,
         },
       },
       {
-        $unwind: "$items", // Unwind the items array to process each item separately
+        $unwind: "$items",
       },
       {
         $match: {
-          "items.shopId": new mongoose.Types.ObjectId(shopId), // Match shopId again for unwound items
+          "items.shopId": new mongoose.Types.ObjectId(shopId), 
         },
       },
       {
         $lookup: {
-          from: "products", // Collection name should be lowercase
+          from: "products",
           localField: "items.productId",
           foreignField: "_id",
           as: "productDetails",
@@ -38,13 +38,13 @@ const Myorders = async (req, res) => {
       },
       {
         $unwind: {
-          path: "$productDetails", // Unwind the productDetails array to get a single object
-          preserveNullAndEmptyArrays: true, // To handle cases where productDetails might not exist
+          path: "$productDetails", 
+          preserveNullAndEmptyArrays: true, 
         },
       },
       {
         $group: {
-          _id: "$_id", // Group back by orderId
+          _id: "$_id", 
           user: { $first: "$user" },
           totalAmount: { $first: "$totalAmount" },
           paymetStatus: { $first: "$paymetStatus" },
@@ -52,7 +52,7 @@ const Myorders = async (req, res) => {
             $push: {
               productId: "$items.productId",
               shopId: "$items.shopId",
-              productDetails: "$productDetails", // Include the populated product details
+              productDetails: "$productDetails", 
               varient: "$items.varient",
               subVarient: "$items.subVarient",
               unit: "$items.unit",

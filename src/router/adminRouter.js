@@ -74,7 +74,7 @@ adminroutes.post("/updateShopByAdmin", authenticateAdmin, updateShopByAdmin);
 
 adminroutes.post("/nonActiveListShop", authenticateAdmin, nonActiveListShop);
 
-adminroutes.get("/listvendor", authenticateAdmin, listVendor);
+adminroutes.post("/listvendor", authenticateAdmin, listVendor);
 adminroutes.get("/listuser", authenticateAdmin, listUser);
 
 adminroutes.post("/updatevendor", editProfile);
