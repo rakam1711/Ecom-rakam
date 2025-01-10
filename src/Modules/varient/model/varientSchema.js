@@ -4,6 +4,7 @@ const varientSchema = new mongoose.Schema({
   name: String,
   role: String,
   createdBy: String,
+  subCategory: { type: mongoose.Schema.Types.ObjectId, ref: "subCategory" },
 });
 
 const varient = mongoose.model("Varientt", varientSchema);
