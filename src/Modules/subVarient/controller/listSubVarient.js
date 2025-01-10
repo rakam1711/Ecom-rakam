@@ -5,10 +5,8 @@ const listSubVarient = async (req, res, next) => {
     const varientId = req.body.varientId;
     if (!varientId) throw new Error("varientId is required");
     const vendorId = req.vendorId;
-    const pipeline = { varient: varientId };
-    if (vendorId) {
-      pipeline.role = "ADMIN";
-    }
+    const pipeline = { varient: varientId, role: "ADMIN" };
+
     const data = await subVarient.find(pipeline);
     let additionalData = [];
     if (vendorId) {

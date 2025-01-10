@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const subVarientSchema = new mongoose.Schema({
-  name: String,
+  name: [],
   varient: { type: mongoose.Schema.Types.ObjectId, ref: "Varientt" },
   role: { type: String },
   createdBy: String,
