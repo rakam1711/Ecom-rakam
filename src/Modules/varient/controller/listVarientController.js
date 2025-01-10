@@ -3,10 +3,11 @@ const Varient = require("../model/varientSchema.js");
 const listVarient = async (req, res, next) => {
   try {
     const vendorId = req.vendorId;
-    const pipeline = { };
-    if (vendorId) {
-      pipeline.role = "ADMIN";
-    }
+    const pipeline = {};
+
+    pipeline.role = "ADMIN";
+    pipeline.subCategory = req.body.subCategory;
+
     const data = await Varient.find(pipeline);
 
     let additionalData = [];
