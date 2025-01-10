@@ -3,7 +3,8 @@ const Varient = require("../model/varientSchema.js");
 const createVarient = async (req, res, next) => {
   try {
     const { name, subCategory } = req.body;
-    if (!name) throw new Error("variet name not provided");
+    if (!name || !subCategory)
+      throw new Error("variet or mayBe subcategory Id not provided");
     const data = Varient({
       name: name,
       createdBy: req.vendorId || req.adminId,
