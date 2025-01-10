@@ -3,6 +3,7 @@ const subVarient = require("../model/subVarientSchema.js");
 const listSubVarient = async (req, res, next) => {
   try {
     const varientId = req.body.varientId;
+    if (!varientId) throw new Error("varientId is required");
     const vendorId = req.vendorId;
     const pipeline = { varient: varientId };
     if (vendorId) {
