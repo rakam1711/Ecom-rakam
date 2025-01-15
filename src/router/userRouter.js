@@ -63,5 +63,4 @@ userroutes.post("/productbyproductid", productByProductId);
 userroutes.post("/myfollowingshop", authenticateUser, myFollowingShop);
 userroutes.post("/tagbyshopid", tagByShopId);
 
-
 module.exports = userroutes;

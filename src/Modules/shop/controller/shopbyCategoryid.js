@@ -64,6 +64,14 @@ const shopbyCategoryid = async (req, res) => {
           as: "likes",
         },
       },
+      {
+        $lookup: {
+          from: "vendor",
+          localField: "owner",
+          foreignField: "_id",
+          as: "vendors",
+        },
+      },
 
       {
         $project: {
@@ -88,6 +96,7 @@ const shopbyCategoryid = async (req, res) => {
           updatedAt: 1,
           followerCount: { $size: "$followers" },
           likeCount: { $size: "$likes" },
+          ownerName: { $arrayElemAt: ["$vendors.ownerName", 0] },
           isFollowedByUser: {
             $in: [new mongoose.Types.ObjectId(req.userId), "$followers.userId"],
           },

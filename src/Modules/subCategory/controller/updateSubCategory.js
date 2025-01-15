@@ -11,6 +11,7 @@ const updateSubCategory = async (req, res) => {
         name: req.body.name,
         description: req.body.description,
         category: req.body.categoryId,
+        tagId: req.body.tagId,
       };
       for (let key in data) {
         if (data[key] == undefined || data[key] == "") {
