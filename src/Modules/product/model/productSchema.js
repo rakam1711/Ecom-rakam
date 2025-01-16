@@ -28,6 +28,7 @@ const productSchema = new mongoose.Schema(
       default: "None",
     },
     subVarient: { type: mongoose.Schema.Types.ObjectId, ref: "subVarient" },
+    // Varient: { type: mongoose.Schema.Types.ObjectId, ref: "Varientt" },
 
     deliveryTimeline: { type: String, default: "pickup up after 2 hr" },
     deliveryInstruction: { type: String, default: "be cautious from dogs" },
