@@ -9,7 +9,6 @@ const shopByShopId = async (req, res, next) => {
     const shopId = req.body.shopId;
 
     const sId = new mongoose.Types.ObjectId(shopId);
-    ` `;
     const matchCondition = {
       _id: sId,
     };

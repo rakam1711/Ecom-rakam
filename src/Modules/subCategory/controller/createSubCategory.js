@@ -19,6 +19,7 @@ const subcreateCategory = async (req, res, next) => {
         description: req.body.description,
         categoryId: req.body.categoryId,
         image: req.file ? req.file.path : undefined,
+        tagId: req.body.tagId,
       };
       for (let key in mustData) {
         if (mustData[key] == undefined || mustData[key] == "") {
@@ -34,6 +35,7 @@ const subcreateCategory = async (req, res, next) => {
           description: mustData.description,
           category: mustData.categoryId,
           image: BASE_URL + mustData.image,
+          tagId: mustData.tagId,
         });
         const data = await addCategory.save();
         return res.status(201).json({

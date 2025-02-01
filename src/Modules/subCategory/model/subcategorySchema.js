@@ -18,6 +18,10 @@ const subCategoryModel = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "categorySchema",
     },
+    tagId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tag",
+    },
     is_active: {
       type: Boolean,
       default: true,

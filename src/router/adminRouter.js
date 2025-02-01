@@ -37,6 +37,7 @@ const updateBanner = require("../Modules/banner/controller/updateBannerControlle
 const listBannerById = require("../Modules/banner/controller/listBannerById.js");
 const listProductByVendorId = require("../Modules/product/controller/listProductByVendorId.js");
 const updateProduct = require("../Modules/product/controller/updateProductController.js");
+const updateTag = require("../Modules/tags/controller/updateTagController.js");
 
 adminroutes.post("/createadmin", authenticateAdmin, createAdmin);
 adminroutes.post("/listadmin", authenticateAdmin, listAdmin);
@@ -85,5 +86,6 @@ adminroutes.post("/listtagadmin", listTagAdmin);
 adminroutes.post("/listbannerbyid", listBannerById);
 adminroutes.post("/listproductbyvendorid", listProductByVendorId);
 adminroutes.post("/updateproduct", authenticateAdmin, updateProduct);
+adminroutes.post("/updateTag", authenticateAdmin, updateTag);
 
 module.exports = adminroutes;

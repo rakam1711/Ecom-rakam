@@ -1,7 +1,6 @@
 const createSubVarient = require("../Modules/subVarient/controller/createSubVarient");
 const deleteSubVarient = require("../Modules/subVarient/controller/deleteSubVarient");
 const listSubVarient = require("../Modules/subVarient/controller/listSubVarient");
-const updateSubVarient = require("../Modules/subVarient/controller/updateSubVarient");
 const createVarient = require("../Modules/varient/controller/createVarientController");
 const deleteVarient = require("../Modules/varient/controller/deleteVarientController");
 const listVarient = require("../Modules/varient/controller/listVarientController");
@@ -16,7 +15,6 @@ varientRoutes.post("/deletevarient", deleteVarient);
 varientRoutes.post("/listvarient", listVarient);
 
 varientRoutes.post("/createsubvarient", vendorAuthentication, createSubVarient);
-varientRoutes.post("/updatesubvarient", updateSubVarient);
 varientRoutes.post("/deletesubvarient", deleteSubVarient);
 varientRoutes.post("/listsubvarient", vendorAuthentication, listSubVarient);
 
