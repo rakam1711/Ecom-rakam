@@ -16,7 +16,7 @@ const listProduct = require("../Modules/product/controller/listProductController
 const editProfile = require("../Modules/vendor/controller/editProfile.js");
 const createTag = require("../Modules/tags/controller/createtagcontroller.js");
 const listTag = require("../Modules/tags/controller/listTagController.js");
-const updateTag = require("../Modules/tags/controller/updateTagController.js");
+const updateTag = require("../Modules/tags/controller/updatetagcontroller.js");
 const deleteTag = require("../Modules/tags/controller/deleteTagController.js");
 
 const subCategoryByCategoryId = require("../Modules/subCategory/controller/listSubCategory.js");
