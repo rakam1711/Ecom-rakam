@@ -30,6 +30,7 @@ const authenticateVendor = async (req, res, next) => {
     }
     const encryptedtoken = authHeader.split(" ")[1];
     const token = await decrypt(encryptedtoken);
+    // console.log("Token:", token);
     let decodedToken;
     try {
       decodedToken = jwt.verify(token, JWTSECRET);
