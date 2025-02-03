@@ -6,10 +6,8 @@ const bcryptjs = require("bcryptjs");
 const editProfile = async (req, res) => {
   upload(req, res, async () => {
     try {
-      const id = req.body.vendorId;
+      const id = req.vendorId;
       const vendor = await vendorModel.findById({ _id: id });
-      const salt = bcryptjs.genSaltSync(2);
-      const hashPassword = bcryptjs.hashSync(req.body.password, salt);
       const mustdata = {
         image: req.body.image,
         ownerName: req.body.ownerName,
@@ -23,7 +21,7 @@ const editProfile = async (req, res) => {
         ifscCode: req.body.ifscCode,
         branchName: req.body.branchName,
         MSME: req.body.msme,
-        password: hashPassword,
+        password: req.body.password,
       };
       for (let key in mustdata) {
         if (mustdata[key] == undefined || mustdata[key] == "") {
@@ -34,7 +32,11 @@ const editProfile = async (req, res) => {
         deleteImage(vendor.image);
         mustdata.image = BASE_URL + req.file.path;
       }
-
+      if (mustdata.password) {
+        const salt = await bcryptjs.genSalt(10);
+        const hashedPassword = await bcryptjs.hash(mustdata.password, salt);
+        mustdata.password = hashedPassword;
+      }
       await vendorModel.findByIdAndUpdate({ _id: id }, mustdata, {
         new: true,
       });
