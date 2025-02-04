@@ -30,6 +30,8 @@ const listBrand = require("../Modules/brand/controller/listBrand.js");
 const myOrdersByShopId = require("../Modules/orderProduct/controller/myOrdersByShopId.js");
 const updatemyOrdersByShopId = require("../Modules/orderProduct/controller/updatemyOrdersByShopId.js");
 const listTagByCategoryId = require("../Modules/tags/controller/listTagByCategoryId.js");
+const addSubCatVarient = require("../Modules/subCategoryVarients/controller/addSubCatVarient.js");
+const listSubCatVarient = require("../Modules/subCategoryVarients/controller/listSubCatVarient.js");
 
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
@@ -67,5 +69,8 @@ vendorRoute.post("/listBrand", listBrand);
 vendorRoute.post("/myOrdersByShopId", myOrdersByShopId);
 vendorRoute.post("/updatemyOrdersByShopId", updatemyOrdersByShopId);
 vendorRoute.post("/listTagByCategoryId", listTagByCategoryId);
+
+vendorRoute.post("/addSubCatVarient", authenticateVendor, addSubCatVarient);
+vendorRoute.post("/listSubCatVarient", authenticateVendor, listSubCatVarient);
 
 module.exports = vendorRoute;

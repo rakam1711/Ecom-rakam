@@ -9,7 +9,8 @@ const UserproductByShopId = async (req, res, next) => {
 
     let shopId = req.body.shopId;
     let subCategoryId = req.body.subCategoryId;
-    let tagId = req.body.tagId; // New tag filter
+    let tagId = req.body.tagId;
+    let subCategoryVarientId = req.body.subCategoryVarientId;
 
     const matchCondition = { isActive: true };
 
@@ -23,6 +24,11 @@ const UserproductByShopId = async (req, res, next) => {
 
     if (tagId) {
       matchCondition.tag = new mongoose.Types.ObjectId(tagId);
+    }
+    if (subCategoryVarientId) {
+      matchCondition.subCategoryVarient = new mongoose.Types.ObjectId(
+        subCategoryVarientId
+      );
     }
 
     const pipeline = [

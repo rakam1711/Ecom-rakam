@@ -12,6 +12,10 @@ const listProductBySubCategory = async (req, res, next) => {
       ? new mongoose.Types.ObjectId(req.body.SubcategoryId)
       : null;
 
+    const subCategoryVarientId = req.body.subCategoryVarientId
+      ? new mongoose.Types.ObjectId(req.body.subCategoryVarientId)
+      : null;
+
     const matchCondition = {
       vendor: vendorId,
       isActive: true,
@@ -19,6 +23,9 @@ const listProductBySubCategory = async (req, res, next) => {
 
     if (subcategoryId) {
       matchCondition.subCategory = { $in: [subcategoryId] };
+    }
+    if (subCategoryVarientId) {
+      matchCondition.subCategoryVarient = { $in: [subCategoryVarientId] };
     }
 
     const products = await Product.aggregate([

@@ -15,6 +15,10 @@ const productSchema = new mongoose.Schema(
       type: Array,
     },
     tag: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
+    subCategoryVarient: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "subCategoryVarient",
+    },
     minOrderQnt: { type: Number, default: 1 },
     maxOrderQnt: { type: Number, default: 5 },
     specialLabel: {

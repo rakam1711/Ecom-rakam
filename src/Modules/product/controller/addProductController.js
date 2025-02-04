@@ -61,7 +61,9 @@ const addProduct = async (req, res, next) => {
         isProduct: req.body.isProduct,
         colorCode: req.body.colorCode,
       };
-
+      if (req.body.subCategoryVarientId) {
+        mustData.subCategoryVarient = req.body.subCategoryVarientId;
+      }
       const product = new Product(mustData);
       await product.save();
 
