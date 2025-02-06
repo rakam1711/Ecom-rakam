@@ -31,7 +31,7 @@ const myOrdersByShopId = require("../Modules/orderProduct/controller/myOrdersByS
 const updatemyOrdersByShopId = require("../Modules/orderProduct/controller/updatemyOrdersByShopId.js");
 const listTagByCategoryId = require("../Modules/tags/controller/listTagByCategoryId.js");
 const addSubCatVarient = require("../Modules/subCategoryVarients/controller/addSubCatVarient.js");
-const listSubCatVarient = require("../Modules/subCategoryVarients/controller/listSubCatVarient.js");
+const deleteSubCatVarient = require("../Modules/subCategoryVarients/controller/deleteSubCatVarient.js");
 
 vendorRoute.post("/register", register);
 vendorRoute.post("/login", login);
@@ -71,6 +71,10 @@ vendorRoute.post("/updatemyOrdersByShopId", updatemyOrdersByShopId);
 vendorRoute.post("/listTagByCategoryId", listTagByCategoryId);
 
 vendorRoute.post("/addSubCatVarient", authenticateVendor, addSubCatVarient);
-vendorRoute.post("/listSubCatVarient", authenticateVendor, listSubCatVarient);
+vendorRoute.post(
+  "/deleteSubCatVarient",
+  authenticateVendor,
+  deleteSubCatVarient
+);
 
 module.exports = vendorRoute;
