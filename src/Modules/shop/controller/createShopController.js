@@ -11,19 +11,15 @@ const createShop = async (req, res, next) => {
         name: req.body.name,
         description: req.body.description,
         categories: req.body.categories,
-        subCategories: JSON.parse(req.body.subCategories),
+        subCategories: req.body.subCategories,
         street: req.body.street,
         city: req.body.city,
         state: req.body.state,
         postalCode: req.body.postalCode,
         phone: req.body.phone,
-        shopTag: JSON.parse(req.body.shopTag),
+        shopTag: req.body.shopTag,
       };
-      for (let key in mustData) {
-        if (mustData[key] == undefined || mustData[key] == "") {
-          throw new Error(`invalid field ${key}`);
-        }
-      }
+
       mustData.website = req.body.website;
       mustData.email = req.body.email;
       if (req.file) {
