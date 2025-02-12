@@ -43,7 +43,7 @@ userroutes.post("/updateaddress", authenticateUser, updateAddress);
 userroutes.post("/deleteaddress", authenticateUser, deleteAddress);
 userroutes.post("/listaddress", authenticateUser, listAddress);
 userroutes.post("/popularshophome", popularShopHome);
-userroutes.post("/shopbyCategoryid", authenticateUser, shopbyCategoryid);
+userroutes.post("/shopbyCategoryid", shopbyCategoryid);
 userroutes.post("/search", search);
 
 userroutes.post("/listbanner", listBanner);
