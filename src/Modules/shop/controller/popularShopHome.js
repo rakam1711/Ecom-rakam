@@ -7,6 +7,7 @@ const popularShopHome = async (req, res) => {
     const limit = req.body.limit || 10;
     const skip = (page - 1) * limit;
     const isPopularShop = req.body.isPopularShop;
+    const isDeliveryFree = req.body.isDeliveryFree;
     const user = req.body.userId;
 
     const matchCondition = {
@@ -14,6 +15,9 @@ const popularShopHome = async (req, res) => {
     };
     if (isPopularShop && isPopularShop != "") {
       matchCondition.isPopular = true;
+    }
+    if (isDeliveryFree && isDeliveryFree != "") {
+      matchCondition.isDeliveryFree = true;
     }
     const pipeline = [
       // Match shops by category ID

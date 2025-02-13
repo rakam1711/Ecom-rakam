@@ -37,6 +37,7 @@ const shopSchema = new mongoose.Schema(
     numberOfRatings: { type: Number, default: 0 },
     isPopular: { type: Boolean, default: false },
     shopTag: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
+    isDeliveryFree: { type: Boolean, default: false },
   },
   {
     timestamps: true,
