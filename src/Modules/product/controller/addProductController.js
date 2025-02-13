@@ -22,51 +22,16 @@ const addProduct = async (req, res, next) => {
         });
       }
 
-      let subCategory, productShippingDetails, tag;
-      try {
-        subCategory = JSON.parse(req.body.subCategoryId || "[]");
-        productShippingDetails = JSON.parse(
-          req.body.productShipingDetails || "[]"
-        );
-        tag = JSON.parse(req.body.tagId || "[]");
-        // varient = JSON.parse(req.body.varientId || "[]");
-      } catch (error) {
-        return res.status(400).json({
-          status: false,
-          message: `Invalid JSON format: ${error.message}`,
-        });
-      }
-
       const mustData = {
         shop: shop1._id,
         vendor: req.vendorId,
-        name: req.body.name,
-        description: req.body.description,
-        brand: req.body.brand,
-        category: req.body.categoryId,
-        subCategory,
-        price: req.body.price,
-        // stock: req.body.stock,
         images: req.files?.map((file) => BASE_URL + file.path) || [],
-        // productShippingDetails,
-        // tag,
-        // minOrderQnt: req.body.minOrderQnt,
-        // maxOrderQnt: req.body.maxOrderQnt || req.body.minOrderQnt,
-        // specialLabel: req.body.specialLabel,
-        // availableForSubscription: req.body.availableForSubscription,
-        // frequency: req.body.frequency,
-        // varient,
-        // deliveryTimeline: req.body.deliveryTimeline,
-        // deliveryInstruction: req.body.deliveryInstruction,
-        // isProduct: req.body.isProduct,
-        // colorCode: req.body.colorCode,
       };
-      if (req.body.subCategoryVarientId) {
-        mustData.subCategoryVarient = req.body.subCategoryVarientId;
-      }
 
       Object.keys(req.body).forEach((key) => {
-        if (!mustData.hasOwnProperty(key)) {
+        try {
+          mustData[key] = JSON.parse(req.body[key]);
+        } catch (error) {
           mustData[key] = req.body[key];
         }
       });

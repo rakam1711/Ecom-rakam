@@ -9,15 +9,6 @@ const productByProductId = async (req, res, next) => {
         $match: { _id: productId },
       },
 
-      // {
-      //   $lookup: {
-      //     from: "shops",
-      //     localField: "shop",
-      //     foreignField: "_id",
-      //     as: "shopDetails",
-      //   },
-      // },
-
       {
         $lookup: {
           from: "vendormodels",
@@ -65,31 +56,10 @@ const productByProductId = async (req, res, next) => {
 
       {
         $project: {
-          name: 1,
-          description: 1,
-          vendorDetails: 1,
-          price: 1,
-          stock: 1,
-          images: 1,
-          productShipingDetails: 1,
-          tag: 1,
-          shop: 1,
-          minOrderQnt: 1,
-          maxOrderQnt: 1,
-          specialLabel: 1,
-          availableForSubscription: 1,
-          frequency: 1,
-          deliveryTimeline: 1,
-          deliveryInstruction: 1,
-          rating: 1,
-          numRatings: 1,
-          isProduct: 1,
-          colorCode: 1,
-          isActive: 1,
-          varient: 1,
-          // shopDetails: { $arrayElemAt: ["$shopDetails", 0] },
+          productData: "$$ROOT",
+
           vendorDetails: { $arrayElemAt: ["$vendorDetails", 0] },
-          // categoryDetails: { $arrayElemAt: ["$categoryDetails", 0] },
+          categoryDetails: { $arrayElemAt: ["$categoryDetails", 0] },
           subCategories: {
             $map: {
               input: "$subCategoryDetails",
@@ -100,18 +70,33 @@ const productByProductId = async (req, res, next) => {
               },
             },
           },
-          // subVarientDetails: { $arrayElemAt: ["$subVarientDetails", 0] },
-          // shopTagDetails: 1,
+          subVarientDetails: { $arrayElemAt: ["$subVarientDetails", 0] },
+          shopTagDetails: { $arrayElemAt: ["$shopTagDetails", 0] },
+        },
+      },
+
+      {
+        $replaceRoot: {
+          newRoot: { $mergeObjects: ["$productData", "$$ROOT"] },
+        },
+      },
+
+      {
+        $project: {
+          productData: 0,
         },
       },
     ];
-    const product = await Product.aggregate(pipeline);
+
+    let product = await Product.aggregate(pipeline);
 
     if (!product || product.length === 0) {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    res.status(200).json(product[0]);
+    product = JSON.parse(JSON.stringify(product[0]));
+
+    res.status(200).json(product);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
