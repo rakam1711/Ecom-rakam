@@ -1,35 +1,41 @@
 const Product = require("../model/productSchema.js");
 const mongoose = require("mongoose");
 
+const parseJSONFields = (data) => {
+  Object.keys(data).forEach((key) => {
+    if (
+      typeof data[key] === "string" &&
+      data[key].startsWith("[") &&
+      data[key].endsWith("]")
+    ) {
+      try {
+        data[key] = JSON.parse(data[key]);
+      } catch (error) {
+        console.error(`Error parsing ${key}:`, error.message);
+      }
+    }
+  });
+  return data;
+};
+
 const UserproductByShopId = async (req, res, next) => {
   try {
-    let limit = parseInt(req.body.limit) || 10;
-    let page = parseInt(req.body.page) || 1;
+    let limit = Math.max(parseInt(req.body.limit) || 10, 1);
+    let page = Math.max(parseInt(req.body.page) || 1, 1);
     const skip = (page - 1) * limit;
 
-    let shopId = req.body.shopId;
-    let subCategoryId = req.body.subCategoryId;
-    let tagId = req.body.tagId;
-    let subCategoryVarientId = req.body.subCategoryVarientId;
+    let { shopId, subCategoryId, tagId, subCategoryVarientId } = req.body;
 
     const matchCondition = { isActive: true };
 
-    if (shopId) {
-      matchCondition.shop = new mongoose.Types.ObjectId(shopId);
-    }
-
-    if (subCategoryId) {
+    if (shopId) matchCondition.shop = new mongoose.Types.ObjectId(shopId);
+    if (subCategoryId)
       matchCondition.subCategory = new mongoose.Types.ObjectId(subCategoryId);
-    }
-
-    if (tagId) {
-      matchCondition.tag = new mongoose.Types.ObjectId(tagId);
-    }
-    if (subCategoryVarientId) {
+    if (tagId) matchCondition.tag = new mongoose.Types.ObjectId(tagId);
+    if (subCategoryVarientId)
       matchCondition.subCategoryVarient = new mongoose.Types.ObjectId(
         subCategoryVarientId
       );
-    }
 
     const pipeline = [
       { $match: matchCondition },
@@ -43,10 +49,18 @@ const UserproductByShopId = async (req, res, next) => {
       },
       {
         $lookup: {
-          from: "subcategories",
-          localField: "subCategory",
+          from: "users",
+          localField: "vendor",
           foreignField: "_id",
-          as: "subCategoryDetails",
+          as: "vendorDetails",
+        },
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "categoryDetails",
         },
       },
       {
@@ -58,60 +72,35 @@ const UserproductByShopId = async (req, res, next) => {
         },
       },
       {
-        $project: {
-          _id: 1,
-          name: 1,
-          vendor: 1,
-          description: 1,
-          isActive: 1,
-          brand: 1,
-          category: 1,
-          subCategory: {
-            $map: {
-              input: "$subCategoryDetails",
-              as: "subCategory",
-              in: {
-                _id: "$$subCategory._id",
-                name: "$$subCategory.name",
-              },
-            },
-          },
-          tag: {
-            $map: {
-              input: "$tagDetails",
-              as: "tag",
-              in: {
-                _id: "$$tag._id",
-                name: "$$tag.name",
-              },
-            },
-          },
-          price: 1,
-          stock: 1,
-          rating: 1,
-          numRatings: 1,
-          colorCode: 1,
-          images: 1,
-          productShipingDetails: 1,
-          deliveryTimeline: 1,
-          deliveryInstruction: 1,
-          availableForSubscription: 1,
+        $set: {
+          shop: { $arrayElemAt: ["$shopDetails", 0] },
+          vendor: { $arrayElemAt: ["$vendorDetails", 0] },
+          category: { $arrayElemAt: ["$categoryDetails", 0] },
+          tag: "$tagDetails",
         },
+      },
+      {
+        $unset: [
+          "shopDetails",
+          "vendorDetails",
+          "categoryDetails",
+          "tagDetails",
+        ],
       },
       { $skip: skip },
       { $limit: limit },
     ];
 
-    const products = await Product.aggregate(pipeline);
+    let products = await Product.aggregate(pipeline);
 
-    // Respond with the fetched products
+    products = products.map(parseJSONFields);
+
     return res.status(200).json({
       status: true,
       message: "Products listed successfully",
       data: products,
     });
   } catch (err) {
-    // Error handling
     return res.status(500).json({
       status: false,
       message: err.message,
