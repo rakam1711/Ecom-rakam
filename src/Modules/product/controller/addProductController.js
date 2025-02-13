@@ -46,24 +46,31 @@ const addProduct = async (req, res, next) => {
         category: req.body.categoryId,
         subCategory,
         price: req.body.price,
-        stock: req.body.stock,
+        // stock: req.body.stock,
         images: req.files?.map((file) => BASE_URL + file.path) || [],
-        productShippingDetails,
-        tag,
-        minOrderQnt: req.body.minOrderQnt,
-        maxOrderQnt: req.body.maxOrderQnt || req.body.minOrderQnt,
-        specialLabel: req.body.specialLabel,
-        availableForSubscription: req.body.availableForSubscription,
-        frequency: req.body.frequency,
+        // productShippingDetails,
+        // tag,
+        // minOrderQnt: req.body.minOrderQnt,
+        // maxOrderQnt: req.body.maxOrderQnt || req.body.minOrderQnt,
+        // specialLabel: req.body.specialLabel,
+        // availableForSubscription: req.body.availableForSubscription,
+        // frequency: req.body.frequency,
         // varient,
-        deliveryTimeline: req.body.deliveryTimeline,
-        deliveryInstruction: req.body.deliveryInstruction,
-        isProduct: req.body.isProduct,
-        colorCode: req.body.colorCode,
+        // deliveryTimeline: req.body.deliveryTimeline,
+        // deliveryInstruction: req.body.deliveryInstruction,
+        // isProduct: req.body.isProduct,
+        // colorCode: req.body.colorCode,
       };
       if (req.body.subCategoryVarientId) {
         mustData.subCategoryVarient = req.body.subCategoryVarientId;
       }
+
+      Object.keys(req.body).forEach((key) => {
+        if (!mustData.hasOwnProperty(key)) {
+          mustData[key] = req.body[key];
+        }
+      });
+
       const product = new Product(mustData);
       await product.save();
 
