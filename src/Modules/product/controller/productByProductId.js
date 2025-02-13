@@ -96,7 +96,7 @@ const productByProductId = async (req, res, next) => {
 
     product = JSON.parse(JSON.stringify(product[0]));
 
-    res.status(200).json(product);
+    res.status(200).json({ status: true, product });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
