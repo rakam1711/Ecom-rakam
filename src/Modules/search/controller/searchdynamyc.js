@@ -69,23 +69,20 @@ const getPipeline = async (
   priceLowtoHigh
 ) => {
   try {
-    // Create a base match object
-    let matchConditions = [];
+    let matchConditions = [{ isActive: true }];
 
-    // If search item is provided, add search-related match conditions
     if (item) {
       matchConditions.push({
         $or: [
-          { name: { $regex: item, $options: "i" } }, // Case-insensitive search on product name
-          { description: { $regex: item, $options: "i" } }, // Case-insensitive search on product description
-          { "categoryData.name": { $regex: item, $options: "i" } }, // Search in category name
-          { "subCategoryData.name": { $regex: item, $options: "i" } }, // Search in subcategory name
-          { "shopData.name": { $regex: item, $options: "i" } }, // Search in shop name
+          { name: { $regex: item, $options: "i" } },
+          { description: { $regex: item, $options: "i" } },
+          { "categoryData.name": { $regex: item, $options: "i" } },
+          { "subCategoryData.name": { $regex: item, $options: "i" } },
+          { "shopData.name": { $regex: item, $options: "i" } },
         ],
       });
     }
 
-    // If category is provided, add category match condition
     if (category && category.length > 0) {
       matchConditions.push({
         category: {
@@ -95,11 +92,9 @@ const getPipeline = async (
     }
 
     if (shop) {
-      matchConditions.push({
-        shop: shop,
-      });
+      matchConditions.push({ shop: new mongoose.Types.ObjectId(shop) });
     }
-    // If tags are provided, add tag match condition
+
     if (tags && tags.length > 0) {
       matchConditions.push({
         tag: { $in: tags.map((id) => new mongoose.Types.ObjectId(id)) },
@@ -113,62 +108,46 @@ const getPipeline = async (
       });
     }
 
-    // Combine all match conditions
+    if (service) {
+      matchConditions.push({
+        service: new mongoose.Types.ObjectId(service),
+      });
+    }
+
     const pipeline = [
-      { $match: { isActive: true } },
-      // Lookup for categories in product pipeline
+      { $match: { $and: matchConditions } },
       {
         $lookup: {
-          from: "categories", // Join the Category collection
+          from: "categories",
           localField: "category",
           foreignField: "_id",
           as: "categoryData",
         },
       },
-      // Lookup for subcategories in product pipeline
       {
         $lookup: {
-          from: "subcategories", // Join the SubCategory collection
+          from: "subcategories",
           localField: "subCategory",
           foreignField: "_id",
           as: "subCategoryData",
         },
       },
-      // Lookup for shops related to the products
       {
         $lookup: {
-          from: "shops", // Join the Shop collection
+          from: "shops",
           localField: "shop",
           foreignField: "_id",
           as: "shopData",
         },
       },
-      // Lookup for service related to categories
       {
         $lookup: {
-          from: "service", // Join the Service collection
-          localField: "categoryData.service",
+          from: "service",
+          localField: "service",
           foreignField: "_id",
           as: "serviceData",
         },
       },
-      // If service is provided, match only products where the category belongs to the given service
-      ...(service
-        ? [
-            {
-              $match: {
-                "serviceData._id": new mongoose.Types.ObjectId(service),
-              },
-            },
-          ]
-        : []),
-      // Match to search in name, description, categories, and subcategories
-      {
-        $match: {
-          $and: matchConditions.length > 0 ? matchConditions : [{}],
-        },
-      },
-      // Project the necessary fields
       {
         $project: {
           __v: 0,
@@ -180,9 +159,7 @@ const getPipeline = async (
 
     if (priceLowtoHigh) {
       const sortOrder = priceLowtoHigh === "LowToHigh" ? 1 : -1;
-      pipeline.push({
-        $sort: { price: sortOrder },
-      });
+      pipeline.push({ $sort: { price: sortOrder } });
     }
 
     return pipeline;
