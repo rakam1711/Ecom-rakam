@@ -11,6 +11,8 @@ const productSchema = new mongoose.Schema(
 
     subCategory: [{ type: mongoose.Schema.Types.ObjectId, ref: "subCategory" }],
     price: { type: Number, required: true, min: 0 },
+    discountedPrice: { type: Number },
+
     stock: { type: Number },
     images: [],
     productShipingDetails: {

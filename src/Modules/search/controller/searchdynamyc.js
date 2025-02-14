@@ -6,8 +6,8 @@ const searchdynamic = async (req, res) => {
     const item = req.body.searchItem;
     const tags = req.body.tags;
     const category = req.body.categories;
-    const service = req.body.service; // Service from the request body
-    const shop = req.body.shopId; // shop from the request body
+    const service = req.body.service;
+    const shop = req.body.shopId;
     const priceRange = req.body.priceRange; // 200-2000 or 3000 - 5000
     const priceLowtoHigh = req.body.priceLowtoHigh; // "HighToLow" or "LowToHigh"
 
@@ -19,23 +19,19 @@ const searchdynamic = async (req, res) => {
       shop,
       priceRange,
       priceLowtoHigh
-    ); // Pass service to the pipeline
+    );
 
-    // Aggregate the products using the pipeline
     const products = await Product.aggregate(pipeline);
 
-    // Extract categories and shops from the result
     const categories = products.flatMap((p) => p.categoryData);
     const shops = products.flatMap((p) => p.shopData);
 
-    // Remove duplicate categories based on _id
     const uniqueCategories = categories.filter(
       (category, index, self) =>
         index ===
         self.findIndex((c) => c._id.toString() === category._id.toString())
     );
 
-    // Remove duplicate shops based on _id
     const uniqueShops = shops.filter(
       (shop, index, self) =>
         index ===

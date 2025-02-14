@@ -21,10 +21,15 @@ const addProduct = async (req, res, next) => {
           message: "Shop not found for the vendor.",
         });
       }
+      const price = parseFloat(req.body.price) || 0;
+      const discount = parseFloat(req.body.discount) || 0;
+
+      const discountedPrice = price - price * (discount / 100);
 
       const mustData = {
         shop: shop1._id,
         vendor: req.vendorId,
+        discountedPrice: discountedPrice,
         images: req.files?.map((file) => BASE_URL + file.path) || [],
       };
 
