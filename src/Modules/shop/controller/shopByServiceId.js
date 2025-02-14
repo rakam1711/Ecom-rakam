@@ -8,6 +8,7 @@ const shopbyServiceId = async (req, res) => {
     const skip = (page - 1) * limit;
     const serId = req.body.Serviceid;
     const isPopularShop = req.body.isPopularShop;
+    const isDeliveryFree = req.body.isDeliveryFree;
     console.log(req.userId);
 
     // Ensure catId is a valid ObjectId
@@ -25,6 +26,9 @@ const shopbyServiceId = async (req, res) => {
     };
     if (isPopularShop && isPopularShop != "") {
       matchCondition.isPopular = true;
+    }
+    if (isDeliveryFree && isDeliveryFree != "") {
+      matchCondition.isDeliveryFree = true;
     }
     const pipeline = [
       // Match shops by category ID
