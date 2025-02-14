@@ -9,7 +9,7 @@ const popularShopHome = async (req, res) => {
     const isPopularShop = req.body.isPopularShop;
     const isDeliveryFree = req.body.isDeliveryFree;
     const user = req.body.userId;
-
+    const serviceid = req.body.serviceId;
     const matchCondition = {
       isActive: true,
     };
@@ -18,6 +18,9 @@ const popularShopHome = async (req, res) => {
     }
     if (isDeliveryFree && isDeliveryFree != "") {
       matchCondition.isDeliveryFree = true;
+    }
+    if (serviceid) {
+      matchCondition.service = serviceid;
     }
     const pipeline = [
       // Match shops by category ID
