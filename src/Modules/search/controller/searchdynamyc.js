@@ -146,7 +146,7 @@ const getPipeline = async (
       // Lookup for service related to categories
       {
         $lookup: {
-          from: "services", // Join the Service collection
+          from: "service", // Join the Service collection
           localField: "categoryData.service",
           foreignField: "_id",
           as: "serviceData",

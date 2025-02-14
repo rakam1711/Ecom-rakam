@@ -18,7 +18,7 @@ const bannerModel = new mongoose.Schema(
       ref: "Service",
     },
   },
-  { timestamps: true }
+  { timestamps: true, strict: false }
 );
 
 const bannerSchema = mongoose.model("Banner", bannerModel);
