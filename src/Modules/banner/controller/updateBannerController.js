@@ -25,7 +25,7 @@ const updateBanner = async (req, res, next) => {
       const mustData = {
         home: req.body.home,
         status: req.body.status,
-        categoryId: req.body.categoryId,
+        ServiceId: req.body.ServiceId,
       };
 
       for (let key in mustData) {

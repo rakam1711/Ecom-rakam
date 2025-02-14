@@ -5,9 +5,9 @@ const listBanner = async (req, res) => {
     let limit = req.body.limit || 10;
     let page = req.body.page || 1;
 
-    if (req.body.categoryId) {
+    if (req.body.ServiceId) {
       data = await bannerSchema
-        .find({ categoryId: req.body.categoryId })
+        .find({ ServiceId: req.body.ServiceId })
         .skip((page - 1) * limit)
         .limit(limit);
     } else {

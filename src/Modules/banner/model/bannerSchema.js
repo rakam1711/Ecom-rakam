@@ -5,17 +5,17 @@ const bannerModel = new mongoose.Schema(
     image: [],
     home: {
       type: String,
-      enum: ["Home1", "Home2", "Home3"],
     },
+    url: { type: String },
 
     status: {
       type: Boolean,
       default: true,
     },
 
-    categoryId: {
+    ServiceId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
+      ref: "Service",
     },
   },
   { timestamps: true }

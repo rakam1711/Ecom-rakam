@@ -14,8 +14,9 @@ const createBannerController = async (req, res, next) => {
     }
 
     try {
-      const categoryId = req.body.categoryId;
-      const home = req.body.home;
+      const ServiceId = req.body.ServiceId;
+      const home = req.body.bannerName;
+      const url = req.body.url;
 
       if (!req.files || req.files.length !== 3) {
         return res.status(400).json({
@@ -31,7 +32,8 @@ const createBannerController = async (req, res, next) => {
       const data = new bannerSchema({
         image: images,
         home: home || undefined,
-        categoryId: categoryId || undefined,
+        ServiceId: ServiceId || undefined,
+        url: url || undefined,
       });
 
       await data.save();
