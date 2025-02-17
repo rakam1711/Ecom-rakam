@@ -8,22 +8,36 @@ const addToCart = async (req, res, next) => {
       items = [items];
     }
 
-    const totalAmount = items.reduce(
-      (sum, item) => sum + item.discountedPrice * item.unit,
-      0
-    );
-
     let cart = await Cart.findOne({ userId: req.userId });
-    if (cart) {
-      cart.items.push(...items);
 
-      cart.totalAmount += totalAmount;
-    } else {
+    if (!cart) {
+      const totalAmount = items.reduce(
+        (sum, item) => sum + item.discountedPrice * item.unit,
+        0
+      );
+
       cart = new Cart({
         userId: req.userId,
-        items: items,
-        totalAmount: totalAmount,
+        items,
+        totalAmount,
       });
+    } else {
+      items.forEach((newItem) => {
+        const existingItem = cart.items.find(
+          (item) => item.productId.toString() === newItem.productId.toString()
+        );
+
+        if (existingItem) {
+          existingItem.unit += newItem.unit;
+        } else {
+          cart.items.push(newItem);
+        }
+      });
+      // rakam=>uncomment when we want to calculate total amount in backend ----------------------
+      // cart.totalAmount = cart.items.reduce(
+      //   (sum, item) => sum + item.discountedPrice * item.unit,
+      //   0
+      // );
     }
 
     await cart.save();

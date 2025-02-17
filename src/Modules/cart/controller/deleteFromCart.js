@@ -26,8 +26,7 @@ const deleteCartItems = async (req, res, next) => {
       return res.status(404).json({ message: "Product not found in cart" });
     }
 
-  
-    cart.totalAmount = cart.items.reduce((acc, item) => acc + item.amount, 0);
+    // cart.totalAmount = cart.items.reduce((acc, item) => acc + item.amount, 0);
 
     await cart.save();
 
