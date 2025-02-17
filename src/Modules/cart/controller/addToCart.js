@@ -33,11 +33,10 @@ const addToCart = async (req, res, next) => {
           cart.items.push(newItem);
         }
       });
-      // rakam=>uncomment when we want to calculate total amount in backend ----------------------
-      // cart.totalAmount = cart.items.reduce(
-      //   (sum, item) => sum + item.discountedPrice * item.unit,
-      //   0
-      // );
+      cart.totalAmount = cart.items.reduce(
+        (sum, item) => sum + item.discountedPrice * item.unit,
+        0
+      );
     }
 
     await cart.save();

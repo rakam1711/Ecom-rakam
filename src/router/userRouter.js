@@ -30,6 +30,7 @@ const myFollowingShop = require("../Modules/myFollowingShops/myFollowingShop.js"
 const tagByShopId = require("../Modules/tags/controller/tagByShopId.js");
 const listProductByCategory = require("../Modules/product/controller/listProductByCategory.js");
 const listSubCatVarient = require("../Modules/subCategoryVarients/controller/listSubCatVarient.js");
+const updateCartUnit = require("../Modules/cart/controller/updateUnitCart.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -52,6 +53,8 @@ userroutes.post("/addtocart", authenticateUser, addToCart);
 userroutes.post("/listcartitems", authenticateUser, listCartItems);
 userroutes.post("/deletecartItems", authenticateUser, deleteCartItems);
 userroutes.post("/updatecartItems", authenticateUser, updateCartItems);
+userroutes.post("/updateCartUnit", authenticateUser, updateCartUnit);
+
 userroutes.post("/orderproducts", authenticateUser, orderproducts);
 userroutes.post("/getMyOrder", authenticateUser, getMyOrder);
 

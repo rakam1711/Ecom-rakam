@@ -21,5 +21,4 @@ const listAddress = async (req, res, next) => {
     });
   }
 };
-
 module.exports = listAddress;
