@@ -4,6 +4,7 @@ const OrderSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 
+    Address: { type: mongoose.Schema.Types.ObjectId, ref: "Address" },
 
     items: [
       {
