@@ -31,6 +31,8 @@ const tagByShopId = require("../Modules/tags/controller/tagByShopId.js");
 const listProductByCategory = require("../Modules/product/controller/listProductByCategory.js");
 const listSubCatVarient = require("../Modules/subCategoryVarients/controller/listSubCatVarient.js");
 const updateCartUnit = require("../Modules/cart/controller/updateUnitCart.js");
+const listProductByServiceAndPopularity = require("../Modules/product/controller/listProductByServiceAndPopularity.js");
+const shopbyCatSerSubCategory = require("../Modules/shop/controller/shopByCatSerSubCategory.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -69,5 +71,10 @@ userroutes.post("/myfollowingshop", authenticateUser, myFollowingShop);
 userroutes.post("/tagbyshopid", tagByShopId);
 userroutes.post("/listProductByCategory", listProductByCategory);
 userroutes.post("/listSubCatVarient", listSubCatVarient);
+userroutes.post(
+  "/listProductByServiceAndPopularity",
+  listProductByServiceAndPopularity
+);
+userroutes.post("/shopbyCatSerSubCategory", shopbyCatSerSubCategory);
 
 module.exports = userroutes;

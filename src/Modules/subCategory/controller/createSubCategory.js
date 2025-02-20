@@ -21,11 +21,11 @@ const subcreateCategory = async (req, res, next) => {
         image: req.file ? req.file.path : undefined,
         tagId: req.body.tagId,
       };
-      for (let key in mustData) {
-        if (mustData[key] == undefined || mustData[key] == "") {
-          throw new Error(`invalid field ${key}`);
-        }
-      }
+      // for (let key in mustData) {
+      //   if (mustData[key] == undefined || mustData[key] == "") {
+      //     throw new Error(`invalid field ${key}`);
+      //   }
+      // }
       const subcategory = await subcategorySchema.findOne({
         name: mustData.name,
       });

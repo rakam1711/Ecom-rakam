@@ -44,7 +44,7 @@ const createShop = async (req, res, next) => {
         email: mustData.email,
         website: mustData.website,
         owner: req.vendorId,
-        subCategories: mustData.subCategories,
+        subCategories: JSON.parse(mustData.subCategories),
         categories: mustData.categories,
         logo: mustData.image,
         shopTag: mustData.shopTag,

@@ -1,26 +1,29 @@
 const Cart = require("../../cart/model/cartSchema");
-const orders = require("../model/productOrderSchema");
+const Order = require("../model/productOrderSchema");
 
 const addProduct = async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.userId });
-    if (!cart)
+    if (!cart || cart.items.length === 0) {
       return res
         .status(404)
-        .json({ status: true, message: "No Produt in cart" });
-    const result = new orders({
-      user: cart.userId,
-      items: cart.items,
-      totalAmount: cart.totalAmount,
-      Address: req.body.addressId,
-      paymetStatus: "pending",
-    });
+        .json({ status: false, message: "No Product in cart" });
+    }
 
-    await result.save();
-    await Cart.deleteOne({ _id: cart._id }); // farhan ==> uncomment after testing
+    const ordersArray = cart.items.map((item) => ({
+      user: cart.userId,
+      item: item,
+      totalAmount: item.discountedPrice * item.unit,
+      Address: req.body.addressId,
+      paymentStatus: "pending",
+    }));
+
+    await Order.insertMany(ordersArray);
+    await Cart.deleteOne({ _id: cart._id });
+
     return res
       .status(200)
-      .json({ status: true, message: "order successfully placed" });
+      .json({ status: true, message: "Orders successfully placed" });
   } catch (err) {
     return res.status(400).json({ status: false, message: err.message });
   }

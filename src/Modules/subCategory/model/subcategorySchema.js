@@ -12,7 +12,6 @@ const subCategoryModel = new mongoose.Schema(
     },
     description: {
       type: String,
-      unique: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
