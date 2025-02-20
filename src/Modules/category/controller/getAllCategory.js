@@ -7,8 +7,8 @@ const getAllCategory = async (req, res) => {
     const max = await categorySchema.countDocuments({});
     const data = await categorySchema
       .find()
-      .skip((page - 1) * limit)
-      .limit(limit)
+      // .skip((page - 1) * limit)
+      // .limit(limit)
       .populate("service", { name: 1 })
       .populate("createdBy", { name: 1 });
     if (!data)
