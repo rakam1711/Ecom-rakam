@@ -33,6 +33,8 @@ const listSubCatVarient = require("../Modules/subCategoryVarients/controller/lis
 const updateCartUnit = require("../Modules/cart/controller/updateUnitCart.js");
 const listProductByServiceAndPopularity = require("../Modules/product/controller/listProductByServiceAndPopularity.js");
 const shopbyCatSerSubCategory = require("../Modules/shop/controller/shopByCatSerSubCategory.js");
+const listProductBySubCategory = require("../Modules/product/controller/listProductBySubCategory.js");
+const listProductBySubCategoryUserSide = require("../Modules/product/controller/listProductBySubCategoryUserSide.js");
 
 userroutes.post("/sendotp", loginUser);
 userroutes.post("/verifyotp", verifyOTP);
@@ -76,5 +78,8 @@ userroutes.post(
   listProductByServiceAndPopularity
 );
 userroutes.post("/shopbyCatSerSubCategory", shopbyCatSerSubCategory);
-
+userroutes.post(
+  "/listProductBySubCategoryUserSide",
+  listProductBySubCategoryUserSide
+);
 module.exports = userroutes;
