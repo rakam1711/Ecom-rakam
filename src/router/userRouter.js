@@ -60,7 +60,7 @@ userroutes.post("/updateCartUnit", authenticateUser, updateCartUnit);
 userroutes.post("/orderproducts", authenticateUser, orderproducts);
 userroutes.post("/getMyOrder", authenticateUser, getMyOrder);
 
-userroutes.get("/listallshop", listAllShop);
+userroutes.post("/listallshop", listAllShop);
 userroutes.post("/shopbyserviceid", authenticateUser, shopByServiceId);
 userroutes.post("/shopbyshopid", authenticateUser, shopByShopId);
 userroutes.post("/shoptagbycategoryid", listshopTagByCategoryId);

@@ -7,11 +7,12 @@ const createShop = async (req, res, next) => {
     try {
       const shop1 = await Shop.findOne({ owner: req.vendorId });
       if (shop1) throw new Error("shop already present for this vendor");
+
       const mustData = {
         name: req.body.name,
         description: req.body.description,
         categories: req.body.categories,
-        subCategories: req.body.subCategories,
+        subCategories: req.body.subCategories || [],
         street: req.body.street,
         city: req.body.city,
         state: req.body.state,
@@ -32,7 +33,7 @@ const createShop = async (req, res, next) => {
         mustData.deliveryMethod = req.body.deliveryMethod;
       }
 
-      const shop = Shop({
+      const shop = new Shop({
         name: mustData.name,
         description: mustData.description,
         service: req.vendorr.service,
@@ -44,7 +45,9 @@ const createShop = async (req, res, next) => {
         email: mustData.email,
         website: mustData.website,
         owner: req.vendorId,
-        subCategories: JSON.parse(mustData.subCategories),
+        subCategories: mustData.subCategories
+          ? JSON.parse(mustData.subCategories)
+          : [], // Ensure valid JSON parsing
         categories: mustData.categories,
         logo: mustData.image,
         shopTag: mustData.shopTag,
@@ -55,7 +58,7 @@ const createShop = async (req, res, next) => {
       await shop.save();
       return res.status(201).json({
         status: true,
-        message: "shop created successfully",
+        message: "Shop created successfully",
       });
     } catch (err) {
       return res.status(500).json({
